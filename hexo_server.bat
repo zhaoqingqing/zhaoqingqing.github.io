@@ -1,0 +1,1 @@
+hexo server -p 5000 --debug
