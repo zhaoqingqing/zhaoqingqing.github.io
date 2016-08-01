@@ -150,4 +150,51 @@ git push origin hexo
 
 doc: https://git-scm.com/book/zh/v1/Git-%E5%B7%A5%E5%85%B7-%E5%AD%90%E6%A8%A1%E5%9D%97
 
-### 发布博客
+**添加submodule**
+
+```powershell
+git submodule add git@github.com:iissnan/hexo-theme-next.git next
+```
+
+如果提示：*Please make sure you have the correct access rights and the repository exists.*
+
+此时建议使用Tortoisegit，并勾选 加载putty 
+
+### 发布到博客
+
+hexo布署到何处？打开配置文件 _config.yml
+
+```yaml
+deploy:
+  # type:git
+  # repo:git@github.com:zhaoqingqing/zhaoqingqing.github.io.git
+  # branch: master
+```
+
+## 其它电脑同步
+
+针对于已有hexo + gitpages的用户，在另一台电脑上**同步而不是新搭建**
+
+```powershell
+cd f:
+cd Document
+
+git clone git@github.com:zhaoqingqing/zhaoqingqing.github.io.git
+
+F:\Document\zhaoqingqing.github.io>npm install hexo
+npm WARN optional dep failed, continuing fsevents@1.0.14
+
+F:\Document\zhaoqingqing.github.io>npm install hexo-deployer-git
+npm WARN optional dep failed, continuing fsevents@1.0.14
+
+F:\Document\zhaoqingqing.github.io>npm install hexo-deployer-git --save
+```
+
+注意事项
+
+不要执行`F:\Document\zhaoqingqing.github.io>hexo init` 指令
+
+执行之后，就会初始化blog
+
+## 我的疑问
+
