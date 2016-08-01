@@ -166,9 +166,34 @@ hexo布署到何处？打开配置文件 _config.yml
 
 ```yaml
 deploy:
-  # type:git
-  # repo:git@github.com:zhaoqingqing/zhaoqingqing.github.io.git
-  # branch: master
+   type: git
+   repo: git@github.com:zhaoqingqing/zhaoqingqing.github.io.git
+   branch: master
+```
+
+执行此指令即可同步提交到github `F:\Document\zhaoqingqing.github.io>hexo deploy -g`
+
+```powershell
+Microsoft Windows [版本 10.0.10586]
+(c) 2015 Microsoft Corporation。保留所有权利。
+
+C:\Windows\system32>f:
+
+F:\>cd Document\zhaoqingqing.github.io
+F:\Document\zhaoqingqing.github.io>hexo deploy -g
+INFO  Start processing
+INFO  Files loaded in 381 ms
+INFO  0 files generated in 352 ms
+INFO  Deploying: git
+INFO  Clearing .deploy_git folder...
+INFO  Copying files from public folder...
+warning: LF will be replaced by CRLF in 2016/08/01/hello-world.html.
+On branch master
+nothing to commit, working directory clean
+Branch master set up to track remote branch master from git@github.com:zhaoqingqing/zhaoqingqing.github.io.git.
+To git@github.com:zhaoqingqing/zhaoqingqing.github.io.git
+ + 6bbdb6a...7af9afd HEAD -> master (forced update)
+INFO  Deploy done: git
 ```
 
 ## 其它电脑同步
@@ -196,5 +221,183 @@ F:\Document\zhaoqingqing.github.io>npm install hexo-deployer-git --save
 
 执行之后，就会初始化blog
 
-## 我的疑问
+## 遇到的问题
 
+### 文章的永久链接（Permalinks）
+
+#### doc
+
+https://hexo.io/zh-cn/docs/permalinks.html
+
+#### 相关issues
+
+https://github.com/hexojs/hexo/issues/1162
+
+https://github.com/hexojs/hexo/issues/799
+
+#### 示例
+
+```yaml
+# URL
+permalink:year/:month/:day/:title/	2013/07/14/hello-world
+permalink:year-:month-:day-:title.html	2013-07-14-hello-world.html
+permalink:category/:title	foo/bar/hello-world
+permalink:year/:month/:day/:id.html	2013/07/14/circ225fb0001uotwthqx55bq.html
+```
+
+#### 我的测试
+
+使用id来作为文件的永久链接的话，id共25个字符
+
+经实验使用 `hexo clean` 之后，重新启动服务`hexo server `，同一篇文章的ID会发生改变
+
+```powershell
+hello world
+circ2g76j0000wwtwu6fyocer
+circ2is670000uotwrtfgyw0w
+```
+
+### Github提交错误
+
+错误码：`Error: Permission denied (publickey)`
+
+#### 参考资料
+
+http://www.cnblogs.com/amaoxiaozhu/p/3319233.html
+
+#### 解决办法
+
+添加了此环境变量
+
+变量名：GIT_SSH
+
+变量值： C:\Program Files\TortoiseGit\bin\TortoisePLink.exe
+
+1、cd到ssh-agent.exe所在目录C:\Program Files\Git\usr\bin>
+
+```powershell
+C:\Program Files\Git\usr\bin>ssh-keygen -t rsa -C "zhaoqignqing@gmail.com"
+Generating public/private rsa key pair.
+Enter file in which to save the key (/c/Users/qingqing/.ssh/id_rsa):
+```
+
+接着按回车，如果要设定密码，请输入要设定的密码
+
+重点：ssh-keygen -t rsa -C "**你的Git对应邮箱地址**"
+
+2、打开C:\Users\qingqing\.ssh\id_rsa.pub
+
+复制**id_rsa.pub**所有内容，在github的设置中添加新的SSH Keys，
+
+title：自定义
+
+key: **id_rsa.pub**的所有内容
+
+3、输入 ssh -vT git@github.com 进行测试
+
+```powershell
+C:\Program Files\Git\usr\bin>ssh -vT git@github.com
+OpenSSH_7.1p2, OpenSSL 1.0.2g  1 Mar 2016
+debug1: Reading configuration data /etc/ssh/ssh_config
+debug1: Connecting to github.com [192.30.253.112] port 22.
+debug1: Connection established.
+debug1: identity file /c/Users/qingqing/.ssh/id_rsa type 1
+debug1: key_load_public: No such file or directory
+debug1: identity file /c/Users/qingqing/.ssh/id_rsa-cert type -1
+debug1: key_load_public: No such file or directory
+debug1: identity file /c/Users/qingqing/.ssh/id_dsa type -1
+debug1: key_load_public: No such file or directory
+debug1: identity file /c/Users/qingqing/.ssh/id_dsa-cert type -1
+debug1: key_load_public: No such file or directory
+debug1: identity file /c/Users/qingqing/.ssh/id_ecdsa type -1
+debug1: key_load_public: No such file or directory
+debug1: identity file /c/Users/qingqing/.ssh/id_ecdsa-cert type -1
+debug1: key_load_public: No such file or directory
+debug1: identity file /c/Users/qingqing/.ssh/id_ed25519 type -1
+debug1: key_load_public: No such file or directory
+debug1: identity file /c/Users/qingqing/.ssh/id_ed25519-cert type -1
+debug1: Enabling compatibility mode for protocol 2.0
+debug1: Local version string SSH-2.0-OpenSSH_7.1
+debug1: Remote protocol version 2.0, remote software version libssh-0.7.0
+debug1: no match: libssh-0.7.0
+debug1: Authenticating to github.com:22 as 'git'
+debug1: SSH2_MSG_KEXINIT sent
+debug1: SSH2_MSG_KEXINIT received
+debug1: kex: server->client chacha20-poly1305@openssh.com <implicit> none
+debug1: kex: client->server chacha20-poly1305@openssh.com <implicit> none
+debug1: expecting SSH2_MSG_KEX_ECDH_REPLY
+debug1: Server host key: ssh-rsa SHA256:nThbg6kXUpJWGl7E1IGOCspRomTxdCARLviKw6E5SY8
+debug1: Host 'github.com' is known and matches the RSA host key.
+debug1: Found key in /c/Users/qingqing/.ssh/known_hosts:1
+debug1: SSH2_MSG_NEWKEYS sent
+debug1: expecting SSH2_MSG_NEWKEYS
+debug1: SSH2_MSG_NEWKEYS received
+debug1: SSH2_MSG_SERVICE_REQUEST sent
+debug1: SSH2_MSG_SERVICE_ACCEPT received
+debug1: Authentications that can continue: publickey
+debug1: Next authentication method: publickey
+debug1: Offering RSA public key: /c/Users/qingqing/.ssh/id_rsa
+debug1: Server accepts key: pkalg ssh-rsa blen 279
+Enter passphrase for key '/c/Users/qingqing/.ssh/id_rsa':
+debug1: Authentication succeeded (publickey).
+Authenticated to github.com ([192.30.253.112]:22).
+debug1: channel 0: new [client-session]
+debug1: Entering interactive session.
+debug1: client_input_channel_req: channel 0 rtype exit-status reply 0
+Hi zhaoqingqing! You've successfully authenticated, but GitHub does not provide shell access.
+debug1: channel 0: free: client-session, nchannels 1
+Transferred: sent 3080, received 1776 bytes, in 0.5 seconds
+Bytes per second: sent 5933.2, received 3421.2
+debug1: Exit status 1
+```
+
+`Hi zhaoqingqing! You've successfully authenticated`重点日志，输出此就表示你成功了。
+
+## 我的总结
+### 需要上传的文件
+_config.yml，theme/，source/，scaffolds/，package.json，.gitignore 需要上传到hexo分支
+
+### 无需上传的文件
+
+.git/，node_modules/，public/，.deploy_git/，db.json 文件无需上传至hexo分支
+
+### 安装其它组件
+
+安装其他的一些必要组件，如果在node_modules里面有的，就不要重复安装了：
+
+- 为了使用hexo d来部署到git上，需要安装
+  `npm install hexo-deployer-git --save`
+- 为了建立RSS订阅，需要安装
+  `npm install hexo-generator-feed --save`
+- 为了建立站点地图，需要安装
+  `npm install hexo-generator-sitemap --save`
+
+插件安装后，有的需要对配置文件_config.yml进行配置，具体怎么配置，可以参考上面插件在github主页上的具体说明
+
+作者：skycrown
+
+链接：https://www.zhihu.com/question/21193762/answer/103097754
+
+
+
+### github sshkey
+
+目录：C:\Users\qingqing\\.ssh
+
+SSH key密钥对
+
+| 文件名         | 说明                         |      |
+| ----------- | -------------------------- | ---- |
+| id_rsa      | 私钥，千万不要泄露出去                |      |
+| id_rsa.pub  | 公钥，可以放心给别人，添加到git的ssh keys |      |
+| known_hosts |                            |      |
+
+## TODO
+
+评论插件
+
+## 待读资料
+
+关联 GitHub, 让 Hexo 支持查看文章更新历史: http://moxfive.xyz/2016/01/10/hexo-post-version-control/
+
+Hexo搭建Github-Pages博客填坑教程: http://www.jianshu.com/p/35e197cb1273
