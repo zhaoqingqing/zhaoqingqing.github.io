@@ -1,5 +1,4 @@
-cd %~dp0
-hexo generate --deploy
+
+hexo generate -d
 rem hexo generate --watch
 
-pause
