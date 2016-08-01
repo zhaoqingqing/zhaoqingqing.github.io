@@ -30,6 +30,8 @@ C:\Users\qingqing>git --version
 git version 2.8.1.windows.1
 ```
 
+本文中涉及到使用git 指令，请在运行xx\git\**git-cmd.exe**后，再执行git指令。
+
 ### hexo 3.2.2
 
 https://github.com/hexojs/hexo
@@ -144,6 +146,8 @@ git push origin hexo
 
 ### 安装hexo theme
 
-fork 某 theme 变成sub module?
+思路：fork 某 theme 变成sub module?
+
+doc: https://git-scm.com/book/zh/v1/Git-%E5%B7%A5%E5%85%B7-%E5%AD%90%E6%A8%A1%E5%9D%97
 
 ### 发布博客
