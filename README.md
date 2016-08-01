@@ -106,6 +106,8 @@ hexo branch
 
 ### 创建分支
 
+doc: https://git-scm.com/book/zh/ch3-2.html
+
 ```powershell
 $ cd xx\zhaoqingqing.github.io
 $ git branch hexo
@@ -115,12 +117,33 @@ $ git checkout hexo
 
 执行上述命令成功之后，在你本地就创建了 'hexo'分支。
 
-往 hexo 分支 add 某文件，并push到远程，远程就有了新建的 hexo 分支
+查看所有已存在的分支：` git branch`
+
+**推送新创建的分支到远端**
+
+方法一
+
+往 hexo 分支 add 某文件，commit ，并push到远端，这样远端就有了 hexo 分支
+
+方法二
+
+```powershell
+git remote add origin <地址>
+git push origin hexo
+```
+
+
+
+------
+
+
 
 可以在git中设置默认branch为hexo，本地的下次提交就会直接提交到hexo分支
 
 ### 安装hexo
 
 ### 安装hexo theme
+
+fork 某 theme 变成sub module?
 
 ### 发布博客
