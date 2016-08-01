@@ -51,12 +51,13 @@ modules: 46
 openssl: 1.0.2h
 ```
 
-#### 命令举例
+#### 安装过程
 
 ```powershell
 npm install hexo-cli -g
 npm install hexo --save
 
+echo. 指定从国内taobao镜像安装，在连接外网环境差的情况下可选
 npm install -g hexo-cli --registry=https://registry.npm.taobao.org 
 
 hexo -v
@@ -66,6 +67,10 @@ echo. 安装成功后的路径：
 C:\Users\qingqing\AppData\Roaming\npm\node_modules\hexo\bin
 f:\blog\node_modules\hexo\bin\
 ```
+
+`npm install hexo-cli -g` -g参数代表全局安装
+
+`npm install hexo --save` 中的save参数是把此模块参数保存到package.json中
 
 #### 可能遇到问题
 
@@ -86,3 +91,36 @@ http://theme-next.iissnan.com/getting-started.html
 ### githubpages
 
 https://pages.github.com/
+
+## 搭建过程
+
+### 两个分支
+
+master branch
+
+​	静态html，发布文件
+
+hexo branch
+
+​	md source + hexo config，理论上是私密文件
+
+### 创建分支
+
+```powershell
+$ cd xx\zhaoqingqing.github.io
+$ git branch hexo
+$ git checkout hexo
+  console:switched to branch 'hexo'
+```
+
+执行上述命令成功之后，在你本地就创建了 'hexo'分支。
+
+往 hexo 分支 add 某文件，并push到远程，远程就有了新建的 hexo 分支
+
+可以在git中设置默认branch为hexo，本地的下次提交就会直接提交到hexo分支
+
+### 安装hexo
+
+### 安装hexo theme
+
+### 发布博客
