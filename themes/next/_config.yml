@@ -11,8 +11,8 @@ keywords: "Hexo, NexT"
 # Set rss to false to disable feed link.
 # Leave rss as empty to use site's feed link.
 # Set rss to specific value if you have burned your feed already.
-rss:http://theme-next.iissnan.com/theme-settings.html
-#TODO rss
+rss:
+#TODO rss http://theme-next.iissnan.com/theme-settings.html
 #feed:
 #  type: atom
 #  path: atom.xml
@@ -130,6 +130,7 @@ social:
   GitHub: github https://github.com/zhaoqingqing/
   知乎: https://www.zhihu.com/people/zhaoqingqing
   博客园: http://www.cnblogs.com/zhaoqingqing/
+  RSS: https://zhaoqingqing.github.io/atom.xml
   Stack Overflow: https://stackexchange.com/users/8823592/qingqing-zhao
 
 # Social Links Icons
@@ -144,6 +145,7 @@ social_icons:
   GitHub: github
   zhihu: zhihu
   Weibo: weibo
+  rss: rss
   Stackoverflow: stackoverflow
 
 
