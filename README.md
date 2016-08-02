@@ -394,7 +394,13 @@ SSH key密钥对
 
 ## TODO
 
-评论插件
+hexo-theme-next第三方服务集成 http://theme-next.iissnan.com/third-party-services.html
+
+- [ ] 评论插件
+- [ ] 分享插件
+- [ ] 搜索服务
+- [ ] //scheme: Pisces 修改宽度 https://github.com/iissnan/hexo-theme-next/issues/759#issuecomment-202242848
+- [ ] 进阶
 
 ## 待读资料
 
