@@ -1,4 +1,1 @@
-
-hexo generate -d
-rem hexo generate --watch
-
+hexo generate --watch
