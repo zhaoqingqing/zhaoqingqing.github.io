@@ -7,8 +7,8 @@ title: 微软准备开源PowerShell
 
 近日微软再次在向开源投出橄榄枝， PowerShell是面向Windows和Windows Server的自动化平台和脚本语言，帮助用户简化系统的管理。在纳德拉的带领下微软也逐渐走向开放，根据相关爆料称微软有计划在近期内 开源该脚本语言。
 
-       知名Windows爆料人士WalkingCat和Tom Hounsell在推文都分享了他们的发现。Tom在包的元数据说明中注意到这样一段话：“PowerShell是开源、跨平台、脚本语言和丰富的对象Shell。”但是目前尚未得到微软官方证实。
-
+知名Windows爆料人士WalkingCat和Tom Hounsell在推文都分享了他们的发现。Tom在包的元数据说明中注意到这样一段话：“PowerShell是开源、跨平台、脚本语言和丰富的对象Shell。”但是目前尚未得到微软官方证实。
+<!-- more -->
 ## PowerShell已经开源了？
 
 问：微软的PowerShell脚本语言已经开源了 ？

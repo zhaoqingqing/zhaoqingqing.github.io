@@ -1,32 +1,31 @@
 ---
-title: assetbundle 
----
-
----
-categories: Exercise   
----
-
----
-toc: true 
+title: Unity3D-Assetbundle-打包和更新的两种做法
+tags:
+    - Unity3D
+categories: Unity3D项目日志
 ---
 
 ## 前言
 
-根据我过往项目的经验所写，部分版权归所属公司所有，并未涉及到代码部分。
+本文根据过往项目经验所写，部分版权归所属公司所有，未涉及代码部分。
 两个项目有着不同的资源管理的方式：
-3D MMORPG：整体打包
-2D日式动作RPG：分散打包
 
+- 3D MMO RPG：    整体打包
+- 2D日式动作RPG：分散打包
+<!-- more -->
 ### 开发环境
 
-开发引擎：unity 4.x
+开发引擎：unity3d 4.x
 运行环境：android/ios
 解包工具：unity studio http://www.cnblogs.com/zhaoqingqing/p/3751351.html
-安卓模拟器：海马玩 v0.10.x + 文件管理器 ,基于安卓os 4.2.2
+安卓模拟器：海马玩 v0.10.x + 文件管理器 ，基于安卓os 4.2.2
+
 ## 完整打包
-每一个资源都是整体打包
+每一个资源都是整体打包，下面举例说明
+
 ### npc打包例子
-zjws_01f_c.unity3d 某NPC文件，解包后的文件如下：
+某NPC文件**zjws_01f_c.unity3d** ，解包后的文件如下：
+
 - dian02 #-464001035.dds
 - ZJWS_01F_C #862139260.dds
 - ZB_WS_JJIA01F_C #-358047209.dds
@@ -108,13 +107,13 @@ PS:每次根据buildDatetime来判断是否需要更新资源？
 ## 资源目录
 
 StreamingAssets\
-   - Android\
-   - IOS\
+- Android\
+- IOS\
    - Windows\
 
 下面以Android目录为例
-   - assetbundles\
-   - scene\
+- assetbundles\
+- scene\
    - textures\
    - resversion.txt
    - resversion.unity3d
@@ -179,19 +178,19 @@ StreamingAssets
 
 **最新版本号文件**
 - NewestVersion_Android.txt
-内容：`10051` 最新的assetbundle版本号
-<br/>
+  内容：`10051` 最新的assetbundle版本号
+  <br/>
 
 **更新包**
 - Android_10050_10051.zip
-*10050更新到10051版本的要下载的资源*
+  *10050更新到10051版本的要下载的资源*
 
 - Android_born_10051.zip
- *10051新APK包的初始资源*
+   *10051新APK包的初始资源*
 
 - Android_full_10051.zip
- *10051的完整资源*
-<br/>
+   *10051的完整资源*
+  <br/>
 
 **更新包json**
 - Android_10050_10051.zip.json
@@ -201,15 +200,15 @@ StreamingAssets
 - Android_full_10051.zip.json
   `{"MD5":"6F8D541B388C98A0FBDC6F5BF4DA7122","Size":  84529108  ,"FileCount":4864}`
 
-# 做法比较
-## 共同点
+## 做法比较
+### 共同点
 游戏中所有资源都打包成assetbundle，在游戏启动时进行加载。
 同步和异步两种加载方式
 Assetbundle文件放在StreamingAssets目录，区分不同平台。以stream的形式加载，用Unity的` www.load `API
 
-## 区别
-### 完整打包
+### 区别
+#### 完整打包
 在加载时一般只需要加载单个文件+共用资源即可，
-### 分散打包
+#### 分散打包
 分散打包则先加载依赖再加载主文件
-### UI
+#### UI
