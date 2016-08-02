@@ -11,10 +11,15 @@ keywords: "Hexo, NexT"
 # Set rss to false to disable feed link.
 # Leave rss as empty to use site's feed link.
 # Set rss to specific value if you have burned your feed already.
-rss:
-
+rss:http://theme-next.iissnan.com/theme-settings.html
+#TODO rss
+#feed:
+#  type: atom
+#  path: atom.xml
+#  limit: 20
+#  hub:
 # Specify the date when the site was setup
-#since: 2015
+since: 2016
 
 # Canonical, set a canonical link tag in your hexo, you could use it for your SEO of blog.
 # See: https://support.google.com/webmasters/answer/139066
@@ -120,9 +125,12 @@ font:
 # Social Links
 # Key is the link label showing to end users.
 # Value is the target link (E.g. GitHub: https://github.com/iissnan)
-#social:
+social:
   #LinkLabel: Link
-
+  GitHub: github https://github.com/zhaoqingqing/
+  知乎: https://www.zhihu.com/people/zhaoqingqing
+  博客园: http://www.cnblogs.com/zhaoqingqing/
+  Stack Overflow: https://stackexchange.com/users/8823592/qingqing-zhao
 
 # Social Links Icons
 # Icon Mapping:
@@ -133,9 +141,10 @@ social_icons:
   enable: true
   # Icon Mappings.
   # KeyMapsToSocalItemKey: NameOfTheIconFromFontAwesome
-  GitHub: github https://github.com/zhaoqingqing/
-  zhihu: https://www.zhihu.com/people/zhaoqingqing
-  Weibo: http://www.cnblogs.com/zhaoqingqing/
+  GitHub: github
+  zhihu: zhihu
+  Weibo: weibo
+  Stackoverflow: stackoverflow
 
 
 # Sidebar Avatar
@@ -174,13 +183,14 @@ sidebar:
   #display: hide
   #display: remove
 
-
 # Blogrolls
-#links_title: Links
-#links_layout: block
+links_title: 友情链接
+links_layout: block
 #links_layout: inline
-#links:
-  #Title: http://example.com/
+links:
+  赵青青 - 博客园: http://www.cnblogs.com/zhaoqingqing/
+  Mr-Kelly - 简书: http://www.jianshu.com/users/674f1a626944/latest_articles
+  
 
 
 # ---------------------------------------------------------------
@@ -201,7 +211,7 @@ custom_logo:
 # Available value:
 #    normal | night | night eighties | night blue | night bright
 # https://github.com/chriskempson/tomorrow-theme
-highlight_theme: normal
+highlight_theme: night
 
 
 # Automatically scroll page to section which is under <!-- more --> mark.
@@ -216,10 +226,10 @@ auto_excerpt:
 
 
 # Wechat Subscriber
-#wechat_subscriber:
-  #enabled: true
-  #qcode: /path/to/your/wechatqcode ex. /uploads/wechat-qcode.jpg
-  #description: ex. subscribe to my blog by scanning my public wechat account
+wechat_subscriber:
+  enabled: true
+  qcode: /images/wechat_qingqing.png
+  description: 想跟我一起进步么？那就扫一扫加我为好友吧。
 
 
 
@@ -241,7 +251,7 @@ mathjax:
 #baidu_analytics:
 
 # Duoshuo ShortName
-#duoshuo_shortname:
+duoshuo_shortname: mr-qing
 
 # Disqus
 #disqus_shortname:
@@ -257,7 +267,7 @@ mathjax:
 #add_this_id:
 
 # Share
-#duoshuo_share: true
+duoshuo_share: true
 
 # Google Webmaster tools verification setting
 # See: https://www.google.com/webmasters/
@@ -277,8 +287,8 @@ mathjax:
 duoshuo_info:
   ua_enable: true
   admin_enable: false
-  user_id: 0
-  #admin_nickname: Author
+  user_id: 1620787
+  admin_nickname: Author
 
 
 # Facebook SDK Support.
