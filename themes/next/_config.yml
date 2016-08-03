@@ -128,8 +128,8 @@ font:
 social:
   #LinkLabel: Link
   GitHub: github https://github.com/zhaoqingqing/
-  zhihu: https://www.zhihu.com/people/zhaoqingqing
-  cnblogs: http://www.cnblogs.com/zhaoqingqing/
+  ZhiHu:  https://www.zhihu.com/people/zhaoqingqing
+  CNBlogs: http://www.cnblogs.com/zhaoqingqing/
   #RSS: https://zhaoqingqing.github.io/atom.xml
   StackOverflow: https://stackexchange.com/users/8823592/qingqing-zhao
 
@@ -143,12 +143,11 @@ social_icons:
   # Icon Mappings.
   # KeyMapsToSocalItemKey: NameOfTheIconFromFontAwesome
   GitHub: github
-  zhihu: zhihu
   Weibo: weibo
-  rss: rss
+  RSS: rss
   StackOverflow: stack-overflow
-  zhihu: tencent-weibo
-  cnblogs: wordpress
+  ZhiHu: tencent-weibo
+  CNBlogs: wordpress
 
 
 # Sidebar Avatar
