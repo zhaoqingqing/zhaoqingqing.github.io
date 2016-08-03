@@ -96,13 +96,17 @@ https://pages.github.com/
 
 ## 搭建过程
 
-### 两个分支
+### 整体思路
 
-master branch
+创建两个分支
+
+- master branch
+
 
 ​	静态html，发布文件
 
-hexo branch
+- hexo branch
+
 
 ​	md source + hexo config，理论上是私密文件
 
@@ -144,13 +148,13 @@ git push origin hexo
 
 ### 安装hexo
 
-### 安装hexo theme
+### submodule install theme
 
 思路：fork 某 theme 变成sub module?
 
-doc: https://git-scm.com/book/zh/v1/Git-%E5%B7%A5%E5%85%B7-%E5%AD%90%E6%A8%A1%E5%9D%97
+submodule doc: https://git-scm.com/book/zh/v1/Git-%E5%B7%A5%E5%85%B7-%E5%AD%90%E6%A8%A1%E5%9D%97
 
-**添加submodule**
+**添加submodule git指令**
 
 ```powershell
 git submodule add git@github.com:iissnan/hexo-theme-next.git next
