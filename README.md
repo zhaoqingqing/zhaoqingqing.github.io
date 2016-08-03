@@ -1,6 +1,10 @@
 ##  readme
 qingqing's blog https://zhaoqingqing.github.io/
 
+hexo分支 blog配置文件+md源文件
+
+master分支 发布后的静态html
+
 ## modules
 
 ### nodejs v4.4.4 x86
@@ -38,6 +42,8 @@ https://github.com/hexojs/hexo
 
 https://hexo.io/zh-cn/docs/
 
+**安装成功**
+
 ```powershell
 C:\Users\qingqing>hexo -v
 hexo-cli: 1.0.2
@@ -53,7 +59,7 @@ modules: 46
 openssl: 1.0.2h
 ```
 
-#### 安装过程
+**安装过程**
 
 ```powershell
 npm install hexo-cli -g
@@ -73,16 +79,6 @@ f:\blog\node_modules\hexo\bin\
 `npm install hexo-cli -g` -g参数代表全局安装
 
 `npm install hexo --save` 中的save参数是把此模块参数保存到package.json中
-
-#### 可能遇到问题
-
-hexo 不是内部命令
-
-解决办法：
-
-- 添加hexo的安装路径到系统的环境变量
-- 重新安装nodejs，选择旧一些的版本
-- 在hexo的github上寻找答案或帮助
 
 ### hexo theme NexT
 
@@ -200,7 +196,7 @@ To git@github.com:zhaoqingqing/zhaoqingqing.github.io.git
 INFO  Deploy done: git
 ```
 
-## 其它电脑同步
+## 多台电脑同步
 
 针对于已有hexo + gitpages的用户，在另一台电脑上**同步而不是新搭建**
 
@@ -227,19 +223,27 @@ F:\Document\zhaoqingqing.github.io>npm install hexo-deployer-git --save
 
 ## 遇到的问题
 
-### 文章的永久链接（Permalinks）
+### hexo 不是内部命令
 
-#### doc
+如果在某台电脑上安装成功之后，在另外电脑上同步遇到此问题，可以尝试以下方法
 
-https://hexo.io/zh-cn/docs/permalinks.html
+尝试以下方法：
 
-#### 相关issues
+- 添加hexo的安装路径到系统的环境变量
+- 重新安装nodejs，选择旧一些的版本
+- 在hexo的github上寻找答案或帮助
+
+### 文章永久链接Permalinks
+
+doc: https://hexo.io/zh-cn/docs/permalinks.html
+
+**相关issues**
 
 https://github.com/hexojs/hexo/issues/1162
 
 https://github.com/hexojs/hexo/issues/799
 
-#### 示例
+**示例**
 
 ```yaml
 # URL
@@ -249,7 +253,7 @@ permalink:category/:title	foo/bar/hello-world
 permalink:year/:month/:day/:id.html	2013/07/14/circ225fb0001uotwthqx55bq.html
 ```
 
-#### 我的测试
+**我的测试**
 
 使用id来作为文件的永久链接的话，id共25个字符
 
@@ -265,11 +269,11 @@ circ2is670000uotwrtfgyw0w
 
 错误码：`Error: Permission denied (publickey)`
 
-#### 参考资料
+**参考资料**
 
 http://www.cnblogs.com/amaoxiaozhu/p/3319233.html
 
-#### 解决办法
+**解决办法**
 
 添加了此环境变量
 
