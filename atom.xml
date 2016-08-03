@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://zhaoqingqing.github.io/"/>
-  <updated>2016-08-02T15:28:35.178Z</updated>
+  <updated>2016-08-03T14:43:13.943Z</updated>
   <id>https://zhaoqingqing.github.io/</id>
   
   <author>
@@ -17,10 +17,10 @@
   
   <entry>
     <title>Unity3D-Assetbundle-打包和更新的两种做法</title>
-    <link href="https://zhaoqingqing.github.io/2016/08/02/unity_assetbundle-build&amp;update-twomethod.html"/>
-    <id>https://zhaoqingqing.github.io/2016/08/02/unity_assetbundle-build&amp;update-twomethod.html</id>
-    <published>2016-08-02T12:38:05.391Z</published>
-    <updated>2016-08-02T15:28:35.178Z</updated>
+    <link href="https://zhaoqingqing.github.io/2016/08/03/unity_assetbundle-build&amp;update-twomethod.html"/>
+    <id>https://zhaoqingqing.github.io/2016/08/03/unity_assetbundle-build&amp;update-twomethod.html</id>
+    <published>2016-08-03T14:43:13.943Z</published>
+    <updated>2016-08-03T14:43:13.943Z</updated>
     
     <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>本文根据过往项目经验所写，部分版权归所属公司所有，未涉及代码部分。<br>两个项目有着不同的资源管理的方式：</p>
 <ul>
@@ -137,6 +137,7 @@ textures\
 
 </pre>
 
+<hr>
 <h2 id="分散打包"><a href="#分散打包" class="headerlink" title="分散打包"></a>分散打包</h2><h2 id="资源更新-1"><a href="#资源更新-1" class="headerlink" title="资源更新"></a>资源更新</h2><h3 id="如何触发更新-1"><a href="#如何触发更新-1" class="headerlink" title="如何触发更新"></a>如何触发更新</h3><p>本地assetbundle版本：10050，服务器assetbundle版本：10051，玩家需要下载更新。</p>
 <h3 id="资源目录-1"><a href="#资源目录-1" class="headerlink" title="资源目录"></a>资源目录</h3><pre>
 StreamingAssets
@@ -175,6 +176,36 @@ StreamingAssets
 <li>Android_born_10051.zip.json<br><code>{&quot;Size&quot;:  78895922  , &quot;FileCount&quot;: 4817, &quot;MD5&quot;: &quot;72FD467252329D01799DD65E9CCA23F0&quot;}</code></li>
 <li>Android_full_10051.zip.json<br><code>{&quot;MD5&quot;:&quot;6F8D541B388C98A0FBDC6F5BF4DA7122&quot;,&quot;Size&quot;:  84529108  ,&quot;FileCount&quot;:4864}</code></li>
 </ul>
+<hr>
+<h2 id="ab依赖处理"><a href="#ab依赖处理" class="headerlink" title="ab依赖处理"></a>ab依赖处理</h2><p>以下内容来自ulua&amp;tolua技术交流群，时间2016-08-03 14:30 ~ 15:30</p>
+<h3 id="加载"><a href="#加载" class="headerlink" title="加载"></a>加载</h3><p><strong>故国之晚秋 </strong></p>
+<p>异步读取AB就是要注意，读取状态</p>
+<p>因为AB不仅仅只有读取，还有清理策略，要防止正在加载，又被清理</p>
+<p>还有就是，A依赖B，C也依赖B。现在读取A，先读取B，这时候立马读取C，这时候B也在读取，不要反复去读取，减少</p>
+<p>读取A，本来就会形成队列A-&gt;C-&gt;D,这是A形成的队列，然后读取B，形成<br>B-&gt;C（只是把C的节点加到B，并不会再去加C后面的依赖，只是判断C的状态），读取顺序都是从右到左</p>
+<p>并且，出现这个情况只是在都是处于正在读取状态</p>
+<p>如果用WWW，同时读太多，内存吃紧</p>
+<p>AB不要打得太散也不要打得太多</p>
+<p>简单的解决办法：</p>
+<p>同步AB都解决了，同步加载AB没有这个问题，同步ab最好不要做的太细。</p>
+<p>同步很简单，同步读取AB</p>
+<p><strong>上海-江南-5.3.1f4 </strong></p>
+<p>特别是公共资源<br>多引用的单独打包<br>卸载清理要处理好</p>
+<p>衣匠</p>
+<p>记住一点，先依赖，后主资源</p>
+<h3 id="资源名"><a href="#资源名" class="headerlink" title="资源名"></a>资源名</h3><p>自动化,</p>
+<p>我是通过文件名规范来做，有人是通过工具来做</p>
+<p>建目录的时候，加个@或者_就行，主要跟文件夹有关，否则一个资源一个AB</p>
+<h3 id="压缩"><a href="#压缩" class="headerlink" title="压缩"></a>压缩</h3><p>之前项目只支持非压缩AB，<br>后面加入压缩AB后，复杂度几何上升<br>之前游戏项目也只用了非压缩AB</p>
+<p>我们现在也不用LZMA了，原因是加载速度和内存</p>
+<h4 id="fbx压缩"><a href="#fbx压缩" class="headerlink" title="fbx压缩"></a>fbx压缩</h4><p>晚秋，你fbx压缩是3dmax导出的插件啊还是unity插件？</p>
+<p>3DSMAX 脚本插件，和UNITY插件两个都有</p>
+<p>原理：fbx剔除多余帧，有加判断</p>
+<h3 id="其它"><a href="#其它" class="headerlink" title="其它"></a>其它</h3><p>usb 沁血寒冰</p>
+<hr>
+<p><strong>故国之晚秋</strong></p>
+<p>近期：开源fbx压缩</p>
+<p>计划：ab加载依赖系统</p>
 <h2 id="做法比较"><a href="#做法比较" class="headerlink" title="做法比较"></a>做法比较</h2><h3 id="共同点"><a href="#共同点" class="headerlink" title="共同点"></a>共同点</h3><p>游戏中所有资源都打包成assetbundle，在游戏启动时进行加载。<br>同步和异步两种加载方式<br>Assetbundle文件放在StreamingAssets目录，区分不同平台。以stream的形式加载，用Unity的<code>www.load</code>API</p>
 <h3 id="区别"><a href="#区别" class="headerlink" title="区别"></a>区别</h3><h4 id="完整打包-1"><a href="#完整打包-1" class="headerlink" title="完整打包"></a>完整打包</h4><p>在加载时一般只需要加载单个文件+共用资源即可，</p>
 <h4 id="分散打包-1"><a href="#分散打包-1" class="headerlink" title="分散打包"></a>分散打包</h4><p>分散打包则先加载依赖再加载主文件</p>
