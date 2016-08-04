@@ -209,6 +209,9 @@ git clone git@github.com:zhaoqingqing/zhaoqingqing.github.io.git
 F:\Document\zhaoqingqing.github.io>npm install hexo
 npm WARN optional dep failed, continuing fsevents@1.0.14
 
+F:\Document\zhaoqingqing.github.io>npm install
+-- hexo-generator-feed@1.2.0
+
 F:\Document\zhaoqingqing.github.io>npm install hexo-deployer-git
 npm WARN optional dep failed, continuing fsevents@1.0.14
 
