@@ -12,7 +12,7 @@ categories: Unity3D项目日志
 
 - 3D MMO RPG：    整体打包
 - 2D日式动作RPG：分散打包
-<!-- more -->
+  <!-- more -->
 ### 开发环境
 
 开发引擎：unity3d 4.x
@@ -47,7 +47,10 @@ zjws_01f_c
 ------------
 
 ### 地图打包例子
-M1_ACT_ZBT_Minimap.unity3d 某地图文件，解包后的文件如下：
+
+TODO地图
+
+M1_ACT_ZBT_Minimap.unity3d 某贴图文件，解包后的文件如下：
 - M1_ACT_ZBT_Minimap #02.dds
 - Unlit-Alpha #03.shader
 
@@ -81,20 +84,28 @@ zjws_01f_c
 ### resversion.txt 文件列表
 
 ```json
-object{2}
-    buildDatetime:20160728-010315
-    listResInfo[2483]
-        0 {3}
-        1 {3}
-            strName    : composeupgrade
-            strPath    : assetbundles/audios/composeupgrade.unity3d
-            strHash    : c1c28bc73bb4affc7963cc073401c10
-        ......此处省略几千行
+{
+    "buildDatetime": "20160728-010315",
+    "listResInfo": [
+        {
+            "strName": "M2_ZC_Minimap",
+            "strPath": "textures/M2_ZC_Minimap.unity3d",
+            "strHash": "bfbe425f3b74abad3fd3219c7510d6b1"
+        },
+        {
+            "strName": "settingclient",
+            "strPath": "settingclient.unity3d",
+            "strHash": "6a88b87c1cce7ff2acbb8782bf7503e"
+        }
+          ......此处省略几千行
+    ]
+}
+    
 ```
 本地的：buildDatetime : 20160727-115054
 服务器：buildDatetime : 20160728-010315
 两边不一致，玩家需要下载更新
-PS:每次根据buildDatetime来判断是否需要更新资源？
+PS:每次根据resversion的内容是否相同来判断是否需要更新资源
 
 ### 要更新的文件
 制作的更新包如下：
@@ -109,7 +120,7 @@ PS:每次根据buildDatetime来判断是否需要更新资源？
 StreamingAssets\
 - Android\
 - IOS\
-   - Windows\
+- Windows\
 
 下面以Android目录为例
 - assetbundles\
