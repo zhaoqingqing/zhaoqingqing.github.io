@@ -192,6 +192,7 @@ links_layout: block
 #links_layout: inline
 links:
   Mr-Kelly - 简书: http://www.jianshu.com/users/674f1a626944/latest_articles
+  Alex-Liao 博客园: http://www.cnblogs.com/xingxueliao/
   赵青青 - 博客园: http://www.cnblogs.com/zhaoqingqing/
   
 
@@ -229,10 +230,10 @@ auto_excerpt:
 
 
 # Wechat Subscriber
-wechat_subscriber:
-  enabled: true
-  qcode: /images/wechat_qingqing.png
-  description: 想跟我一起进步么？那就扫一扫加我为好友吧。
+#wechat_subscriber:
+ # enabled: true
+ # qcode: /images/wechat_qingqing.png
+ # description: 想跟我一起进步么？那就扫一扫加我为好友吧。
 
 
 

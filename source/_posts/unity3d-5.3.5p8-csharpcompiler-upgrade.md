@@ -89,7 +89,9 @@ Unity编辑器及播放器所使用的Mono运行时还未升级。
 ### 我的理解
 .Net版本和C#版本：http://www.cnblogs.com/zhaoqingqing/p/5478239.html
 
-.Net 3.5 ->C#3.0   .Net 4.0 ->C#4.0   
+.Net 3.5 -> C#3.0
+
+.Net 4.0 -> C#4.0   
 
 mono 4.4 == net 3.5 大概的类比
 
