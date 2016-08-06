@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://zhaoqingqing.github.io/"/>
-  <updated>2016-08-03T14:43:13.943Z</updated>
+  <updated>2016-08-06T14:38:10.313Z</updated>
   <id>https://zhaoqingqing.github.io/</id>
   
   <author>
@@ -16,11 +16,61 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>Unity 5.3.5p8的C#编译器升级</title>
+    <link href="https://zhaoqingqing.github.io/2016/08/06/unity3d-5.3.5p8-csharpcompiler-upgrade.html"/>
+    <id>https://zhaoqingqing.github.io/2016/08/06/unity3d-5.3.5p8-csharpcompiler-upgrade.html</id>
+    <published>2016-08-05T16:00:00.000Z</published>
+    <updated>2016-08-06T14:38:10.313Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="Unity-5-3-5p8的C-编译器升级"><a href="#Unity-5-3-5p8的C-编译器升级" class="headerlink" title="Unity 5.3.5p8的C#编译器升级"></a>Unity 5.3.5p8的C#编译器升级</h2><p><strong>注意：该版本是单独升级C#编译器的测试版！请使用文中提供的下载链接！</strong></p>
+<p>基于Unity 5.3.5p8的C#编译器升级！<a href="http://beta.unity3d.com/download/5e8bd2cd2415/public_download.html" target="_blank" rel="external">下载链接</a></p>
+<p>试用该版本前请先备份项目，遇到任何问题请及时反馈到Unity官方中文社区（<a href="http://forum.china.unity3d.com/）。" target="_blank" rel="external">http://forum.china.unity3d.com/）。</a></p>
+<p>新升级的Mono C#编译器（对应Mono 4.4）将用于编译所有的C#脚本。<br><a id="more"></a></p>
+<h2 id="重要注意事项"><a href="#重要注意事项" class="headerlink" title="重要注意事项"></a>重要注意事项</h2><p>Unity编辑器及播放器所使用的Mono运行时还未升级。<br>新编译器仍针对C# 4。是旧的编译器也支持的版本。<br>新编译器目标框架为.Net 3.5，也是之前支持的框架。</p>
+<p>这只是升级Mono/.Net迈出的第一步。</p>
+<h2 id="FAQ"><a href="#FAQ" class="headerlink" title="FAQ"></a>FAQ</h2><h3 id="对现有项目有何影响？"><a href="#对现有项目有何影响？" class="headerlink" title="对现有项目有何影响？"></a>对现有项目有何影响？</h3><p>该升级应该能够“正常工作”，它并未添加任何新功能。不会对现有项目带来任何影响，还有些小益处。新的Mono和C#编译器与之前相比运行速度普遍更快，而且修复了多年以来的Bug。</p>
+<h3 id="有什么需要注意的？"><a href="#有什么需要注意的？" class="headerlink" title="有什么需要注意的？"></a>有什么需要注意的？</h3><p>理论上有可能在运行时产生奇怪的问题。但我们自己测试的过程中并未发现。</p>
+<p>大多数情况下都会在编译时发现问题。目前为止我们遇到的情况有：<br>有些无效的C#代码是旧的编译器允许但新的编译器会报错的<br>涉及到编译器特定属性（安装目录、名称等）的代码或插件会出错</p>
+<p>另外，如果你经常使用MonoDevelop或VSTU（Visual Studio Tools for Unity）调试C#代码，那欢迎向我们反馈你遇到的任何问题。编译器输出结果应该是一致的，但调试器可能对于某些生成的代码模式会很敏感。</p>
+<h3 id="有什么重大变化吗？"><a href="#有什么重大变化吗？" class="headerlink" title="有什么重大变化吗？"></a>有什么重大变化吗？</h3><p>新编译器有一处已知的重大变化，就是闭包获取foreach变量的方式，这是由C#语言团队做出的改变。也就是说，如下代码将输出“b a r”而非目前的“r r r”：</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> actions = <span class="keyword">new</span> Action[<span class="number">3</span>];</div><div class="line"><span class="keyword">var</span> j = <span class="number">0</span>;</div><div class="line"><span class="keyword">foreach</span> (<span class="keyword">var</span> c <span class="keyword">in</span> <span class="string">"bar"</span>)</div><div class="line">   actions[j++] = () =&gt; Console.WriteLine(c);</div><div class="line">         </div><div class="line"><span class="keyword">foreach</span> (<span class="keyword">var</span> a <span class="keyword">in</span> actions)       </div><div class="line">    a();</div></pre></td></tr></table></figure>
+<p>使用较新的VS或Mono均会得到这样的结果，这也是目前WSA平台所表现的行为，具体细节请看：</p>
+<p><a href="https://msdn.microsoft.com/en-us/library/hh678682(v=vs.110" target="_blank" rel="external">https://msdn.microsoft.com/en-us/library/hh678682(v=vs.110).aspx</a>.aspx)</p>
+<h3 id="是否修复了“foreach”内存分配的问题？"><a href="#是否修复了“foreach”内存分配的问题？" class="headerlink" title="是否修复了“foreach”内存分配的问题？"></a>是否修复了“foreach”内存分配的问题？</h3><p>某些情况下是的，问题描述请看：</p>
+<p><a href="http://stackoverflow.com/questions/18552669/memory-allocation-when-using-foreach-loops-in-c-sharp" target="_blank" rel="external">http://stackoverflow.com/questions/18552669/memory-allocation-when-using-foreach-loops-in-c-sharp</a></p>
+<p>对Array、List<t>、Dictionary<t>或HashSet<t>做“foreach”遍历是不会分配内存的。</t></t></t></p>
+<h3 id="为何不面向C-5或C-6？"><a href="#为何不面向C-5或C-6？" class="headerlink" title="为何不面向C# 5或C# 6？"></a>为何不面向C# 5或C# 6？</h3><p>第一步我们希望先推出新的编译器。未来再启用新的C#特性。</p>
+<p>支持C#语言新特性面临的几个问题：<br>目前的生态系统不能完全把控新的C#（脚本更新器、调试器、特定的MonoDevelop/VisualStudio版本）<br>目前仍以旧的.Net 3.5为目标框架。在旧框架上支持新的C#或多或少会导致些迷惑。从头开始编写所有代码也许可行，但对于已有代码来说可能需要C#语言和框架都是最新才可以。</p>
+<p>原文出处：<a href="http://forum.china.unity3d.com/thread-19893-1-1.html?sukey=3997c0719f151520c3814d65da88b37940419f1240e8b1919f76db44b25a351e66aba58667def65781188fd3f96d1fc2" target="_blank" rel="external">http://forum.china.unity3d.com/thread-19893-1-1.html?sukey=3997c0719f151520c3814d65da88b37940419f1240e8b1919f76db44b25a351e66aba58667def65781188fd3f96d1fc2</a></p>
+<h2 id="个人见解"><a href="#个人见解" class="headerlink" title="个人见解"></a>个人见解</h2><h3 id="疑问地方"><a href="#疑问地方" class="headerlink" title="疑问地方"></a>疑问地方</h3><p>新升级的Mono C#编译器（对应Mono 4.4）</p>
+<p>Unity编辑器及播放器所使用的Mono运行时还未升级。</p>
+<p>新编译器仍针对C# 4。是旧的编译器也支持的版本。</p>
+<p>新编译器目标框架为.Net 3.5，也是之前支持的框架。</p>
+<h3 id="我的理解"><a href="#我的理解" class="headerlink" title="我的理解"></a>我的理解</h3><p>.Net版本和C#版本：<a href="http://www.cnblogs.com/zhaoqingqing/p/5478239.html" target="_blank" rel="external">http://www.cnblogs.com/zhaoqingqing/p/5478239.html</a></p>
+<p>.Net 3.5 -&gt; C#3.0</p>
+<p>.Net 4.0 -&gt; C#4.0   </p>
+<p>mono 4.4 == net 3.5 大概的类比</p>
+<p>mono编译器版本升级 mono运行库没有升级，目前运行时的mono还是 3.5</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;Unity-5-3-5p8的C-编译器升级&quot;&gt;&lt;a href=&quot;#Unity-5-3-5p8的C-编译器升级&quot; class=&quot;headerlink&quot; title=&quot;Unity 5.3.5p8的C#编译器升级&quot;&gt;&lt;/a&gt;Unity 5.3.5p8的C#编译器升级&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;注意：该版本是单独升级C#编译器的测试版！请使用文中提供的下载链接！&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;基于Unity 5.3.5p8的C#编译器升级！&lt;a href=&quot;http://beta.unity3d.com/download/5e8bd2cd2415/public_download.html&quot;&gt;下载链接&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;试用该版本前请先备份项目，遇到任何问题请及时反馈到Unity官方中文社区（&lt;a href=&quot;http://forum.china.unity3d.com/）。&quot;&gt;http://forum.china.unity3d.com/）。&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;新升级的Mono C#编译器（对应Mono 4.4）将用于编译所有的C#脚本。&lt;br&gt;
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
     <title>Unity3D-Assetbundle-打包和更新的两种做法</title>
-    <link href="https://zhaoqingqing.github.io/2016/08/03/unity_assetbundle-build&amp;update-twomethod.html"/>
-    <id>https://zhaoqingqing.github.io/2016/08/03/unity_assetbundle-build&amp;update-twomethod.html</id>
-    <published>2016-08-03T14:43:13.943Z</published>
-    <updated>2016-08-03T14:43:13.943Z</updated>
+    <link href="https://zhaoqingqing.github.io/2016/08/05/unity_assetbundle-build&amp;update-twomethod.html"/>
+    <id>https://zhaoqingqing.github.io/2016/08/05/unity_assetbundle-build&amp;update-twomethod.html</id>
+    <published>2016-08-05T12:40:20.677Z</published>
+    <updated>2016-08-05T12:40:20.677Z</updated>
     
     <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>本文根据过往项目经验所写，部分版权归所属公司所有，未涉及代码部分。<br>两个项目有着不同的资源管理的方式：</p>
 <ul>
@@ -50,7 +100,8 @@ zjws_01f_c
 </pre>
 
 <hr>
-<h3 id="地图打包例子"><a href="#地图打包例子" class="headerlink" title="地图打包例子"></a>地图打包例子</h3><p>M1_ACT_ZBT_Minimap.unity3d 某地图文件，解包后的文件如下：</p>
+<h3 id="地图打包例子"><a href="#地图打包例子" class="headerlink" title="地图打包例子"></a>地图打包例子</h3><p>TODO地图</p>
+<p>M1_ACT_ZBT_Minimap.unity3d 某贴图文件，解包后的文件如下：</p>
 <ul>
 <li>M1_ACT_ZBT_Minimap #02.dds</li>
 <li>Unlit-Alpha #03.shader</li>
@@ -79,8 +130,8 @@ zjws_01f_c
     zjws_01f_c
 </pre>
 
-<h2 id="资源更新"><a href="#资源更新" class="headerlink" title="资源更新"></a>资源更新</h2><h3 id="如何触发更新"><a href="#如何触发更新" class="headerlink" title="如何触发更新"></a>如何触发更新</h3><h3 id="resversion-txt-文件列表"><a href="#resversion-txt-文件列表" class="headerlink" title="resversion.txt 文件列表"></a>resversion.txt 文件列表</h3><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">object&#123;2&#125;</div><div class="line">    buildDatetime:20160728-010315</div><div class="line">    listResInfo[2483]</div><div class="line">        0 &#123;3&#125;</div><div class="line">        1 &#123;3&#125;</div><div class="line">            strName    : composeupgrade</div><div class="line">            strPath    : assetbundles/audios/composeupgrade.unity3d</div><div class="line">            strHash    : c1c28bc73bb4affc7963cc073401c10</div><div class="line">        ......此处省略几千行</div></pre></td></tr></table></figure>
-<p>本地的：buildDatetime : 20160727-115054<br>服务器：buildDatetime : 20160728-010315<br>两边不一致，玩家需要下载更新<br>PS:每次根据buildDatetime来判断是否需要更新资源？</p>
+<h2 id="资源更新"><a href="#资源更新" class="headerlink" title="资源更新"></a>资源更新</h2><h3 id="如何触发更新"><a href="#如何触发更新" class="headerlink" title="如何触发更新"></a>如何触发更新</h3><h3 id="resversion-txt-文件列表"><a href="#resversion-txt-文件列表" class="headerlink" title="resversion.txt 文件列表"></a>resversion.txt 文件列表</h3><figure class="highlight json"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    <span class="attr">"buildDatetime"</span>: <span class="string">"20160728-010315"</span>,</div><div class="line">    <span class="attr">"listResInfo"</span>: [</div><div class="line">        &#123;</div><div class="line">            <span class="attr">"strName"</span>: <span class="string">"M2_ZC_Minimap"</span>,</div><div class="line">            <span class="attr">"strPath"</span>: <span class="string">"textures/M2_ZC_Minimap.unity3d"</span>,</div><div class="line">            <span class="attr">"strHash"</span>: <span class="string">"bfbe425f3b74abad3fd3219c7510d6b1"</span></div><div class="line">        &#125;,</div><div class="line">        &#123;</div><div class="line">            <span class="attr">"strName"</span>: <span class="string">"settingclient"</span>,</div><div class="line">            <span class="attr">"strPath"</span>: <span class="string">"settingclient.unity3d"</span>,</div><div class="line">            <span class="attr">"strHash"</span>: <span class="string">"6a88b87c1cce7ff2acbb8782bf7503e"</span></div><div class="line">        &#125;</div><div class="line">          ......此处省略几千行</div><div class="line">    ]</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>本地的：buildDatetime : 20160727-115054<br>服务器：buildDatetime : 20160728-010315<br>两边不一致，玩家需要下载更新<br>PS:每次根据resversion的内容是否相同来判断是否需要更新资源</p>
 <h3 id="要更新的文件"><a href="#要更新的文件" class="headerlink" title="要更新的文件"></a>要更新的文件</h3><p>制作的更新包如下：</p>
 <h3 id="android-目录"><a href="#android-目录" class="headerlink" title="android 目录"></a>android 目录</h3><p>路径：/mnt - sdcard - Android - data - com.xx.xxgame.uc - files - xxgame - data - android</p>
 <ol>
@@ -91,10 +142,8 @@ zjws_01f_c
 <h2 id="资源目录"><a href="#资源目录" class="headerlink" title="资源目录"></a>资源目录</h2><p>StreamingAssets\</p>
 <ul>
 <li>Android\</li>
-<li>IOS\<ul>
+<li>IOS\</li>
 <li>Windows\</li>
-</ul>
-</li>
 </ul>
 <p>下面以Android目录为例</p>
 <ul>

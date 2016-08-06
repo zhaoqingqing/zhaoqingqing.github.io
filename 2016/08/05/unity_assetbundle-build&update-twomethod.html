@@ -92,13 +92,13 @@
 2D日式动作RPG：分散打包">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Unity3D-Assetbundle-打包和更新的两种做法">
-<meta property="og:url" content="https://zhaoqingqing.github.io/2016/08/03/unity_assetbundle-build&update-twomethod.html">
+<meta property="og:url" content="https://zhaoqingqing.github.io/2016/08/05/unity_assetbundle-build&update-twomethod.html">
 <meta property="og:site_name" content="qingqing.zhao's blog">
 <meta property="og:description" content="前言本文根据过往项目经验所写，部分版权归所属公司所有，未涉及代码部分。两个项目有着不同的资源管理的方式：
 
 3D MMO RPG：    整体打包
 2D日式动作RPG：分散打包">
-<meta property="og:updated_time" content="2016-08-03T14:43:13.943Z">
+<meta property="og:updated_time" content="2016-08-05T12:40:20.677Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Unity3D-Assetbundle-打包和更新的两种做法">
 <meta name="twitter:description" content="前言本文根据过往项目经验所写，部分版权归所属公司所有，未涉及代码部分。两个项目有着不同的资源管理的方式：
@@ -125,7 +125,7 @@
 
 
 
-  <link rel="canonical" href="https://zhaoqingqing.github.io/2016/08/03/unity_assetbundle-build&update-twomethod.html"/>
+  <link rel="canonical" href="https://zhaoqingqing.github.io/2016/08/05/unity_assetbundle-build&update-twomethod.html"/>
 
   <title> Unity3D-Assetbundle-打包和更新的两种做法 | qingqing.zhao's blog </title>
 </head>
@@ -279,8 +279,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-08-03T22:43:13+08:00" content="2016-08-03">
-              2016-08-03
+            <time itemprop="dateCreated" datetime="2016-08-05T20:40:20+08:00" content="2016-08-05">
+              2016-08-05
             </time>
           </span>
 
@@ -309,8 +309,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/08/03/unity_assetbundle-build&update-twomethod.html#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/03/unity_assetbundle-build&update-twomethod.html" itemprop="commentsCount"></span>
+                <a href="/2016/08/05/unity_assetbundle-build&update-twomethod.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/05/unity_assetbundle-build&update-twomethod.html" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -361,7 +361,8 @@ zjws_01f_c
 </pre>
 
 <hr>
-<h3 id="地图打包例子"><a href="#地图打包例子" class="headerlink" title="地图打包例子"></a>地图打包例子</h3><p>M1_ACT_ZBT_Minimap.unity3d 某地图文件，解包后的文件如下：</p>
+<h3 id="地图打包例子"><a href="#地图打包例子" class="headerlink" title="地图打包例子"></a>地图打包例子</h3><p>TODO地图</p>
+<p>M1_ACT_ZBT_Minimap.unity3d 某贴图文件，解包后的文件如下：</p>
 <ul>
 <li>M1_ACT_ZBT_Minimap #02.dds</li>
 <li>Unlit-Alpha #03.shader</li>
@@ -390,8 +391,8 @@ zjws_01f_c
     zjws_01f_c
 </pre>
 
-<h2 id="资源更新"><a href="#资源更新" class="headerlink" title="资源更新"></a>资源更新</h2><h3 id="如何触发更新"><a href="#如何触发更新" class="headerlink" title="如何触发更新"></a>如何触发更新</h3><h3 id="resversion-txt-文件列表"><a href="#resversion-txt-文件列表" class="headerlink" title="resversion.txt 文件列表"></a>resversion.txt 文件列表</h3><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">object&#123;2&#125;</div><div class="line">    buildDatetime:20160728-010315</div><div class="line">    listResInfo[2483]</div><div class="line">        0 &#123;3&#125;</div><div class="line">        1 &#123;3&#125;</div><div class="line">            strName    : composeupgrade</div><div class="line">            strPath    : assetbundles/audios/composeupgrade.unity3d</div><div class="line">            strHash    : c1c28bc73bb4affc7963cc073401c10</div><div class="line">        ......此处省略几千行</div></pre></td></tr></table></figure>
-<p>本地的：buildDatetime : 20160727-115054<br>服务器：buildDatetime : 20160728-010315<br>两边不一致，玩家需要下载更新<br>PS:每次根据buildDatetime来判断是否需要更新资源？</p>
+<h2 id="资源更新"><a href="#资源更新" class="headerlink" title="资源更新"></a>资源更新</h2><h3 id="如何触发更新"><a href="#如何触发更新" class="headerlink" title="如何触发更新"></a>如何触发更新</h3><h3 id="resversion-txt-文件列表"><a href="#resversion-txt-文件列表" class="headerlink" title="resversion.txt 文件列表"></a>resversion.txt 文件列表</h3><figure class="highlight json"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    <span class="attr">"buildDatetime"</span>: <span class="string">"20160728-010315"</span>,</div><div class="line">    <span class="attr">"listResInfo"</span>: [</div><div class="line">        &#123;</div><div class="line">            <span class="attr">"strName"</span>: <span class="string">"M2_ZC_Minimap"</span>,</div><div class="line">            <span class="attr">"strPath"</span>: <span class="string">"textures/M2_ZC_Minimap.unity3d"</span>,</div><div class="line">            <span class="attr">"strHash"</span>: <span class="string">"bfbe425f3b74abad3fd3219c7510d6b1"</span></div><div class="line">        &#125;,</div><div class="line">        &#123;</div><div class="line">            <span class="attr">"strName"</span>: <span class="string">"settingclient"</span>,</div><div class="line">            <span class="attr">"strPath"</span>: <span class="string">"settingclient.unity3d"</span>,</div><div class="line">            <span class="attr">"strHash"</span>: <span class="string">"6a88b87c1cce7ff2acbb8782bf7503e"</span></div><div class="line">        &#125;</div><div class="line">          ......此处省略几千行</div><div class="line">    ]</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>本地的：buildDatetime : 20160727-115054<br>服务器：buildDatetime : 20160728-010315<br>两边不一致，玩家需要下载更新<br>PS:每次根据resversion的内容是否相同来判断是否需要更新资源</p>
 <h3 id="要更新的文件"><a href="#要更新的文件" class="headerlink" title="要更新的文件"></a>要更新的文件</h3><p>制作的更新包如下：</p>
 <h3 id="android-目录"><a href="#android-目录" class="headerlink" title="android 目录"></a>android 目录</h3><p>路径：/mnt - sdcard - Android - data - com.xx.xxgame.uc - files - xxgame - data - android</p>
 <ol>
@@ -402,10 +403,8 @@ zjws_01f_c
 <h2 id="资源目录"><a href="#资源目录" class="headerlink" title="资源目录"></a>资源目录</h2><p>StreamingAssets\</p>
 <ul>
 <li>Android\</li>
-<li>IOS\<ul>
+<li>IOS\</li>
 <li>Windows\</li>
-</ul>
-</li>
 </ul>
 <p>下面以Android目录为例</p>
 <ul>
@@ -564,6 +563,10 @@ StreamingAssets
 
           <div class="post-nav-prev post-nav-item">
             
+              <a href="/2016/08/06/unity3d-5.3.5p8-csharpcompiler-upgrade.html" rel="prev" title="">
+                 <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
       
@@ -577,10 +580,10 @@ StreamingAssets
 
     <div class="post-spread">
       
-        <div class="ds-share flat" data-thread-key="2016/08/03/unity_assetbundle-build&update-twomethod.html"
+        <div class="ds-share flat" data-thread-key="2016/08/05/unity_assetbundle-build&update-twomethod.html"
      data-title="Unity3D-Assetbundle-打包和更新的两种做法"
      data-content=""
-     data-url="https://zhaoqingqing.github.io/2016/08/03/unity_assetbundle-build&update-twomethod.html">
+     data-url="https://zhaoqingqing.github.io/2016/08/05/unity_assetbundle-build&update-twomethod.html">
   <div class="ds-share-inline">
     <ul  class="ds-share-icons-16">
 
@@ -607,8 +610,8 @@ StreamingAssets
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/08/03/unity_assetbundle-build&update-twomethod.html"
-           data-title="Unity3D-Assetbundle-打包和更新的两种做法" data-url="https://zhaoqingqing.github.io/2016/08/03/unity_assetbundle-build&update-twomethod.html">
+      <div class="ds-thread" data-thread-key="2016/08/05/unity_assetbundle-build&update-twomethod.html"
+           data-title="Unity3D-Assetbundle-打包和更新的两种做法" data-url="https://zhaoqingqing.github.io/2016/08/05/unity_assetbundle-build&update-twomethod.html">
       </div>
     
   </div>
@@ -653,7 +656,7 @@ StreamingAssets
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">3</span>
+              <span class="site-state-item-count">4</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
