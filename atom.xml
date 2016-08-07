@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://zhaoqingqing.github.io/"/>
-  <updated>2016-08-07T02:39:51.048Z</updated>
+  <updated>2016-08-07T15:51:06.432Z</updated>
   <id>https://zhaoqingqing.github.io/</id>
   
   <author>
@@ -16,11 +16,193 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>Unity3D .Net Framework  Mono</title>
+    <link href="https://zhaoqingqing.github.io/2016/08/08/unity3d-donet-mono.html"/>
+    <id>https://zhaoqingqing.github.io/2016/08/08/unity3d-donet-mono.html</id>
+    <published>2016-08-07T16:00:00.000Z</published>
+    <updated>2016-08-07T15:51:06.432Z</updated>
+    
+    <content type="html"><![CDATA[<p>接上文<a href="http://www.cnblogs.com/zhaoqingqing/p/5745881.html" target="_blank" rel="external">Unity 5.3.5p8 C#编译器升级</a></p>
+<h2 id="Unity编译器升级"><a href="#Unity编译器升级" class="headerlink" title="Unity编译器升级"></a>Unity编译器升级</h2><p>新升级的Mono C#编译器（对应Mono 4.4）</p>
+<p>Unity编辑器及播放器所使用的Mono运行时还未升级。</p>
+<p>新编译器仍针对C# 4，是旧的编译器也支持的版本。</p>
+<p>新编译器目标框架为.Net 3.5，也是之前支持的框架。<br><a id="more"></a></p>
+<h3 id="编译器和运行时"><a href="#编译器和运行时" class="headerlink" title="编译器和运行时"></a>编译器和运行时</h3><p>CSharp(*.cs)源文件通过编译器编译成IL(中间文件) - &gt;IL 运行在Mono的 JIT(just in time) -&gt; 运行在真实环境中</p>
+<h3 id="查看Unity的Mono版本"><a href="#查看Unity的Mono版本" class="headerlink" title="查看Unity的Mono版本"></a>查看Unity的Mono版本</h3><figure class="highlight csharp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">using</span> UnityEngine;</div><div class="line"><span class="keyword">using</span> System;</div><div class="line"><span class="keyword">using</span> System.Reflection;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">MonoVersion</span> : <span class="title">MonoBehaviour</span> &#123;</div><div class="line">	<span class="function"><span class="keyword">void</span> <span class="title">Start</span>(<span class="params"></span>)</span></div><div class="line">	&#123;</div><div class="line">		Type type = Type.GetType(<span class="string">"Mono.Runtime"</span>);</div><div class="line">		<span class="keyword">if</span> (type != <span class="literal">null</span>)</div><div class="line">		&#123;</div><div class="line">			MethodInfo info = type.GetMethod(<span class="string">"GetDisplayName"</span>, BindingFlags.NonPublic | BindingFlags.Static);</div><div class="line">			</div><div class="line">			<span class="keyword">if</span> (info != <span class="literal">null</span>)</div><div class="line">				Debug.Log(info.Invoke(<span class="literal">null</span>, <span class="literal">null</span>));</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="Mono"><a href="#Mono" class="headerlink" title="Mono"></a>Mono</h2><h3 id="Mono实现-Net-Framework"><a href="#Mono实现-Net-Framework" class="headerlink" title="Mono实现.Net Framework"></a>Mono实现.Net Framework</h3><p>.NET和Mono两者是完全独立的，简单的理解：Mono项目是第三方的.Net Framework实现，比喻为.Net的跨平台版，绝大多数C#的特性在.net和mono中都是相同的，少部分特性两者的实现不一致。</p>
+<p>Mono的目标是创建一系列符合ECMA 标准（<code>Ecma-334</code>和<code>Ecma-33</code>5）的.NET 工具，包括C# 编译器和共通语言执行平台</p>
+<p>Mono 虚拟机包含一个实时编译引擎，该引擎可用于如下处理器：x86，SPARC，PowerPC，ARM，S390（32位模式和64位模式），x86-64，IA64 和64位模式的 SPARC。该虚拟机可以将代码实时编译或者预先编译到原生代码。对于那些没有列出来的系统，则使用的是代码解释器。</p>
+<hr>
+<p>摘自：<a href="http://www.mono-project.com/docs/about-mono/" target="_blank" rel="external">http://www.mono-project.com/docs/about-mono/</a></p>
+<h3 id="mono-C-Compiler"><a href="#mono-C-Compiler" class="headerlink" title="mono - C# Compiler"></a>mono - C# Compiler</h3><blockquote>
+<p>Mono’s C# compiler is feature complete for C# 1.0, 2.0, 3.0, 4.0 and 5.0 (ECMA). A good description of the feature of the various versions is available on <a href="http://en.wikipedia.org/wiki/C_Sharp_%28programming_language%29#Versions" target="_blank" rel="external">Wikipedia</a>.</p>
+<p>mono的c#编译器提供c# 1.0,2.0,3.0,4.0和5.0(ECMA)完整的功能。不同版本的特性的描述可以在<a href="http://en.wikipedia.org/wiki/C_Sharp_%28programming_language%29#Versions" target="_blank" rel="external">维基百科</a>上查看。</p>
+</blockquote>
+<h3 id="mono-Mono-Runtime"><a href="#mono-Mono-Runtime" class="headerlink" title="mono - Mono Runtime"></a>mono - Mono Runtime</h3><blockquote>
+<p>The runtime implements the ECMA Common Language Infrastructure (CLI). The runtime provides a Just-in-Time (JIT) compiler, an Ahead-of-Time compiler (AOT), a library loader, the garbage collector, a threading system and interoperability functionality.</p>
+<p>mono运行时实现了ECMA 公共语言基础(CLI)。运行时提供了即时(JIT)编译器，提前的编译器(AOT)，库加载器，垃圾回收机器，线程操作，互操作性</p>
+</blockquote>
+<h3 id="mono-NET-Frame-Class-Libray"><a href="#mono-NET-Frame-Class-Libray" class="headerlink" title="mono - .NET Frame Class Libray"></a>mono - .NET Frame Class Libray</h3><blockquote>
+<p>The Mono platform provides a comprehensive set of classes that provide a solid foundation to build applications on. These classes are compatible with Microsoft’s .Net Framework classes.</p>
+<p>Mono平台提供了一组全面的类来构建应用程序提供一个坚实的基础。这些类是兼容微软的.Net framework</p>
+</blockquote>
+<h3 id="mono-Mono-Class-Libray"><a href="#mono-Mono-Class-Libray" class="headerlink" title="mono - Mono Class Libray"></a>mono - Mono Class Libray</h3><blockquote>
+<p>Mono also provides many classes that go above and beyond the Base Class Library provided by Microsoft. These provide additional functionality that are useful, especially in building Linux applications. Some examples are classes for Gtk+, Zip files, LDAP, OpenGL, Cairo, POSIX, etc.</p>
+<p>Mono还提供了很多类,甚至超越了微软提供的基类库。这些提供额外的功能是有用的,特别是在构建Linux应用程序。一些例子是Gtk +,Zip文件、LDAP、OpenGL,Cairo,POSIX等等。</p>
+</blockquote>
+<h2 id="Net和Mono"><a href="#Net和Mono" class="headerlink" title=".Net和Mono"></a>.Net和Mono</h2><h3 id="Net和C-版本"><a href="#Net和C-版本" class="headerlink" title=".Net和C#版本"></a>.Net和C#版本</h3><p>.Net版本和C#版本：<a href="http://www.cnblogs.com/zhaoqingqing/p/5478239.html" target="_blank" rel="external">http://www.cnblogs.com/zhaoqingqing/p/5478239.html</a></p>
+<table>
+<thead>
+<tr>
+<th>.net framework</th>
+<th>c# version</th>
+<th>note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>.net 3.5</td>
+<td>3.0</td>
+<td></td>
+</tr>
+<tr>
+<td>.net 4.0</td>
+<td>4.0</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="Net和Mono版本关系"><a href="#Net和Mono版本关系" class="headerlink" title=".Net和Mono版本关系"></a>.Net和Mono版本关系</h3><table>
+<thead>
+<tr>
+<th>mono version</th>
+<th>net version</th>
+<th>note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>mono 4.4</td>
+<td>.net 3.5</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>mono编译器版本升级 mono运行库没有升级，目前运行时的mono还是 3.5</p>
+<h3 id="mono发行版本"><a href="#mono发行版本" class="headerlink" title="mono发行版本"></a>mono发行版本</h3><table>
+<thead>
+<tr>
+<th>Date(时间)</th>
+<th>Version(版本)</th>
+<th>Note(备注)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2004-06-30</td>
+<td>1.0</td>
+<td>C# 1.0 support</td>
+</tr>
+<tr>
+<td>2006-11-09</td>
+<td>1.2</td>
+<td>C# 2.0 support</td>
+</tr>
+<tr>
+<td>2008-10-06</td>
+<td>2.0</td>
+<td>.Net 2.0 C# 3.0</td>
+</tr>
+<tr>
+<td>2010-09-22</td>
+<td>2.8</td>
+<td>.Net profile C#4.0 support</td>
+</tr>
+<tr>
+<td>2012-10-15</td>
+<td>3.0</td>
+<td>C# 5.0 support,async base class libray,MVC4 partial</td>
+</tr>
+<tr>
+<td>2014-03-31</td>
+<td>3.4</td>
+<td></td>
+</tr>
+<tr>
+<td>2015-04-29</td>
+<td>4.0</td>
+<td>.NET 4.5 profile .NET4.5 assembiles,C#6.0,integrate .net core code</td>
+</tr>
+<tr>
+<td>2014-03-31</td>
+<td>4.2</td>
+<td></td>
+</tr>
+<tr>
+<td>2016-06-08</td>
+<td>4.4</td>
+<td></td>
+</tr>
+<tr>
+<td>2016-08-01</td>
+<td>4.6</td>
+</tr>
+</tbody>
+</table>
+<p>2016 Mono joins the .NET Foundation</p>
+<blockquote>
+<p>参考资料</p>
+</blockquote>
+<p>Mono release: <a href="http://www.mono-project.com/docs/about-mono/releases/" target="_blank" rel="external">http://www.mono-project.com/docs/about-mono/releases/</a><br>Mono 4.4：<a href="http://www.mono-project.com/docs/about-mono/releases/4.4.0/" target="_blank" rel="external">http://www.mono-project.com/docs/about-mono/releases/4.4.0/</a><br>Mono software: <a href="https://en.wikipedia.org/wiki/Mono" target="_blank" rel="external">https://en.wikipedia.org/wiki/Mono</a></p>
+<h2 id="NET-Core-Net-Framework-Mono"><a href="#NET-Core-Net-Framework-Mono" class="headerlink" title=".NET Core .Net Framework Mono"></a>.NET Core .Net Framework Mono</h2><p><a href="http://www.cnblogs.com/shanyou/p/4295163.html" target="_blank" rel="external">.NET Core与.NET Framework、Mono之间的关系</a></p>
+<h2 id="更多资料"><a href="#更多资料" class="headerlink" title="更多资料"></a>更多资料</h2><h3 id="我的疑问"><a href="#我的疑问" class="headerlink" title="我的疑问"></a>我的疑问</h3><p>  编译器和运行时版本不匹配可以正常执行？</p>
+<h3 id="文献资料"><a href="#文献资料" class="headerlink" title="文献资料"></a>文献资料</h3><p>mono project github: <a href="https://github.com/mono/mono" target="_blank" rel="external">https://github.com/mono/mono</a></p>
+<p>mono doc: <a href="http://www.mono-project.com/docs/" target="_blank" rel="external">http://www.mono-project.com/docs/</a></p>
+<p>Mono英文百科：<a href="https://en.wikipedia.org/wiki/Mono" target="_blank" rel="external"><a href="https://en.wikipedia.org/wiki/Mono" target="_blank" rel="external">https://en.wikipedia.org/wiki/Mono</a></a></p>
+<p>Mono中文百科：<a href="https://zh.wikipedia.org/wiki/Mono" target="_blank" rel="external">https://zh.wikipedia.org/wiki/Mono</a></p>
+<hr>
+<p><a href="http://kb.cnblogs.com/page/514268/" target="_blank" rel="external">魅力 .NET：从 Mono、.NET Core 说起</a></p>
+<p><a href="http://www.cnblogs.com/yeanzhi/archive/2013/02/24/2924687.html" target="_blank" rel="external">[c#基础系列二]：从编译，执行过程理解c#</a></p>
+<p><a href="http://www.cnblogs.com/murongxiaopifu/p/4211964.html" target="_blank" rel="external">Mono为何能跨平台？聊聊CIL(MSIL)</a></p>
+<p>国内 Mono 相关文章汇总：<a href="http://www.cnblogs.com/shanyou/archive/2012/07/28/2612919.html" target="_blank" rel="external">http://www.cnblogs.com/shanyou/archive/2012/07/28/2612919.html</a></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;接上文&lt;a href=&quot;http://www.cnblogs.com/zhaoqingqing/p/5745881.html&quot;&gt;Unity 5.3.5p8 C#编译器升级&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&quot;Unity编译器升级&quot;&gt;&lt;a href=&quot;#Unity编译器升级&quot; class=&quot;headerlink&quot; title=&quot;Unity编译器升级&quot;&gt;&lt;/a&gt;Unity编译器升级&lt;/h2&gt;&lt;p&gt;新升级的Mono C#编译器（对应Mono 4.4）&lt;/p&gt;
+&lt;p&gt;Unity编辑器及播放器所使用的Mono运行时还未升级。&lt;/p&gt;
+&lt;p&gt;新编译器仍针对C# 4，是旧的编译器也支持的版本。&lt;/p&gt;
+&lt;p&gt;新编译器目标框架为.Net 3.5，也是之前支持的框架。&lt;br&gt;
+    
+    </summary>
+    
+      <category term="Unity3D技术积累" scheme="https://zhaoqingqing.github.io/categories/Unity3D%E6%8A%80%E6%9C%AF%E7%A7%AF%E7%B4%AF/"/>
+    
+    
+      <category term="Unity3D官方" scheme="https://zhaoqingqing.github.io/tags/Unity3D%E5%AE%98%E6%96%B9/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Unity 5.3.5p8 C#编译器升级</title>
     <link href="https://zhaoqingqing.github.io/2016/08/06/unity3d-5.3.5p8-csharpcompiler-upgrade.html"/>
     <id>https://zhaoqingqing.github.io/2016/08/06/unity3d-5.3.5p8-csharpcompiler-upgrade.html</id>
     <published>2016-08-05T16:00:00.000Z</published>
-    <updated>2016-08-07T02:39:51.048Z</updated>
+    <updated>2016-08-07T15:12:49.943Z</updated>
     
     <content type="html"><![CDATA[<h2 id="Unity-5-3-5p8的C-编译器升级"><a href="#Unity-5-3-5p8的C-编译器升级" class="headerlink" title="Unity 5.3.5p8的C#编译器升级"></a>Unity 5.3.5p8的C#编译器升级</h2><p><strong>注意：该版本是单独升级C#编译器的测试版！请使用文中提供的下载链接！</strong></p>
 <p>基于Unity 5.3.5p8的C#编译器升级！<a href="http://beta.unity3d.com/download/5e8bd2cd2415/public_download.html" target="_blank" rel="external">下载链接</a></p>
@@ -41,18 +223,7 @@
 <p>对Array、List<t>、Dictionary<t>或HashSet<t>做“foreach”遍历是不会分配内存的。</t></t></t></p>
 <h3 id="为何不面向C-5或C-6？"><a href="#为何不面向C-5或C-6？" class="headerlink" title="为何不面向C# 5或C# 6？"></a>为何不面向C# 5或C# 6？</h3><p>第一步我们希望先推出新的编译器。未来再启用新的C#特性。</p>
 <p>支持C#语言新特性面临的几个问题：<br>目前的生态系统不能完全把控新的C#（脚本更新器、调试器、特定的MonoDevelop/VisualStudio版本）<br>目前仍以旧的.Net 3.5为目标框架。在旧框架上支持新的C#或多或少会导致些迷惑。从头开始编写所有代码也许可行，但对于已有代码来说可能需要C#语言和框架都是最新才可以。</p>
-<p style="text-align: left;">原文出处：<a href="http://forum.china.unity3d.com/thread-19893-1-1.html?sukey=3997c0719f151520c3814d65da88b37940419f1240e8b1919f76db44b25a351e66aba58667def65781188fd3f96d1fc2" target="_blank" rel="external">http://forum.china.unity3d.com/thread-19893-1-1.html?sukey=3997c0719f151520c3814d65da88b37940419f1240e8b1919f76db44b25a351e66aba58667def65781188fd3f96d1fc2</a></p>
-
-<h2 id="个人见解"><a href="#个人见解" class="headerlink" title="个人见解"></a>个人见解</h2><h3 id="疑问地方"><a href="#疑问地方" class="headerlink" title="疑问地方"></a>疑问地方</h3><p>新升级的Mono C#编译器（对应Mono 4.4）</p>
-<p>Unity编辑器及播放器所使用的Mono运行时还未升级。</p>
-<p>新编译器仍针对C# 4。是旧的编译器也支持的版本。</p>
-<p>新编译器目标框架为.Net 3.5，也是之前支持的框架。</p>
-<h3 id="我的理解"><a href="#我的理解" class="headerlink" title="我的理解"></a>我的理解</h3><p>.Net版本和C#版本：<a href="http://www.cnblogs.com/zhaoqingqing/p/5478239.html" target="_blank" rel="external">http://www.cnblogs.com/zhaoqingqing/p/5478239.html</a></p>
-<p>.Net 3.5 -&gt; C#3.0</p>
-<p>.Net 4.0 -&gt; C#4.0   </p>
-<p>mono 4.4 == net 3.5 大概的类比</p>
-<p>mono编译器版本升级 mono运行库没有升级，目前运行时的mono还是 3.5</p>
-]]></content>
+<p style="text-align: left;">原文出处：<a href="http://forum.china.unity3d.com/thread-19893-1-1.html" target="_blank" rel="external">http://forum.china.unity3d.com/thread-19893-1-1.html</a><br><br></p>]]></content>
     
     <summary type="html">
     

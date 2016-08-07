@@ -1,0 +1,928 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Unity3D官方," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="qingqing.zhao's blog" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="接上文Unity 5.3.5p8 C#编译器升级
+Unity编译器升级新升级的Mono C#编译器（对应Mono 4.4）
+Unity编辑器及播放器所使用的Mono运行时还未升级。
+新编译器仍针对C# 4，是旧的编译器也支持的版本。
+新编译器目标框架为.Net 3.5，也是之前支持的框架。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Unity3D .Net Framework  Mono">
+<meta property="og:url" content="https://zhaoqingqing.github.io/2016/08/08/unity3d-donet-mono.html">
+<meta property="og:site_name" content="qingqing.zhao's blog">
+<meta property="og:description" content="接上文Unity 5.3.5p8 C#编译器升级
+Unity编译器升级新升级的Mono C#编译器（对应Mono 4.4）
+Unity编辑器及播放器所使用的Mono运行时还未升级。
+新编译器仍针对C# 4，是旧的编译器也支持的版本。
+新编译器目标框架为.Net 3.5，也是之前支持的框架。">
+<meta property="og:updated_time" content="2016-08-07T15:51:06.432Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Unity3D .Net Framework  Mono">
+<meta name="twitter:description" content="接上文Unity 5.3.5p8 C#编译器升级
+Unity编译器升级新升级的Mono C#编译器（对应Mono 4.4）
+Unity编辑器及播放器所使用的Mono运行时还未升级。
+新编译器仍针对C# 4，是旧的编译器也支持的版本。
+新编译器目标框架为.Net 3.5，也是之前支持的框架。">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 1620787,
+      author: 'Author'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="https://zhaoqingqing.github.io/2016/08/08/unity3d-donet-mono.html"/>
+
+  <title> Unity3D .Net Framework  Mono | qingqing.zhao's blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//tajs.qq.com/stats?sId=57817168";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">qingqing.zhao's blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Unity3D .Net Framework  Mono
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-08-08T00:00:00+08:00" content="2016-08-08">
+              2016-08-08
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Unity3D技术积累/" itemprop="url" rel="index">
+                    <span itemprop="name">Unity3D技术积累</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/08/08/unity3d-donet-mono.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/08/unity3d-donet-mono.html" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>接上文<a href="http://www.cnblogs.com/zhaoqingqing/p/5745881.html" target="_blank" rel="external">Unity 5.3.5p8 C#编译器升级</a></p>
+<h2 id="Unity编译器升级"><a href="#Unity编译器升级" class="headerlink" title="Unity编译器升级"></a>Unity编译器升级</h2><p>新升级的Mono C#编译器（对应Mono 4.4）</p>
+<p>Unity编辑器及播放器所使用的Mono运行时还未升级。</p>
+<p>新编译器仍针对C# 4，是旧的编译器也支持的版本。</p>
+<p>新编译器目标框架为.Net 3.5，也是之前支持的框架。<br><a id="more"></a></p>
+<h3 id="编译器和运行时"><a href="#编译器和运行时" class="headerlink" title="编译器和运行时"></a>编译器和运行时</h3><p>CSharp(*.cs)源文件通过编译器编译成IL(中间文件) - &gt;IL 运行在Mono的 JIT(just in time) -&gt; 运行在真实环境中</p>
+<h3 id="查看Unity的Mono版本"><a href="#查看Unity的Mono版本" class="headerlink" title="查看Unity的Mono版本"></a>查看Unity的Mono版本</h3><figure class="highlight csharp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">using</span> UnityEngine;</div><div class="line"><span class="keyword">using</span> System;</div><div class="line"><span class="keyword">using</span> System.Reflection;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">MonoVersion</span> : <span class="title">MonoBehaviour</span> &#123;</div><div class="line">	<span class="function"><span class="keyword">void</span> <span class="title">Start</span>(<span class="params"></span>)</span></div><div class="line">	&#123;</div><div class="line">		Type type = Type.GetType(<span class="string">"Mono.Runtime"</span>);</div><div class="line">		<span class="keyword">if</span> (type != <span class="literal">null</span>)</div><div class="line">		&#123;</div><div class="line">			MethodInfo info = type.GetMethod(<span class="string">"GetDisplayName"</span>, BindingFlags.NonPublic | BindingFlags.Static);</div><div class="line">			</div><div class="line">			<span class="keyword">if</span> (info != <span class="literal">null</span>)</div><div class="line">				Debug.Log(info.Invoke(<span class="literal">null</span>, <span class="literal">null</span>));</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="Mono"><a href="#Mono" class="headerlink" title="Mono"></a>Mono</h2><h3 id="Mono实现-Net-Framework"><a href="#Mono实现-Net-Framework" class="headerlink" title="Mono实现.Net Framework"></a>Mono实现.Net Framework</h3><p>.NET和Mono两者是完全独立的，简单的理解：Mono项目是第三方的.Net Framework实现，比喻为.Net的跨平台版，绝大多数C#的特性在.net和mono中都是相同的，少部分特性两者的实现不一致。</p>
+<p>Mono的目标是创建一系列符合ECMA 标准（<code>Ecma-334</code>和<code>Ecma-33</code>5）的.NET 工具，包括C# 编译器和共通语言执行平台</p>
+<p>Mono 虚拟机包含一个实时编译引擎，该引擎可用于如下处理器：x86，SPARC，PowerPC，ARM，S390（32位模式和64位模式），x86-64，IA64 和64位模式的 SPARC。该虚拟机可以将代码实时编译或者预先编译到原生代码。对于那些没有列出来的系统，则使用的是代码解释器。</p>
+<hr>
+<p>摘自：<a href="http://www.mono-project.com/docs/about-mono/" target="_blank" rel="external">http://www.mono-project.com/docs/about-mono/</a></p>
+<h3 id="mono-C-Compiler"><a href="#mono-C-Compiler" class="headerlink" title="mono - C# Compiler"></a>mono - C# Compiler</h3><blockquote>
+<p>Mono’s C# compiler is feature complete for C# 1.0, 2.0, 3.0, 4.0 and 5.0 (ECMA). A good description of the feature of the various versions is available on <a href="http://en.wikipedia.org/wiki/C_Sharp_%28programming_language%29#Versions" target="_blank" rel="external">Wikipedia</a>.</p>
+<p>mono的c#编译器提供c# 1.0,2.0,3.0,4.0和5.0(ECMA)完整的功能。不同版本的特性的描述可以在<a href="http://en.wikipedia.org/wiki/C_Sharp_%28programming_language%29#Versions" target="_blank" rel="external">维基百科</a>上查看。</p>
+</blockquote>
+<h3 id="mono-Mono-Runtime"><a href="#mono-Mono-Runtime" class="headerlink" title="mono - Mono Runtime"></a>mono - Mono Runtime</h3><blockquote>
+<p>The runtime implements the ECMA Common Language Infrastructure (CLI). The runtime provides a Just-in-Time (JIT) compiler, an Ahead-of-Time compiler (AOT), a library loader, the garbage collector, a threading system and interoperability functionality.</p>
+<p>mono运行时实现了ECMA 公共语言基础(CLI)。运行时提供了即时(JIT)编译器，提前的编译器(AOT)，库加载器，垃圾回收机器，线程操作，互操作性</p>
+</blockquote>
+<h3 id="mono-NET-Frame-Class-Libray"><a href="#mono-NET-Frame-Class-Libray" class="headerlink" title="mono - .NET Frame Class Libray"></a>mono - .NET Frame Class Libray</h3><blockquote>
+<p>The Mono platform provides a comprehensive set of classes that provide a solid foundation to build applications on. These classes are compatible with Microsoft’s .Net Framework classes.</p>
+<p>Mono平台提供了一组全面的类来构建应用程序提供一个坚实的基础。这些类是兼容微软的.Net framework</p>
+</blockquote>
+<h3 id="mono-Mono-Class-Libray"><a href="#mono-Mono-Class-Libray" class="headerlink" title="mono - Mono Class Libray"></a>mono - Mono Class Libray</h3><blockquote>
+<p>Mono also provides many classes that go above and beyond the Base Class Library provided by Microsoft. These provide additional functionality that are useful, especially in building Linux applications. Some examples are classes for Gtk+, Zip files, LDAP, OpenGL, Cairo, POSIX, etc.</p>
+<p>Mono还提供了很多类,甚至超越了微软提供的基类库。这些提供额外的功能是有用的,特别是在构建Linux应用程序。一些例子是Gtk +,Zip文件、LDAP、OpenGL,Cairo,POSIX等等。</p>
+</blockquote>
+<h2 id="Net和Mono"><a href="#Net和Mono" class="headerlink" title=".Net和Mono"></a>.Net和Mono</h2><h3 id="Net和C-版本"><a href="#Net和C-版本" class="headerlink" title=".Net和C#版本"></a>.Net和C#版本</h3><p>.Net版本和C#版本：<a href="http://www.cnblogs.com/zhaoqingqing/p/5478239.html" target="_blank" rel="external">http://www.cnblogs.com/zhaoqingqing/p/5478239.html</a></p>
+<table>
+<thead>
+<tr>
+<th>.net framework</th>
+<th>c# version</th>
+<th>note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>.net 3.5</td>
+<td>3.0</td>
+<td></td>
+</tr>
+<tr>
+<td>.net 4.0</td>
+<td>4.0</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="Net和Mono版本关系"><a href="#Net和Mono版本关系" class="headerlink" title=".Net和Mono版本关系"></a>.Net和Mono版本关系</h3><table>
+<thead>
+<tr>
+<th>mono version</th>
+<th>net version</th>
+<th>note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>mono 4.4</td>
+<td>.net 3.5</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>mono编译器版本升级 mono运行库没有升级，目前运行时的mono还是 3.5</p>
+<h3 id="mono发行版本"><a href="#mono发行版本" class="headerlink" title="mono发行版本"></a>mono发行版本</h3><table>
+<thead>
+<tr>
+<th>Date(时间)</th>
+<th>Version(版本)</th>
+<th>Note(备注)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2004-06-30</td>
+<td>1.0</td>
+<td>C# 1.0 support</td>
+</tr>
+<tr>
+<td>2006-11-09</td>
+<td>1.2</td>
+<td>C# 2.0 support</td>
+</tr>
+<tr>
+<td>2008-10-06</td>
+<td>2.0</td>
+<td>.Net 2.0 C# 3.0</td>
+</tr>
+<tr>
+<td>2010-09-22</td>
+<td>2.8</td>
+<td>.Net profile C#4.0 support</td>
+</tr>
+<tr>
+<td>2012-10-15</td>
+<td>3.0</td>
+<td>C# 5.0 support,async base class libray,MVC4 partial</td>
+</tr>
+<tr>
+<td>2014-03-31</td>
+<td>3.4</td>
+<td></td>
+</tr>
+<tr>
+<td>2015-04-29</td>
+<td>4.0</td>
+<td>.NET 4.5 profile .NET4.5 assembiles,C#6.0,integrate .net core code</td>
+</tr>
+<tr>
+<td>2014-03-31</td>
+<td>4.2</td>
+<td></td>
+</tr>
+<tr>
+<td>2016-06-08</td>
+<td>4.4</td>
+<td></td>
+</tr>
+<tr>
+<td>2016-08-01</td>
+<td>4.6</td>
+</tr>
+</tbody>
+</table>
+<p>2016 Mono joins the .NET Foundation</p>
+<blockquote>
+<p>参考资料</p>
+</blockquote>
+<p>Mono release: <a href="http://www.mono-project.com/docs/about-mono/releases/" target="_blank" rel="external">http://www.mono-project.com/docs/about-mono/releases/</a><br>Mono 4.4：<a href="http://www.mono-project.com/docs/about-mono/releases/4.4.0/" target="_blank" rel="external">http://www.mono-project.com/docs/about-mono/releases/4.4.0/</a><br>Mono software: <a href="https://en.wikipedia.org/wiki/Mono" target="_blank" rel="external">https://en.wikipedia.org/wiki/Mono</a></p>
+<h2 id="NET-Core-Net-Framework-Mono"><a href="#NET-Core-Net-Framework-Mono" class="headerlink" title=".NET Core .Net Framework Mono"></a>.NET Core .Net Framework Mono</h2><p><a href="http://www.cnblogs.com/shanyou/p/4295163.html" target="_blank" rel="external">.NET Core与.NET Framework、Mono之间的关系</a></p>
+<h2 id="更多资料"><a href="#更多资料" class="headerlink" title="更多资料"></a>更多资料</h2><h3 id="我的疑问"><a href="#我的疑问" class="headerlink" title="我的疑问"></a>我的疑问</h3><p>  编译器和运行时版本不匹配可以正常执行？</p>
+<h3 id="文献资料"><a href="#文献资料" class="headerlink" title="文献资料"></a>文献资料</h3><p>mono project github: <a href="https://github.com/mono/mono" target="_blank" rel="external">https://github.com/mono/mono</a></p>
+<p>mono doc: <a href="http://www.mono-project.com/docs/" target="_blank" rel="external">http://www.mono-project.com/docs/</a></p>
+<p>Mono英文百科：<a href="https://en.wikipedia.org/wiki/Mono" target="_blank" rel="external"><a href="https://en.wikipedia.org/wiki/Mono" target="_blank" rel="external">https://en.wikipedia.org/wiki/Mono</a></a></p>
+<p>Mono中文百科：<a href="https://zh.wikipedia.org/wiki/Mono" target="_blank" rel="external">https://zh.wikipedia.org/wiki/Mono</a></p>
+<hr>
+<p><a href="http://kb.cnblogs.com/page/514268/" target="_blank" rel="external">魅力 .NET：从 Mono、.NET Core 说起</a></p>
+<p><a href="http://www.cnblogs.com/yeanzhi/archive/2013/02/24/2924687.html" target="_blank" rel="external">[c#基础系列二]：从编译，执行过程理解c#</a></p>
+<p><a href="http://www.cnblogs.com/murongxiaopifu/p/4211964.html" target="_blank" rel="external">Mono为何能跨平台？聊聊CIL(MSIL)</a></p>
+<p>国内 Mono 相关文章汇总：<a href="http://www.cnblogs.com/shanyou/archive/2012/07/28/2612919.html" target="_blank" rel="external">http://www.cnblogs.com/shanyou/archive/2012/07/28/2612919.html</a></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Unity3D官方/" rel="tag">#Unity3D官方</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/08/06/unity3d-5.3.5p8-csharpcompiler-upgrade.html" rel="next" title="Unity 5.3.5p8 C#编译器升级">
+                <i class="fa fa-chevron-left"></i> Unity 5.3.5p8 C#编译器升级
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <a class="jiathis_button_tsina"></a>
+  <a class="jiathis_button_tqq"></a>
+  <a class="jiathis_button_weixin"></a>
+  <a class="jiathis_button_cqq"></a>
+  <a class="jiathis_button_douban"></a>
+  <a class="jiathis_button_renren"></a>
+  <a class="jiathis_button_qzone"></a>
+  <a class="jiathis_button_kaixin001"></a>
+  <a class="jiathis_button_copy"></a>
+  <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+  var jiathis_config={
+    hideMore:false
+  }
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/08/08/unity3d-donet-mono.html"
+           data-title="Unity3D .Net Framework  Mono" data-url="https://zhaoqingqing.github.io/2016/08/08/unity3d-donet-mono.html">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="qingqing-zhao" />
+          <p class="site-author-name" itemprop="name">qingqing-zhao</p>
+          <p class="site-description motion-element" itemprop="description">每天叫醒自己的不是闹钟而是梦想。</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">5</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="github https://github.com/zhaoqingqing/" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/people/zhaoqingqing" target="_blank" title="ZhiHu">
+                  
+                    <i class="fa fa-fw fa-tencent-weibo"></i>
+                  
+                  ZhiHu
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.cnblogs.com/zhaoqingqing/" target="_blank" title="CNBlogs">
+                  
+                    <i class="fa fa-fw fa-wordpress"></i>
+                  
+                  CNBlogs
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://stackexchange.com/users/8823592/qingqing-zhao" target="_blank" title="StackOverflow">
+                  
+                    <i class="fa fa-fw fa-stack-overflow"></i>
+                  
+                  StackOverflow
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-block">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              友情链接
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.jianshu.com/users/674f1a626944/latest_articles" title="Mr-Kelly - 简书" target="_blank">Mr-Kelly - 简书</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.cnblogs.com/xingxueliao/" title="Alex-Liao 博客园" target="_blank">Alex-Liao 博客园</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.cnblogs.com/zhaoqingqing/" title="赵青青 - 博客园" target="_blank">赵青青 - 博客园</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Unity编译器升级"><span class="nav-number">1.</span> <span class="nav-text">Unity编译器升级</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#编译器和运行时"><span class="nav-number">1.1.</span> <span class="nav-text">编译器和运行时</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查看Unity的Mono版本"><span class="nav-number">1.2.</span> <span class="nav-text">查看Unity的Mono版本</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Mono"><span class="nav-number">2.</span> <span class="nav-text">Mono</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Mono实现-Net-Framework"><span class="nav-number">2.1.</span> <span class="nav-text">Mono实现.Net Framework</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mono-C-Compiler"><span class="nav-number">2.2.</span> <span class="nav-text">mono - C# Compiler</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mono-Mono-Runtime"><span class="nav-number">2.3.</span> <span class="nav-text">mono - Mono Runtime</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mono-NET-Frame-Class-Libray"><span class="nav-number">2.4.</span> <span class="nav-text">mono - .NET Frame Class Libray</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mono-Mono-Class-Libray"><span class="nav-number">2.5.</span> <span class="nav-text">mono - Mono Class Libray</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Net和Mono"><span class="nav-number">3.</span> <span class="nav-text">.Net和Mono</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Net和C-版本"><span class="nav-number">3.1.</span> <span class="nav-text">.Net和C#版本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Net和Mono版本关系"><span class="nav-number">3.2.</span> <span class="nav-text">.Net和Mono版本关系</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mono发行版本"><span class="nav-number">3.3.</span> <span class="nav-text">mono发行版本</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NET-Core-Net-Framework-Mono"><span class="nav-number">4.</span> <span class="nav-text">.NET Core .Net Framework Mono</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#更多资料"><span class="nav-number">5.</span> <span class="nav-text">更多资料</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#我的疑问"><span class="nav-number">5.1.</span> <span class="nav-text">我的疑问</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#文献资料"><span class="nav-number">5.2.</span> <span class="nav-text">文献资料</span></a></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">qingqing-zhao</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"mr-qing"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/vendors/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+
+  
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+  </script>
+
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+      for (i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  </script>
+  <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+  
+
+  
+
+</body>
+</html>

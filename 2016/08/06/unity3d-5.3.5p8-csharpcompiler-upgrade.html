@@ -98,7 +98,7 @@
 基于Unity 5.3.5p8的C#编译器升级！下载链接
 试用该版本前请先备份项目，遇到任何问题请及时反馈到Unity官方中文社区（http://forum.china.unity3d.com/）。
 新升级的Mono C#编译器（对应Mono 4.4）将用于编译所有的C#脚本。">
-<meta property="og:updated_time" content="2016-08-07T02:39:51.048Z">
+<meta property="og:updated_time" content="2016-08-07T15:12:49.943Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Unity 5.3.5p8 C#编译器升级">
 <meta name="twitter:description" content="Unity 5.3.5p8的C#编译器升级注意：该版本是单独升级C#编译器的测试版！请使用文中提供的下载链接！
@@ -361,18 +361,7 @@
 <p>对Array、List<t>、Dictionary<t>或HashSet<t>做“foreach”遍历是不会分配内存的。</t></t></t></p>
 <h3 id="为何不面向C-5或C-6？"><a href="#为何不面向C-5或C-6？" class="headerlink" title="为何不面向C# 5或C# 6？"></a>为何不面向C# 5或C# 6？</h3><p>第一步我们希望先推出新的编译器。未来再启用新的C#特性。</p>
 <p>支持C#语言新特性面临的几个问题：<br>目前的生态系统不能完全把控新的C#（脚本更新器、调试器、特定的MonoDevelop/VisualStudio版本）<br>目前仍以旧的.Net 3.5为目标框架。在旧框架上支持新的C#或多或少会导致些迷惑。从头开始编写所有代码也许可行，但对于已有代码来说可能需要C#语言和框架都是最新才可以。</p>
-<p style="text-align: left;">原文出处：<a href="http://forum.china.unity3d.com/thread-19893-1-1.html?sukey=3997c0719f151520c3814d65da88b37940419f1240e8b1919f76db44b25a351e66aba58667def65781188fd3f96d1fc2" target="_blank" rel="external">http://forum.china.unity3d.com/thread-19893-1-1.html?sukey=3997c0719f151520c3814d65da88b37940419f1240e8b1919f76db44b25a351e66aba58667def65781188fd3f96d1fc2</a></p>
-
-<h2 id="个人见解"><a href="#个人见解" class="headerlink" title="个人见解"></a>个人见解</h2><h3 id="疑问地方"><a href="#疑问地方" class="headerlink" title="疑问地方"></a>疑问地方</h3><p>新升级的Mono C#编译器（对应Mono 4.4）</p>
-<p>Unity编辑器及播放器所使用的Mono运行时还未升级。</p>
-<p>新编译器仍针对C# 4。是旧的编译器也支持的版本。</p>
-<p>新编译器目标框架为.Net 3.5，也是之前支持的框架。</p>
-<h3 id="我的理解"><a href="#我的理解" class="headerlink" title="我的理解"></a>我的理解</h3><p>.Net版本和C#版本：<a href="http://www.cnblogs.com/zhaoqingqing/p/5478239.html" target="_blank" rel="external">http://www.cnblogs.com/zhaoqingqing/p/5478239.html</a></p>
-<p>.Net 3.5 -&gt; C#3.0</p>
-<p>.Net 4.0 -&gt; C#4.0   </p>
-<p>mono 4.4 == net 3.5 大概的类比</p>
-<p>mono编译器版本升级 mono运行库没有升级，目前运行时的mono还是 3.5</p>
-
+<p style="text-align: left;">原文出处：<a href="http://forum.china.unity3d.com/thread-19893-1-1.html" target="_blank" rel="external">http://forum.china.unity3d.com/thread-19893-1-1.html</a><br><br></p>
       
     </div>
 
@@ -410,6 +399,10 @@
           </div>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/08/08/unity3d-donet-mono.html" rel="prev" title="Unity3D .Net Framework  Mono">
+                Unity3D .Net Framework  Mono <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -504,7 +497,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">4</span>
+              <span class="site-state-item-count">5</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -617,7 +610,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Unity-5-3-5p8的C-编译器升级"><span class="nav-number">1.</span> <span class="nav-text">Unity 5.3.5p8的C#编译器升级</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#重要注意事项"><span class="nav-number">2.</span> <span class="nav-text">重要注意事项</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#FAQ"><span class="nav-number">3.</span> <span class="nav-text">FAQ</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#对现有项目有何影响？"><span class="nav-number">3.1.</span> <span class="nav-text">对现有项目有何影响？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#有什么需要注意的？"><span class="nav-number">3.2.</span> <span class="nav-text">有什么需要注意的？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#有什么重大变化吗？"><span class="nav-number">3.3.</span> <span class="nav-text">有什么重大变化吗？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#是否修复了“foreach”内存分配的问题？"><span class="nav-number">3.4.</span> <span class="nav-text">是否修复了“foreach”内存分配的问题？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#为何不面向C-5或C-6？"><span class="nav-number">3.5.</span> <span class="nav-text">为何不面向C# 5或C# 6？</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#个人见解"><span class="nav-number">4.</span> <span class="nav-text">个人见解</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#疑问地方"><span class="nav-number">4.1.</span> <span class="nav-text">疑问地方</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#我的理解"><span class="nav-number">4.2.</span> <span class="nav-text">我的理解</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Unity-5-3-5p8的C-编译器升级"><span class="nav-number">1.</span> <span class="nav-text">Unity 5.3.5p8的C#编译器升级</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#重要注意事项"><span class="nav-number">2.</span> <span class="nav-text">重要注意事项</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#FAQ"><span class="nav-number">3.</span> <span class="nav-text">FAQ</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#对现有项目有何影响？"><span class="nav-number">3.1.</span> <span class="nav-text">对现有项目有何影响？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#有什么需要注意的？"><span class="nav-number">3.2.</span> <span class="nav-text">有什么需要注意的？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#有什么重大变化吗？"><span class="nav-number">3.3.</span> <span class="nav-text">有什么重大变化吗？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#是否修复了“foreach”内存分配的问题？"><span class="nav-number">3.4.</span> <span class="nav-text">是否修复了“foreach”内存分配的问题？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#为何不面向C-5或C-6？"><span class="nav-number">3.5.</span> <span class="nav-text">为何不面向C# 5或C# 6？</span></a></li></ol></li></ol></div>
             
           </div>
         </section>
