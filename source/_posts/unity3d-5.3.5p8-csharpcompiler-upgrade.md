@@ -76,29 +76,6 @@ foreach (var a in actions)
 目前的生态系统不能完全把控新的C#（脚本更新器、调试器、特定的MonoDevelop/VisualStudio版本）
 目前仍以旧的.Net 3.5为目标框架。在旧框架上支持新的C#或多或少会导致些迷惑。从头开始编写所有代码也许可行，但对于已有代码来说可能需要C#语言和框架都是最新才可以。
 
-<p style="text-align: left;">原文出处：http://forum.china.unity3d.com/thread-19893-1-1.html?sukey=3997c0719f151520c3814d65da88b37940419f1240e8b1919f76db44b25a351e66aba58667def65781188fd3f96d1fc2</p>
+<p style="text-align: left;">原文出处：[http://forum.china.unity3d.com/thread-19893-1-1.html](http://forum.china.unity3d.com/thread-19893-1-1.html)
 
-## 个人见解
-
-### 疑问地方
-新升级的Mono C#编译器（对应Mono 4.4）
-
-Unity编辑器及播放器所使用的Mono运行时还未升级。
-
-新编译器仍针对C# 4。是旧的编译器也支持的版本。
-
-新编译器目标框架为.Net 3.5，也是之前支持的框架。
-
-### 我的理解
-.Net版本和C#版本：http://www.cnblogs.com/zhaoqingqing/p/5478239.html
-
-.Net 3.5 -> C#3.0
-
-.Net 4.0 -> C#4.0   
-
-mono 4.4 == net 3.5 大概的类比
-
-mono编译器版本升级 mono运行库没有升级，目前运行时的mono还是 3.5
-
-
-
+</p>
