@@ -1,6 +1,9 @@
 ---
-title: Unity 5.3.5p8的C#编译器升级
+title: Unity 5.3.5p8 C#编译器升级
 date: 2016-08-06
+tags:
+    - Unity3D官方
+categories: Unity3D技术积累
 ---
 
 
@@ -73,7 +76,7 @@ foreach (var a in actions)
 目前的生态系统不能完全把控新的C#（脚本更新器、调试器、特定的MonoDevelop/VisualStudio版本）
 目前仍以旧的.Net 3.5为目标框架。在旧框架上支持新的C#或多或少会导致些迷惑。从头开始编写所有代码也许可行，但对于已有代码来说可能需要C#语言和框架都是最新才可以。
 
-原文出处：http://forum.china.unity3d.com/thread-19893-1-1.html?sukey=3997c0719f151520c3814d65da88b37940419f1240e8b1919f76db44b25a351e66aba58667def65781188fd3f96d1fc2
+<p style="text-align: left;">原文出处：http://forum.china.unity3d.com/thread-19893-1-1.html?sukey=3997c0719f151520c3814d65da88b37940419f1240e8b1919f76db44b25a351e66aba58667def65781188fd3f96d1fc2</p>
 
 ## 个人见解
 

@@ -1,5 +1,6 @@
 ---
 title: Unity3D-Assetbundle-打包和更新的两种做法
+date: 2016-08-05
 tags:
     - Unity3D
 categories: Unity3D项目日志
