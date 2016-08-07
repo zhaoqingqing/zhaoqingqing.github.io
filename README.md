@@ -366,7 +366,16 @@ debug1: Exit status 1
 
 `Hi zhaoqingqing! You've successfully authenticated`重点日志，输出此就表示你成功了。
 
+## 第三方服务
+
+next主题集成第三方服务文档：http://theme-next.iissnan.com/third-party-services.html
+
+腾讯统计：http://v2.ta.qq.com/bind/site
+
+JiaThis分享：http://www.jiathis.com/ (Adb可能会过滤掉)
+
 ## 我的总结
+
 ### 需要上传的文件
 _config.yml，theme/，source/，scaffolds/，package.json，.gitignore 需要上传到hexo分支
 
