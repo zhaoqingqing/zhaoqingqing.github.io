@@ -1,17 +1,23 @@
 ##  readme
+windows下使用hexo + gitpages 搭建个人博客。
+
 qingqing's blog https://zhaoqingqing.github.io/
 
-hexo分支 blog配置文件+md源文件
+hexo分支: blog配置文件+md源文件
 
-master分支 发布后的静态html
+master分支: 发布后的静态html
+
+本文涉及的指令，建议以 管理员身份 在 git cmd中执行
 
 ## modules
 
-### nodejs v4.4.4 x86
+以下是搭建需要用到的组件
+
+### nodejs
 
 历史版本下载：http://nodejs.cn/download/releases/
 
-(PS：win10 x64 + node-v6.3.1-x64  折腾老久都是chokidar/fsevents 安装失败，所以选择了此版本的nodejs)
+(PS：win10 x64 + node-v6.3.1-x64  一直遇到`chokidar/fsevents `安装失败，所以选择了nodejs v4.4.4 x86)
 
 ```bash
 C:\Users\qingqing>node -v
@@ -25,16 +31,18 @@ npm cache clean --force
 npm update
 ```
 
-### git 2.8.1
+### git
 
-http://www.cnblogs.com/zhaoqingqing/p/5151192.html
+基于 git 2.8.1 x64
+
+git的知识请参考：http://www.cnblogs.com/zhaoqingqing/p/5151192.html
 
 ```powershell
 C:\Users\qingqing>git --version
 git version 2.8.1.windows.1
 ```
 
-本文中涉及到使用git 指令，请在运行xx\git\**git-cmd.exe**后，再执行git指令。
+本文中涉及到使用git 指令，请在**git-cmd.exe** 中执行git指令。
 
 ### hexo
 
@@ -44,9 +52,11 @@ https://github.com/hexojs/hexo
 
 https://hexo.io/zh-cn/docs/
 
-**安装成功**
+**安装过程和结果**
 
 ```powershell
+管理员: Git CMD
+C:\Users\qingqing>npm install hexo-cli -g
 C:\Users\qingqing>hexo -v
 hexo-cli: 1.0.2
 os: Windows_NT 10.0.10586 win32 ia32
@@ -62,6 +72,8 @@ openssl: 1.0.2h
 ```
 
 **安装过程**
+
+建议以 管理员身份 在 git cmd中执行以下指令
 
 ```powershell
 npm install hexo-cli -g
@@ -90,23 +102,19 @@ http://theme-next.iissnan.com/getting-started.html
 
 ### githubpages
 
-https://pages.github.com/
+博客托管在git的page上：https://pages.github.com/
 
 ## 搭建过程
 
-### 整体思路
+### 思路分析
 
 创建两个分支
 
-- master branch
+- master branch: 静态html，发布文件
 
 
-​	静态html，发布文件
+- hexo branch : md source + hexo config，理论上是私密文件	
 
-- hexo branch
-
-
-​	md source + hexo config，理论上是私密文件
 
 ### 创建分支
 
@@ -127,7 +135,7 @@ $ git checkout hexo
 
 方法一
 
-往 hexo 分支 add 某文件，commit ，并push到远端，这样远端就有了 hexo 分支
+​      往 hexo 分支 add 某文件，commit ，并push到远端，这样远端就有了 hexo 分支
 
 方法二
 
@@ -136,17 +144,11 @@ git remote add origin <地址>
 git push origin hexo
 ```
 
-
-
 ------
 
+可以在git中设置默认branch为hexo，在下次提交时就会直接提交到hexo分支
 
-
-可以在git中设置默认branch为hexo，本地的下次提交就会直接提交到hexo分支
-
-### 安装hexo
-
-### submodule install theme
+### install hexo theme
 
 思路：fork 某 theme 变成sub module?
 
@@ -418,10 +420,10 @@ SSH key密钥对
 
 hexo-theme-next第三方服务集成 http://theme-next.iissnan.com/third-party-services.html
 
-- [ ] 评论插件
+- [x] 评论插件
 - [ ] 分享插件
 - [ ] 搜索服务
-- [ ] //scheme: Pisces 修改宽度 https://github.com/iissnan/hexo-theme-next/issues/759#issuecomment-202242848
+- [x] //scheme: Pisces 修改宽度 https://github.com/iissnan/hexo-theme-next/issues/759#issuecomment-202242848
 - [ ] 进阶
 
 ## 待读资料
