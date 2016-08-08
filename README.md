@@ -206,10 +206,11 @@ INFO  Deploy done: git
 
 ### 同步步骤
 
-1. git clone 已有project 
-2. git cmd 进入拉到存放的目录 ，执行 `npm instal hexo`
-3. 执行 `npm instal`l 安装package.json是已安装的modules
+1. git clone 已有project，比如我的存放在 F:\Document\zhaoqingqing.github.io
+2. git cmd 进入拉到存放的目录 ，执行 `npm instal hexo`，此过程时间可能稍久
+3. 执行 `npm install` 安装package.json中的modules，此过程时间较久
 4. `npm install hexo-deployer-git` ，安装布署组件
+5. 同步完成后，在 F:\Document\zhaoqingqing.github.io\node_modules下可以看到新安装的库
 
 ```powershell
 cd f:
@@ -234,6 +235,13 @@ F:\Document\zhaoqingqing.github.io>npm install hexo-deployer-git --save
 不要执行`F:\Document\zhaoqingqing.github.io>hexo init` 指令
 
 执行之后，就会初始化blog
+
+### 同步失败
+
+如果你根据上述步骤同步失败的话，请尝试下面的方法：
+
+1. 重新安装hexo
+2. 重新执行上述的**同步步骤**
 
 ## 遇到的问题
 
