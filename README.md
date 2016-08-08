@@ -245,6 +245,12 @@ F:\Document\zhaoqingqing.github.io>npm install hexo-deployer-git --save
 
 ## 遇到的问题
 
+### hexo调试
+
+当你在使用hexo指令时，假如遇到错误而闪退时，也许你会在bat中加上 pause阻止闪退，但我在win7和win10上测试无效。
+
+为解决看不到log而烦恼，请在 git cmd 中执行hexo指令，git cmd会打印错误log而不会自动退出。
+
 ### hexo 不是内部命令
 
 如果在某台电脑上安装成功之后，在另外电脑上同步遇到此问题，可以尝试以下方法
@@ -398,6 +404,45 @@ debug1: Exit status 1
 > npm install --save hexo-server
 
 
+
+### deploy失败
+
+在公司的电脑上同步hexo 博客，本地正常布署，但提交到git时，报以下错误 `Host key verification failed.`
+
+```powershell
+
+nothing to commit, working directory clean
+Host key verification failed.
+fatal: Could not read from remote repository.
+
+Please make sure you have the correct access rights
+and the repository exists.
+FATAL Something's wrong. Maybe you can find the solution here: http://hexo.io/docs/troubleshooting.html
+Error: Host key verification failed.
+fatal: Could not read from remote repository.
+
+Please make sure you have the correct access rights
+and the repository exists.
+
+    at ChildProcess.<anonymous> (E:\Code\zhaoqingqing.github.io\node_modules\hexo-deployer-git\node_modules\hexo-util\lib\spawn.js:37:17)
+.......
+FATAL Host key verification failed.
+fatal: Could not read from remote repository.
+
+Please make sure you have the correct access rights
+and the repository exists.
+
+Error: Host key verification failed.
+fatal: Could not read from remote repository.
+
+Please make sure you have the correct access rights
+and the repository exists.
+
+    at ChildProcess.<anonymous> (E:\Code\zhaoqingqing.github.io\node_modules\hexo-deployer-git\node_modules\hexo-util\lib\spawn.js:37:17)
+	.......
+
+E:\Code\zhaoqingqing.github.io>
+```
 
 ## next主题定制
 
