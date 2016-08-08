@@ -383,7 +383,45 @@ debug1: Exit status 1
 
 `Hi zhaoqingqing! You've successfully authenticated`重点日志，输出此就表示你成功了。
 
-## 第三方服务
+### 启动hexo服务失败
+
+公司电脑windows 7 x64，安装hexo成功之后，启动hexo server或 hexo generate服务失败
+
+根据错误提示安装缺少的库，以下是我缺少的库，请根据出错提示安装。
+
+> npm install hexo-deployer-git --save
+>
+> npm install --save object-assign
+>
+> npm install --save connect
+>
+> npm install --save hexo-server
+
+
+
+## next主题定制
+
+### Pisces主题
+
+Pisces主题的宽度修改：https://github.com/iissnan/hexo-theme-next/issues/759#issuecomment-202242848
+
+步骤
+
+1. 打开 themes\source\css\_schemes\Pisces\_layout.styl
+
+2. 修改内容如下
+
+   ```css
+   .header{ width: 80%; }                            /*默认在4行*/
+   .container .main-inner { width: 80%; }           /*默认在47行*/
+   .content-wrap { width: calc(100% - 260px); }    /*默认在61行*/
+   ```
+
+3. 注意事项：.content-wrap里的width后的 -260px不可设置过大否则左则栏和主体间隙很大。
+
+4. 修改之后，请执行` hexo clean `，再重新生成。
+
+### 第三方服务
 
 next主题集成第三方服务文档：http://theme-next.iissnan.com/third-party-services.html
 
@@ -439,7 +477,8 @@ hexo-theme-next第三方服务集成 http://theme-next.iissnan.com/third-party-s
 - [ ] 分享插件
 - [ ] 搜索服务
 - [x] //scheme: Pisces 修改宽度 https://github.com/iissnan/hexo-theme-next/issues/759#issuecomment-202242848
-- [ ] 进阶
+- [ ] 文章目录自动展开
+- [ ] 进阶技巧
 
 ## 待读资料
 
