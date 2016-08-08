@@ -246,7 +246,7 @@
     <link href="https://zhaoqingqing.github.io/2016/08/05/unity_assetbundle-build&amp;update-twomethod.html"/>
     <id>https://zhaoqingqing.github.io/2016/08/05/unity_assetbundle-build&amp;update-twomethod.html</id>
     <published>2016-08-04T16:00:00.000Z</published>
-    <updated>2016-08-06T14:45:05.772Z</updated>
+    <updated>2016-08-08T12:56:17.829Z</updated>
     
     <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>本文根据过往项目经验所写，部分版权归所属公司所有，未涉及代码部分。<br>两个项目有着不同的资源管理的方式：</p>
 <ul>
@@ -363,7 +363,10 @@ textures\
 </pre>
 
 <hr>
-<h2 id="分散打包"><a href="#分散打包" class="headerlink" title="分散打包"></a>分散打包</h2><h2 id="资源更新-1"><a href="#资源更新-1" class="headerlink" title="资源更新"></a>资源更新</h2><h3 id="如何触发更新-1"><a href="#如何触发更新-1" class="headerlink" title="如何触发更新"></a>如何触发更新</h3><p>本地assetbundle版本：10050，服务器assetbundle版本：10051，玩家需要下载更新。</p>
+<h2 id="分散打包"><a href="#分散打包" class="headerlink" title="分散打包"></a>分散打包</h2><p>文件的打包是分散的，有依赖关系</p>
+<p>TODO</p>
+<h2 id="资源更新-1"><a href="#资源更新-1" class="headerlink" title="资源更新"></a>资源更新</h2><p>TODO</p>
+<h3 id="如何触发更新-1"><a href="#如何触发更新-1" class="headerlink" title="如何触发更新"></a>如何触发更新</h3><p>本地assetbundle版本：10050，服务器assetbundle版本：10051，玩家需要下载更新。</p>
 <h3 id="资源目录-1"><a href="#资源目录-1" class="headerlink" title="资源目录"></a>资源目录</h3><pre>
 StreamingAssets
    Android
