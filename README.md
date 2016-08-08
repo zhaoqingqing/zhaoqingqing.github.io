@@ -166,7 +166,7 @@ git submodule add git@github.com:iissnan/hexo-theme-next.git next
 
 ### 发布到博客
 
-hexo布署到何处？打开配置文件 _config.yml
+hexo布署到何处？打开配置文件 _config.yml，修改以下配置:
 
 ```yaml
 deploy:
@@ -202,7 +202,14 @@ INFO  Deploy done: git
 
 ## 多台电脑同步
 
-针对于已有hexo + gitpages的用户，在另一台电脑上**同步而不是新搭建**
+针对于已有hexo + gitpages的用户，并且和我一样使用两个分支的同学，建议在另一台电脑上**同步而不用重新搭建**
+
+### 同步步骤
+
+1. git clone 已有project 
+2. git cmd 进入拉到存放的目录 ，执行 `npm instal hexo`
+3. 执行 `npm instal`l 安装package.json是已安装的modules
+4. `npm install hexo-deployer-git` ，安装布署组件
 
 ```powershell
 cd f:
