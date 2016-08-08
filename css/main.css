@@ -1550,7 +1550,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #f552ff;
+  background: #0454ff;
 }
 .links-of-blogroll {
   font-size: 13px;
@@ -2185,7 +2185,8 @@ body {
   }
 }
 .main {
-  background-color: #a9a9a9;
+  background-color: #e6e6e6;
+  box-shadow: 0 2px 6px rgba(100,100,100,0.3);
 }
 .main:before,
 .main:after {
