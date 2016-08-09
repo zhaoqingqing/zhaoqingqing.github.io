@@ -309,7 +309,7 @@ http://www.cnblogs.com/amaoxiaozhu/p/3319233.html
 
 变量值： C:\Program Files\TortoiseGit\bin\TortoisePLink.exe
 
-1、cd到ssh-agent.exe所在目录C:\Program Files\Git\usr\bin>
+1、使用git cmd 进入到ssh-agent.exe安装目录`C:\Program Files\Git\usr\bin>`
 
 ```powershell
 C:\Program Files\Git\usr\bin>ssh-keygen -t rsa -C "zhaoqignqing@gmail.com"
@@ -317,13 +317,13 @@ Generating public/private rsa key pair.
 Enter file in which to save the key (/c/Users/qingqing/.ssh/id_rsa):
 ```
 
-接着按回车，如果要设定密码，请输入要设定的密码
+接着按回车，如果要设定密码，请输入要设定的密码，也可以多次回车让密码为空。
 
 重点：ssh-keygen -t rsa -C "**你的Git对应邮箱地址**"
 
 2、打开C:\Users\qingqing\.ssh\id_rsa.pub
 
-复制**id_rsa.pub**所有内容，在github的设置中添加新的SSH Keys，
+复制**id_rsa.pub**所有内容，在github的配置中添加新的SSH Keys
 
 title：自定义
 
@@ -407,10 +407,11 @@ debug1: Exit status 1
 
 ### deploy失败
 
-在公司的电脑上同步hexo 博客，本地正常布署，但提交到git时，报以下错误 `Host key verification failed.`
+错误码： `Host key verification failed.`
+
+在公司的电脑上同步hexo 博客，本地正常布署，但提交到git时，遇到错误
 
 ```powershell
-
 nothing to commit, working directory clean
 Host key verification failed.
 fatal: Could not read from remote repository.
@@ -428,21 +429,22 @@ and the repository exists.
 .......
 FATAL Host key verification failed.
 fatal: Could not read from remote repository.
-
-Please make sure you have the correct access rights
-and the repository exists.
-
-Error: Host key verification failed.
-fatal: Could not read from remote repository.
-
-Please make sure you have the correct access rights
-and the repository exists.
-
-    at ChildProcess.<anonymous> (E:\Code\zhaoqingqing.github.io\node_modules\hexo-deployer-git\node_modules\hexo-util\lib\spawn.js:37:17)
-	.......
-
 E:\Code\zhaoqingqing.github.io>
 ```
+
+**解决办法**
+
+和上述**git提交错误**基本相同的解决办法，这里说一下我调整的差异
+
+1. 没有配置 git_ssh环境变量
+
+2. 没有为id_rsa.pub设置密码
+
+步骤
+1. 使用git cmd 进入到ssh-agent.exe安装目录`C:\Program Files\Git\usr\bin>`
+2. 输入指令 C:\Program Files\Git\usr\bin>`ssh-keygen -t rsa -C "zhaoqignqing@gmail.com"`
+3. 复制`C:\Users\qingqing.ssh\id_rsa.pub`的所有内容，在github的配置中添加新的SSH Keys
+4. 输入 ssh -vT git@github.com 进行测试，如果看到 Hi zhaoqingqing! You've successfully authenticated, but GitHub does not provide shell access. 就配置成功了
 
 ## next主题定制
 
