@@ -6,9 +6,11 @@ tags:
 categories: Unity3D技术积累
 ---
 
-接上文[Unity 5.3.5p8 C#编译器升级](http://www.cnblogs.com/zhaoqingqing/p/5745881.html)
+接上文[Unity 5.3.5p8 C#编译器升级](http://www.cnblogs.com/zhaoqingqing/p/5745881.html)，本文侧重了解一些Mono的知识。
 
-## Unity编译器升级
+<!-- more -->
+
+## Unity3D的编译器升级
 
 新升级的Mono C#编译器（对应Mono 4.4）
 
@@ -17,13 +19,17 @@ Unity编辑器及播放器所使用的Mono运行时还未升级。
 新编译器仍针对C# 4，是旧的编译器也支持的版本。
 
 新编译器目标框架为.Net 3.5，也是之前支持的框架。
-<!-- more -->
+
 
 ### 编译器和运行时
 
 CSharp(*.cs)源文件通过编译器编译成IL(中间文件) - >IL 运行在Mono的 JIT(just in time) -> 运行在真实环境中
 
-### 查看Unity的Mono版本
+### 查看Unity使用的Mono版本
+
+参考：http://answers.unity3d.com/questions/259448/how-to-determine-mono-version-of-unity-.html
+
+我在unity 5.3.4f1 中测试有效，而在unity 4.3.4f1下测试无效
 
 ```csharp
 using UnityEngine;
@@ -41,8 +47,28 @@ public class MonoVersion : MonoBehaviour {
 			if (info != null)
 				Debug.Log(info.Invoke(null, null));
 		}
+      //Debug.Log(System.Enviroment.Version);//net version?
 	}
 }
+```
+
+方法二
+
+```powershell
+d:\Program Files\Unity_5_34\Editor\Data\Mono\bin>monop2 --runtime-version mono.exe
+runtime version: 2.0.50727.1433
+```
+
+```powershell
+d:\Program Files\Unity_5_34\Editor\Data\Mono\bin>mono.exe --version
+Mono JIT compiler version 2.0 (Visual Studio built mono)
+Copyright (C) 2002-2010 Novell, Inc and Contributors. www.mono-project.com
+        TLS:           normal
+        GC:            Included Boehm (with typed GC)
+        SIGSEGV:       normal
+        Notification:  Thread + polling
+        Architecture:  x86
+        Disabled:      none
 ```
 
 ## Mono
@@ -113,7 +139,7 @@ Mono 虚拟机包含一个实时编译引擎，该引擎可用于如下处理器
 |              |             |      |
 mono编译器版本升级 mono运行库没有升级，目前运行时的mono还是 3.5
 
-### mono发行版本
+### Mono发行版本
 
 | Date(时间)   | Version(版本) | Note(备注)                                 |
 | ---------- | ----------- | ---------------------------------------- |
@@ -136,13 +162,11 @@ Mono release: http://www.mono-project.com/docs/about-mono/releases/
 Mono 4.4：http://www.mono-project.com/docs/about-mono/releases/4.4.0/
 Mono software: [https://en.wikipedia.org/wiki/Mono](https://en.wikipedia.org/wiki/Mono)
 
+### Unity3D发行版本
 
+http://blogs.unity3d.com/2016/04/01/unity-joins-the-net-foundation/
 
-## .NET Core .Net Framework Mono
-
-[.NET Core与.NET Framework、Mono之间的关系](http://www.cnblogs.com/shanyou/p/4295163.html)
-
-## 更多资料
+## 更多信息
 
 ### 我的疑问
 
@@ -158,7 +182,9 @@ Mono英文百科：[[https://en.wikipedia.org/wiki/Mono](https://en.wikipedia.or
 
 Mono中文百科：[https://zh.wikipedia.org/wiki/Mono](https://zh.wikipedia.org/wiki/Mono)
 
-------
+### 扩展资料
+
+[[.NET Core与.NET Framework、Mono之间的关系](http://www.cnblogs.com/shanyou/p/4295163.html)](http://www.cnblogs.com/shanyou/p/4295163.html)
 
 [魅力 .NET：从 Mono、.NET Core 说起](http://kb.cnblogs.com/page/514268/)
 
