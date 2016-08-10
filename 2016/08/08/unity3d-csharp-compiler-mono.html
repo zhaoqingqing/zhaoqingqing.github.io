@@ -68,10 +68,12 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Unity3D官方," />
+  <meta name="keywords" content="Unity3D," />
 
 
 
+
+  
 
 
   <link rel="alternate" href="/atom.xml" title="qingqing.zhao's blog" type="application/atom+xml" />
@@ -86,28 +88,16 @@
 
 
 
-<meta name="description" content="接上文Unity 5.3.5p8 C#编译器升级
-Unity编译器升级新升级的Mono C#编译器（对应Mono 4.4）
-Unity编辑器及播放器所使用的Mono运行时还未升级。
-新编译器仍针对C# 4，是旧的编译器也支持的版本。
-新编译器目标框架为.Net 3.5，也是之前支持的框架。">
+<meta name="description" content="接上文Unity 5.3.5p8 C#编译器升级，本文侧重了解一些Mono的知识。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Unity3D .Net Framework  Mono">
-<meta property="og:url" content="https://zhaoqingqing.github.io/2016/08/08/unity3d-donet-mono.html">
+<meta property="og:title" content="从Unity3D编译器升级聊起Mono">
+<meta property="og:url" content="https://zhaoqingqing.github.io/2016/08/08/unity3d-csharp-compiler-mono.html">
 <meta property="og:site_name" content="qingqing.zhao's blog">
-<meta property="og:description" content="接上文Unity 5.3.5p8 C#编译器升级
-Unity编译器升级新升级的Mono C#编译器（对应Mono 4.4）
-Unity编辑器及播放器所使用的Mono运行时还未升级。
-新编译器仍针对C# 4，是旧的编译器也支持的版本。
-新编译器目标框架为.Net 3.5，也是之前支持的框架。">
-<meta property="og:updated_time" content="2016-08-07T15:51:06.432Z">
+<meta property="og:description" content="接上文Unity 5.3.5p8 C#编译器升级，本文侧重了解一些Mono的知识。">
+<meta property="og:updated_time" content="2016-08-10T14:16:29.810Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Unity3D .Net Framework  Mono">
-<meta name="twitter:description" content="接上文Unity 5.3.5p8 C#编译器升级
-Unity编译器升级新升级的Mono C#编译器（对应Mono 4.4）
-Unity编辑器及播放器所使用的Mono运行时还未升级。
-新编译器仍针对C# 4，是旧的编译器也支持的版本。
-新编译器目标框架为.Net 3.5，也是之前支持的框架。">
+<meta name="twitter:title" content="从Unity3D编译器升级聊起Mono">
+<meta name="twitter:description" content="接上文Unity 5.3.5p8 C#编译器升级，本文侧重了解一些Mono的知识。">
 
 
 
@@ -128,9 +118,9 @@ Unity编辑器及播放器所使用的Mono运行时还未升级。
 
 
 
-  <link rel="canonical" href="https://zhaoqingqing.github.io/2016/08/08/unity3d-donet-mono.html"/>
+  <link rel="canonical" href="https://zhaoqingqing.github.io/2016/08/08/unity3d-csharp-compiler-mono.html"/>
 
-  <title> Unity3D .Net Framework  Mono | qingqing.zhao's blog </title>
+  <title> 从Unity3D编译器升级聊起Mono | qingqing.zhao's blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -279,7 +269,7 @@ Unity编辑器及播放器所使用的Mono运行时还未升级。
             
             
               
-                Unity3D .Net Framework  Mono
+                从Unity3D编译器升级聊起Mono
               
             
           </h1>
@@ -321,8 +311,8 @@ Unity编辑器及播放器所使用的Mono运行时还未升级。
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/08/08/unity3d-donet-mono.html#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/08/unity3d-donet-mono.html" itemprop="commentsCount"></span>
+                <a href="/2016/08/08/unity3d-csharp-compiler-mono.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/08/unity3d-csharp-compiler-mono.html" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -345,13 +335,19 @@ Unity编辑器及播放器所使用的Mono运行时还未升级。
       
 
       
-        <p>接上文<a href="http://www.cnblogs.com/zhaoqingqing/p/5745881.html" target="_blank" rel="external">Unity 5.3.5p8 C#编译器升级</a></p>
-<h2 id="Unity编译器升级"><a href="#Unity编译器升级" class="headerlink" title="Unity编译器升级"></a>Unity编译器升级</h2><p>新升级的Mono C#编译器（对应Mono 4.4）</p>
+        <p>接上文<a href="http://www.cnblogs.com/zhaoqingqing/p/5745881.html" target="_blank" rel="external">Unity 5.3.5p8 C#编译器升级</a>，本文侧重了解一些Mono的知识。</p>
+<a id="more"></a>
+<h2 id="Unity3D的编译器升级"><a href="#Unity3D的编译器升级" class="headerlink" title="Unity3D的编译器升级"></a>Unity3D的编译器升级</h2><p>新升级的Mono C#编译器（对应Mono 4.4）</p>
 <p>Unity编辑器及播放器所使用的Mono运行时还未升级。</p>
 <p>新编译器仍针对C# 4，是旧的编译器也支持的版本。</p>
-<p>新编译器目标框架为.Net 3.5，也是之前支持的框架。<br><a id="more"></a></p>
+<p>新编译器目标框架为.Net 3.5，也是之前支持的框架。</p>
 <h3 id="编译器和运行时"><a href="#编译器和运行时" class="headerlink" title="编译器和运行时"></a>编译器和运行时</h3><p>CSharp(*.cs)源文件通过编译器编译成IL(中间文件) - &gt;IL 运行在Mono的 JIT(just in time) -&gt; 运行在真实环境中</p>
-<h3 id="查看Unity的Mono版本"><a href="#查看Unity的Mono版本" class="headerlink" title="查看Unity的Mono版本"></a>查看Unity的Mono版本</h3><figure class="highlight csharp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">using</span> UnityEngine;</div><div class="line"><span class="keyword">using</span> System;</div><div class="line"><span class="keyword">using</span> System.Reflection;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">MonoVersion</span> : <span class="title">MonoBehaviour</span> &#123;</div><div class="line">	<span class="function"><span class="keyword">void</span> <span class="title">Start</span>(<span class="params"></span>)</span></div><div class="line">	&#123;</div><div class="line">		Type type = Type.GetType(<span class="string">"Mono.Runtime"</span>);</div><div class="line">		<span class="keyword">if</span> (type != <span class="literal">null</span>)</div><div class="line">		&#123;</div><div class="line">			MethodInfo info = type.GetMethod(<span class="string">"GetDisplayName"</span>, BindingFlags.NonPublic | BindingFlags.Static);</div><div class="line">			</div><div class="line">			<span class="keyword">if</span> (info != <span class="literal">null</span>)</div><div class="line">				Debug.Log(info.Invoke(<span class="literal">null</span>, <span class="literal">null</span>));</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="查看Unity使用的Mono版本"><a href="#查看Unity使用的Mono版本" class="headerlink" title="查看Unity使用的Mono版本"></a>查看Unity使用的Mono版本</h3><p>参考：<a href="http://answers.unity3d.com/questions/259448/how-to-determine-mono-version-of-unity-.html" target="_blank" rel="external">http://answers.unity3d.com/questions/259448/how-to-determine-mono-version-of-unity-.html</a></p>
+<p>我在unity 5.3.4f1 中测试有效，而在unity 4.3.4f1下测试无效</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">using</span> UnityEngine;</div><div class="line"><span class="keyword">using</span> System;</div><div class="line"><span class="keyword">using</span> System.Reflection;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">MonoVersion</span> : <span class="title">MonoBehaviour</span> &#123;</div><div class="line">	<span class="function"><span class="keyword">void</span> <span class="title">Start</span>(<span class="params"></span>)</span></div><div class="line">	&#123;</div><div class="line">		Type type = Type.GetType(<span class="string">"Mono.Runtime"</span>);</div><div class="line">		<span class="keyword">if</span> (type != <span class="literal">null</span>)</div><div class="line">		&#123;</div><div class="line">			MethodInfo info = type.GetMethod(<span class="string">"GetDisplayName"</span>, BindingFlags.NonPublic | BindingFlags.Static);</div><div class="line">			</div><div class="line">			<span class="keyword">if</span> (info != <span class="literal">null</span>)</div><div class="line">				Debug.Log(info.Invoke(<span class="literal">null</span>, <span class="literal">null</span>));</div><div class="line">		&#125;</div><div class="line">      <span class="comment">//Debug.Log(System.Enviroment.Version);//net version?</span></div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>方法二</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">d:\Program Files\Unity_5_34\Editor\Data\Mono\bin&gt;monop2 --runtime-version mono.exe</div><div class="line">runtime version: <span class="number">2.0</span>.<span class="number">50727.1433</span></div></pre></td></tr></table></figure>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">d:\Program Files\Unity_5_34\Editor\Data\Mono\bin&gt;mono.exe --version</div><div class="line">Mono JIT compiler version <span class="number">2.0</span> (Visual Studio built mono)</div><div class="line">Copyright (C) <span class="number">2002</span>-<span class="number">2010</span> Novell, Inc and Contributors. www.mono-project.com</div><div class="line">        TLS:           normal</div><div class="line">        GC:            Included Boehm (with typed GC)</div><div class="line">        SIGSEGV:       normal</div><div class="line">        Notification:  Thread + polling</div><div class="line">        Architecture:  x86</div><div class="line">        Disabled:      none</div></pre></td></tr></table></figure>
 <h2 id="Mono"><a href="#Mono" class="headerlink" title="Mono"></a>Mono</h2><h3 id="Mono实现-Net-Framework"><a href="#Mono实现-Net-Framework" class="headerlink" title="Mono实现.Net Framework"></a>Mono实现.Net Framework</h3><p>.NET和Mono两者是完全独立的，简单的理解：Mono项目是第三方的.Net Framework实现，比喻为.Net的跨平台版，绝大多数C#的特性在.net和mono中都是相同的，少部分特性两者的实现不一致。</p>
 <p>Mono的目标是创建一系列符合ECMA 标准（<code>Ecma-334</code>和<code>Ecma-33</code>5）的.NET 工具，包括C# 编译器和共通语言执行平台</p>
 <p>Mono 虚拟机包含一个实时编译引擎，该引擎可用于如下处理器：x86，SPARC，PowerPC，ARM，S390（32位模式和64位模式），x86-64，IA64 和64位模式的 SPARC。该虚拟机可以将代码实时编译或者预先编译到原生代码。对于那些没有列出来的系统，则使用的是代码解释器。</p>
@@ -425,7 +421,7 @@ Unity编辑器及播放器所使用的Mono运行时还未升级。
 </tbody>
 </table>
 <p>mono编译器版本升级 mono运行库没有升级，目前运行时的mono还是 3.5</p>
-<h3 id="mono发行版本"><a href="#mono发行版本" class="headerlink" title="mono发行版本"></a>mono发行版本</h3><table>
+<h3 id="Mono发行版本"><a href="#Mono发行版本" class="headerlink" title="Mono发行版本"></a>Mono发行版本</h3><table>
 <thead>
 <tr>
 <th>Date(时间)</th>
@@ -490,13 +486,13 @@ Unity编辑器及播放器所使用的Mono运行时还未升级。
 <p>参考资料</p>
 </blockquote>
 <p>Mono release: <a href="http://www.mono-project.com/docs/about-mono/releases/" target="_blank" rel="external">http://www.mono-project.com/docs/about-mono/releases/</a><br>Mono 4.4：<a href="http://www.mono-project.com/docs/about-mono/releases/4.4.0/" target="_blank" rel="external">http://www.mono-project.com/docs/about-mono/releases/4.4.0/</a><br>Mono software: <a href="https://en.wikipedia.org/wiki/Mono" target="_blank" rel="external">https://en.wikipedia.org/wiki/Mono</a></p>
-<h2 id="NET-Core-Net-Framework-Mono"><a href="#NET-Core-Net-Framework-Mono" class="headerlink" title=".NET Core .Net Framework Mono"></a>.NET Core .Net Framework Mono</h2><p><a href="http://www.cnblogs.com/shanyou/p/4295163.html" target="_blank" rel="external">.NET Core与.NET Framework、Mono之间的关系</a></p>
-<h2 id="更多资料"><a href="#更多资料" class="headerlink" title="更多资料"></a>更多资料</h2><h3 id="我的疑问"><a href="#我的疑问" class="headerlink" title="我的疑问"></a>我的疑问</h3><p>  编译器和运行时版本不匹配可以正常执行？</p>
+<h3 id="Unity3D发行版本"><a href="#Unity3D发行版本" class="headerlink" title="Unity3D发行版本"></a>Unity3D发行版本</h3><p><a href="http://blogs.unity3d.com/2016/04/01/unity-joins-the-net-foundation/" target="_blank" rel="external">http://blogs.unity3d.com/2016/04/01/unity-joins-the-net-foundation/</a></p>
+<h2 id="更多信息"><a href="#更多信息" class="headerlink" title="更多信息"></a>更多信息</h2><h3 id="我的疑问"><a href="#我的疑问" class="headerlink" title="我的疑问"></a>我的疑问</h3><p>  编译器和运行时版本不匹配可以正常执行？</p>
 <h3 id="文献资料"><a href="#文献资料" class="headerlink" title="文献资料"></a>文献资料</h3><p>mono project github: <a href="https://github.com/mono/mono" target="_blank" rel="external">https://github.com/mono/mono</a></p>
 <p>mono doc: <a href="http://www.mono-project.com/docs/" target="_blank" rel="external">http://www.mono-project.com/docs/</a></p>
 <p>Mono英文百科：<a href="https://en.wikipedia.org/wiki/Mono" target="_blank" rel="external"><a href="https://en.wikipedia.org/wiki/Mono" target="_blank" rel="external">https://en.wikipedia.org/wiki/Mono</a></a></p>
 <p>Mono中文百科：<a href="https://zh.wikipedia.org/wiki/Mono" target="_blank" rel="external">https://zh.wikipedia.org/wiki/Mono</a></p>
-<hr>
+<h3 id="扩展资料"><a href="#扩展资料" class="headerlink" title="扩展资料"></a>扩展资料</h3><p><a href="http://www.cnblogs.com/shanyou/p/4295163.html" target="_blank" rel="external"><a href="http://www.cnblogs.com/shanyou/p/4295163.html" target="_blank" rel="external">.NET Core与.NET Framework、Mono之间的关系</a></a></p>
 <p><a href="http://kb.cnblogs.com/page/514268/" target="_blank" rel="external">魅力 .NET：从 Mono、.NET Core 说起</a></p>
 <p><a href="http://www.cnblogs.com/yeanzhi/archive/2013/02/24/2924687.html" target="_blank" rel="external">[c#基础系列二]：从编译，执行过程理解c#</a></p>
 <p><a href="http://www.cnblogs.com/murongxiaopifu/p/4211964.html" target="_blank" rel="external">Mono为何能跨平台？聊聊CIL(MSIL)</a></p>
@@ -523,7 +519,7 @@ Unity编辑器及播放器所使用的Mono运行时还未升级。
       
         <div class="post-tags">
           
-            <a href="/tags/Unity3D官方/" rel="tag">#Unity3D官方</a>
+            <a href="/tags/Unity3D/" rel="tag">#Unity3D</a>
           
         </div>
       
@@ -587,8 +583,8 @@ Unity编辑器及播放器所使用的Mono运行时还未升级。
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/08/08/unity3d-donet-mono.html"
-           data-title="Unity3D .Net Framework  Mono" data-url="https://zhaoqingqing.github.io/2016/08/08/unity3d-donet-mono.html">
+      <div class="ds-thread" data-thread-key="2016/08/08/unity3d-csharp-compiler-mono.html"
+           data-title="从Unity3D编译器升级聊起Mono" data-url="https://zhaoqingqing.github.io/2016/08/08/unity3d-csharp-compiler-mono.html">
       </div>
     
   </div>
@@ -746,7 +742,7 @@ Unity编辑器及播放器所使用的Mono运行时还未升级。
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Unity编译器升级"><span class="nav-number">1.</span> <span class="nav-text">Unity编译器升级</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#编译器和运行时"><span class="nav-number">1.1.</span> <span class="nav-text">编译器和运行时</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查看Unity的Mono版本"><span class="nav-number">1.2.</span> <span class="nav-text">查看Unity的Mono版本</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Mono"><span class="nav-number">2.</span> <span class="nav-text">Mono</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Mono实现-Net-Framework"><span class="nav-number">2.1.</span> <span class="nav-text">Mono实现.Net Framework</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mono-C-Compiler"><span class="nav-number">2.2.</span> <span class="nav-text">mono - C# Compiler</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mono-Mono-Runtime"><span class="nav-number">2.3.</span> <span class="nav-text">mono - Mono Runtime</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mono-NET-Frame-Class-Libray"><span class="nav-number">2.4.</span> <span class="nav-text">mono - .NET Frame Class Libray</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mono-Mono-Class-Libray"><span class="nav-number">2.5.</span> <span class="nav-text">mono - Mono Class Libray</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Net和Mono"><span class="nav-number">3.</span> <span class="nav-text">.Net和Mono</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Net和C-版本"><span class="nav-number">3.1.</span> <span class="nav-text">.Net和C#版本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Net和Mono版本关系"><span class="nav-number">3.2.</span> <span class="nav-text">.Net和Mono版本关系</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mono发行版本"><span class="nav-number">3.3.</span> <span class="nav-text">mono发行版本</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NET-Core-Net-Framework-Mono"><span class="nav-number">4.</span> <span class="nav-text">.NET Core .Net Framework Mono</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#更多资料"><span class="nav-number">5.</span> <span class="nav-text">更多资料</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#我的疑问"><span class="nav-number">5.1.</span> <span class="nav-text">我的疑问</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#文献资料"><span class="nav-number">5.2.</span> <span class="nav-text">文献资料</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Unity3D的编译器升级"><span class="nav-number">1.</span> <span class="nav-text">Unity3D的编译器升级</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#编译器和运行时"><span class="nav-number">1.1.</span> <span class="nav-text">编译器和运行时</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查看Unity使用的Mono版本"><span class="nav-number">1.2.</span> <span class="nav-text">查看Unity使用的Mono版本</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Mono"><span class="nav-number">2.</span> <span class="nav-text">Mono</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Mono实现-Net-Framework"><span class="nav-number">2.1.</span> <span class="nav-text">Mono实现.Net Framework</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mono-C-Compiler"><span class="nav-number">2.2.</span> <span class="nav-text">mono - C# Compiler</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mono-Mono-Runtime"><span class="nav-number">2.3.</span> <span class="nav-text">mono - Mono Runtime</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mono-NET-Frame-Class-Libray"><span class="nav-number">2.4.</span> <span class="nav-text">mono - .NET Frame Class Libray</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mono-Mono-Class-Libray"><span class="nav-number">2.5.</span> <span class="nav-text">mono - Mono Class Libray</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Net和Mono"><span class="nav-number">3.</span> <span class="nav-text">.Net和Mono</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Net和C-版本"><span class="nav-number">3.1.</span> <span class="nav-text">.Net和C#版本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Net和Mono版本关系"><span class="nav-number">3.2.</span> <span class="nav-text">.Net和Mono版本关系</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Mono发行版本"><span class="nav-number">3.3.</span> <span class="nav-text">Mono发行版本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Unity3D发行版本"><span class="nav-number">3.4.</span> <span class="nav-text">Unity3D发行版本</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#更多信息"><span class="nav-number">4.</span> <span class="nav-text">更多信息</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#我的疑问"><span class="nav-number">4.1.</span> <span class="nav-text">我的疑问</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#文献资料"><span class="nav-number">4.2.</span> <span class="nav-text">文献资料</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#扩展资料"><span class="nav-number">4.3.</span> <span class="nav-text">扩展资料</span></a></li></ol></li></ol></div>
             
           </div>
         </section>
