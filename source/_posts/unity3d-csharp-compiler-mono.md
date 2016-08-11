@@ -6,7 +6,7 @@ tags:
 categories: Unity3D技术积累
 ---
 
-接上文[Unity 5.3.5p8 C#编译器升级](http://www.cnblogs.com/zhaoqingqing/p/5745881.html)，本文侧重了解一些Mono的知识。
+接前篇[Unity 5.3.5p8 C#编译器升级](http://www.cnblogs.com/zhaoqingqing/p/5745881.html)，本文侧重了解一些Mono的知识。
 
 <!-- more -->
 
@@ -21,9 +21,11 @@ Unity编辑器及播放器所使用的Mono运行时还未升级。
 新编译器目标框架为.Net 3.5，也是之前支持的框架。
 
 
-### 编译器和运行时
+### Mono是如何运行的？
 
-CSharp(*.cs)源文件通过编译器编译成IL(中间文件) - >IL 运行在Mono的 JIT(just in time) -> 运行在真实环境中
+1. *.cs源文件通过编译器编译成IL(中间文件)
+2. IL 运行在Mono的 JIT(just in time)
+3. Mono虚拟机运行在物理机中
 
 ### 查看Unity使用的Mono版本
 
@@ -73,7 +75,7 @@ Copyright (C) 2002-2010 Novell, Inc and Contributors. www.mono-project.com
 
 ## Mono
 
-### Mono实现.Net Framework
+### Mono是.Net Framework？
 
 .NET和Mono两者是完全独立的，简单的理解：Mono项目是第三方的.Net Framework实现，比喻为.Net的跨平台版，绝大多数C#的特性在.net和mono中都是相同的，少部分特性两者的实现不一致。
 
@@ -83,7 +85,7 @@ Mono 虚拟机包含一个实时编译引擎，该引擎可用于如下处理器
 
 ------
 
-摘自：http://www.mono-project.com/docs/about-mono/
+这部分内容摘自：http://www.mono-project.com/docs/about-mono/
 
 ### mono - C# Compiler
 
@@ -124,19 +126,22 @@ Mono 虚拟机包含一个实时编译引擎，该引擎可用于如下处理器
 ### .Net和C#版本
 .Net版本和C#版本：http://www.cnblogs.com/zhaoqingqing/p/5478239.html
 
-
-
-| .net framework | c# version | note |
-| -------------- | ---------- | ---- |
-| .net 3.5       | 3.0        |      |
-| .net 4.0       | 4.0        |      |
-| .net 4.5       | 5.0        |      |
+| .net framework | c# version | note      | date    |
+| -------------- | ---------- | --------- | ------- |
+| .net 3.5       | 3.0        | vs2008    | 2007-08 |
+| .net 4.0       | 4.0        | vs2010    | 2010-04 |
+| .net 4.5       | 5.0        | vs2012/13 | 2012-10 |
+| .net 4.6       | 6.0        | vs2015    | 2015-07 |
 ### .Net和Mono版本关系
-| mono version | net version | note |
-| ------------ | ----------- | ---- |
-| mono 3.4     | .net 3.5    |      |
-|              |             |      |
-| mono 4.4     | .net 3.5    |      |
+
+一个大致的版本对应关系
+
+| date       | mono version | net version         | note |
+| ---------- | ------------ | ------------------- | ---- |
+| 2008-10-01 | mono 2.0     | .net 2.0    c# 3.0  |      |
+| 2011-12-19 | mono 2.10.8  | .net 4.0    c# 4.0  |      |
+| 2014-03-31 | mono 3.4     | .net 4.5    c#5.0   |      |
+| 2016-06-08 | mono 4.4.0   | .net 4.6.1    c#6.0 |      |
 mono编译器版本升级 mono运行库没有升级，目前运行时的mono还是 3.5
 
 ### Mono发行版本
@@ -160,7 +165,7 @@ mono编译器版本升级 mono运行库没有升级，目前运行时的mono还
 
 Mono release: http://www.mono-project.com/docs/about-mono/releases/
 Mono 4.4：http://www.mono-project.com/docs/about-mono/releases/4.4.0/
-Mono software: [https://en.wikipedia.org/wiki/Mono](https://en.wikipedia.org/wiki/Mono)
+Mono software: [https://en.wikipedia.org/wiki/Mono_(software)](https://en.wikipedia.org/wiki/Mono_(software))
 
 ### Unity3D发行版本
 
