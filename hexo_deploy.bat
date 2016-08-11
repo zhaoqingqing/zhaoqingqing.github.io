@@ -1,6 +1,7 @@
 hexo generate  --deploy
 
 rem workpc sometimes deploy not work well so ...
+rem hexo clean
 rem open git cmd , execute instruction
 rem e:
 rem cd Code\zhaoqingqing.github.io\
