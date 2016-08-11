@@ -130,13 +130,13 @@ Mono 虚拟机包含一个实时编译引擎，该引擎可用于如下处理器
 | -------------- | ---------- | ---- |
 | .net 3.5       | 3.0        |      |
 | .net 4.0       | 4.0        |      |
-|                |            |      |
+| .net 4.5       | 5.0        |      |
 ### .Net和Mono版本关系
 | mono version | net version | note |
 | ------------ | ----------- | ---- |
+| mono 3.4     | .net 3.5    |      |
+|              |             |      |
 | mono 4.4     | .net 3.5    |      |
-|              |             |      |
-|              |             |      |
 mono编译器版本升级 mono运行库没有升级，目前运行时的mono还是 3.5
 
 ### Mono发行版本
@@ -163,6 +163,18 @@ Mono 4.4：http://www.mono-project.com/docs/about-mono/releases/4.4.0/
 Mono software: [https://en.wikipedia.org/wiki/Mono](https://en.wikipedia.org/wiki/Mono)
 
 ### Unity3D发行版本
+
+| Unity Version | Mono Runtime/Compiler Version | Note                       |
+| ------------- | ----------------------------- | -------------------------- |
+| 3.5           |                               |                            |
+| 4.0           |                               | 引擎大版本升级                    |
+| 4.3           |                               | 新的2D工具，Sprite              |
+| 4.6           |                               | uGUI，IL2CPP                |
+| 5.0           | 2.0/2.0                       | shader，assetbundle重大改变 ，等等 |
+| 5.3.5p8       | 2.0/4.4                       | Mono编译器升级运行时未升级，等等         |
+| 5.4.0 f1      | 2.0/2.0                       | 更多VR平台支持，等等                |
+
+扩展资料
 
 http://blogs.unity3d.com/2016/04/01/unity-joins-the-net-foundation/
 

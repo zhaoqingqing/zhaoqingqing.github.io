@@ -19,7 +19,7 @@ title: 微软准备开源PowerShell
 
 答：微软.net源码网站。   http://referencesource.microsoft.com/
 
- 问：为什么在哪里？
+问：为什么在哪里？
 
 答： powershell本身是基于.net的。是`System.Management`其中的一个类。
 
@@ -31,13 +31,13 @@ title: 微软准备开源PowerShell
 
 `System.Management.Automation.ScriptBlock` 等。
 
-##  问：powershell有什么特色？
+## 问：powershell有什么特色？
 
 答：cmd（bat）中有命令行管道。vbs中有面向对象。 powershell相当于bat+vbs。既有命令行和管道，又有面向对象。并极大增强了命令。相当于linux中的bash+python。
 
 面向对象比字符串增加了属性和方法。 返回的属性，比字符串粒度更小，更严禁细致。让你写脚本不用扣字符串。 方法让你不用编程，就有相关功能。
 
-##  问：能否介绍下windows命令行的历史？
+## 问：能否介绍下windows命令行的历史？
 
 答： win2000时代：基本上只有图形功能，而对应的命令缺失。
 
@@ -69,7 +69,7 @@ win10：更全面，连剪贴板都面向对象了！ 
 
 答：用powershell ise 高大上 【字体 + 配色文件】。  
 
-##  问：powershell比CMD（bat）强在哪?
+## 问：powershell比CMD（bat）强在哪?
 
 答：
 
@@ -79,7 +79,7 @@ win10：更全面，连剪贴板都面向对象了！ 
 
 3 有多线程并发，多进程并发。有计时器。有图形界面。
 
-##  问：powershell比python如何？
+## 问：powershell比python如何？
 
 答：
 
@@ -158,5 +158,7 @@ powershell的做法是外部合作，而不是内部取代bash。
 答： 不知道。
 
 但powershell会进入物联网系统。win11 iot？将来树莓派应该可以用上。
+
+## 资料文献
 
 原文地址：http://www.windoweye.com/news/2016/07/281052.html
