@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://zhaoqingqing.github.io/"/>
-  <updated>2016-08-10T14:16:29.810Z</updated>
+  <updated>2016-08-11T13:06:24.802Z</updated>
   <id>https://zhaoqingqing.github.io/</id>
   
   <author>
@@ -16,30 +16,118 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>微软准备开源PowerShell</title>
+    <link href="https://zhaoqingqing.github.io/2016/08/11/microsoft-powershell-opensource.html"/>
+    <id>https://zhaoqingqing.github.io/2016/08/11/microsoft-powershell-opensource.html</id>
+    <published>2016-08-11T13:06:24.801Z</published>
+    <updated>2016-08-11T13:06:24.802Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="微软有计划在近期内开源PowerShell"><a href="#微软有计划在近期内开源PowerShell" class="headerlink" title="微软有计划在近期内开源PowerShell"></a>微软有计划在近期内开源PowerShell</h2><p>近日微软再次在向开源投出橄榄枝， PowerShell是面向Windows和Windows Server的自动化平台和脚本语言，帮助用户简化系统的管理。在纳德拉的带领下微软也逐渐走向开放，根据相关爆料称微软有计划在近期内 开源该脚本语言。</p>
+<p>知名Windows爆料人士WalkingCat和Tom Hounsell在推文都分享了他们的发现。Tom在包的元数据说明中注意到这样一段话：“PowerShell是开源、跨平台、脚本语言和丰富的对象Shell。”但是目前尚未得到微软官方证实。<br><a id="more"></a></p>
+<h2 id="PowerShell已经开源了？"><a href="#PowerShell已经开源了？" class="headerlink" title="PowerShell已经开源了？"></a>PowerShell已经开源了？</h2><p>问：微软的PowerShell脚本语言已经开源了 ？</p>
+<p>答：绝对真的！已经！</p>
+<p>问：源码在哪？</p>
+<p>答：微软.net源码网站。   <a href="http://referencesource.microsoft.com/" target="_blank" rel="external">http://referencesource.microsoft.com/</a></p>
+<p>问：为什么在哪里？</p>
+<p>答： powershell本身是基于.net的。是<code>System.Management</code>其中的一个类。</p>
+<p>问：powershell源码如何看？</p>
+<p>答：在 namespaces 搜索栏输入  </p>
+<p><code>System.Management.Automation.PowerShell</code></p>
+<p><code>System.Management.Automation.ScriptBlock</code> 等。</p>
+<h2 id="问：powershell有什么特色？"><a href="#问：powershell有什么特色？" class="headerlink" title="问：powershell有什么特色？"></a>问：powershell有什么特色？</h2><p>答：cmd（bat）中有命令行管道。vbs中有面向对象。 powershell相当于bat+vbs。既有命令行和管道，又有面向对象。并极大增强了命令。相当于linux中的bash+python。</p>
+<p>面向对象比字符串增加了属性和方法。 返回的属性，比字符串粒度更小，更严禁细致。让你写脚本不用扣字符串。 方法让你不用编程，就有相关功能。</p>
+<h2 id="问：能否介绍下windows命令行的历史？"><a href="#问：能否介绍下windows命令行的历史？" class="headerlink" title="问：能否介绍下windows命令行的历史？"></a>问：能否介绍下windows命令行的历史？</h2><p>答： win2000时代：基本上只有图形功能，而对应的命令缺失。</p>
+<p>win2003时代：图形功能，基本都有对应的命令。但只限于win。</p>
+<p>win2008时代：除了win之外的微软软件中。图形功能，而对应的命令基本全了。但还都是面向字符串的。</p>
+<p>win2012时代：重新造所有轮，用所有powershell命令代替所有字符串命令。使windows命令行全面进化到【面向对象】阶段。 </p>
+<p>winxp：cmd命令行。</p>
+<p>win7：基本powershell。</p>
+<p>win8.1：全面【面向对象】。</p>
+<p>win10：更全面，连剪贴板都面向对象了！ </p>
+<h2 id="问：powershell的缺点是什么？"><a href="#问：powershell的缺点是什么？" class="headerlink" title="问：powershell的缺点是什么？"></a>问：powershell的缺点是什么？</h2><p>答： 依赖高版本windows。 </p>
+<h2 id="问：兼容老版CMD"><a href="#问：兼容老版CMD" class="headerlink" title="问：兼容老版CMD?"></a>问：兼容老版CMD?</h2><p>答：1 语法不兼容cmd和bat。powershell语法更佳。</p>
+<p>2 所有外部命令都兼容。比如ping.exe等。 </p>
+<p>问：powershell源码的字体和配色，看起来有点矮丑挫，咋办？</p>
+<p>答：用powershell ise 高大上 【字体 + 配色文件】。  </p>
+<h2 id="问：powershell比CMD（bat）强在哪"><a href="#问：powershell比CMD（bat）强在哪" class="headerlink" title="问：powershell比CMD（bat）强在哪?"></a>问：powershell比CMD（bat）强在哪?</h2><p>答：</p>
+<p>1 语法方面。语法简单。有函数，功能强大。</p>
+<p>2 有正则，有查找，替换，切割，有大字符串对象，更适合于处理字符串。</p>
+<p>3 有多线程并发，多进程并发。有计时器。有图形界面。</p>
+<h2 id="问：powershell比python如何？"><a href="#问：powershell比python如何？" class="headerlink" title="问：powershell比python如何？"></a>问：powershell比python如何？</h2><p>答：</p>
+<p>1 python可以跨平台，powershell暂时不能，这是缺点。</p>
+<p>2 powershell为win峰。win本地深耕比python深。而python有些独有的linux功能powershell没有。</p>
+<p>2.1 有管理dns服务器，dhcp服务器，打印机，网卡，域服务器，exchange服务器管理命令。这些python不行。</p>
+<p>2.2 .net内置图形界面【System.Windows.Forms】powershell开发图形界面比python容易。</p>
+<p>3 手册中文，开发工具中文，调试功能佳。不容易乱码等。   </p>
+<h2 id="问：powershell比linux-bash如何？"><a href="#问：powershell比linux-bash如何？" class="headerlink" title="问：powershell比linux bash如何？"></a>问：powershell比linux bash如何？</h2><p>答：</p>
+<p>1 bash中没有属性方法，python中没有管道命令行。假如python带有命令行管道，bash跪不？</p>
+<p>2 bash中有多线程，计时器，图形界面？ </p>
+<h2 id="问：我听说linux命令比win多，更全，对么？"><a href="#问：我听说linux命令比win多，更全，对么？" class="headerlink" title="问：我听说linux命令比win多，更全，对么？"></a>问：我听说linux命令比win多，更全，对么？</h2><p>答：</p>
+<p>win中命令更多，更全面，linux不行。</p>
+<p>1 powershell命令比linux多得多。</p>
+<p>2 linux软件中，很多命令缺失。不能【修改软件运行时的配置】。</p>
+<p>2.1 上述exchange服务器，命令手册在：    <a href="https://technet.microsoft.com/zh-cn/library/bb124413.aspx" target="_blank" rel="external">https://technet.microsoft.com/zh-cn/library/bb124413.aspx</a>    500多条命令，哪个linux邮件服务器能比？</p>
+<p>2.2 给bind服务器中的一个dns域中的一个域名，添加一个ip。如何用命令实现？</p>
+<p>3 linux软件依赖配置文件，但是有些命令只能【修改软件运行时的配置】。而没有【导出单个配置到文件】，【导出所有配置到文件】的功能。</p>
+<p>3.1 win2012中的iis管理命令中有Backup-WebConfiguration，Clear-WebConfiguration，Get-WebConfiguration，Restore-WebConfiguration。这些命令 今年出的nginx中有对应的命令么？ </p>
+<h2 id="问：powershell能管理linux么？"><a href="#问：powershell能管理linux么？" class="headerlink" title="问：powershell能管理linux么？"></a>问：powershell能管理linux么？</h2><p>答： 可以的。</p>
+<p>powershell的做法是外部合作，而不是内部取代bash。</p>
+<p>1 通过【powershell dsc】或【powershell + sftp客户端】来推拉配置文件。</p>
+<p>2 通过【ssh客户端模块】，模拟linux终端。远程调用linux内置的bash，python等，返回结果。 </p>
+<h2 id="问：我只有winxp，2001年出的，没装powershell，没有curl，就没法用powershell了吧？"><a href="#问：我只有winxp，2001年出的，没装powershell，没有curl，就没法用powershell了吧？" class="headerlink" title="问：我只有winxp，2001年出的，没装powershell，没有curl，就没法用powershell了吧？"></a>问：我只有winxp，2001年出的，没装powershell，没有curl，就没法用powershell了吧？</h2><p>答： 可以的。</p>
+<p>还是用外部合作的办法。通过http(s)，用b/s的方法访问。</p>
+<p>1 找一台有高版本win的电脑或虚拟机，在上面安装上支持powershell的http服务器。如： <a href="http://www.poshserver.net/" target="_blank" rel="external">http://www.poshserver.net/</a>            这个软件支持http，https，php，powershell，自定义端口，win认证。</p>
+<p>2 在bat中用mshta ( <a href="http://powershell服务器ip/xxx.ps1" target="_blank" rel="external">http://powershell服务器ip/xxx.ps1</a> “get-date” ) 之类的命令即可。 </p>
+<h2 id="问：powershell的强项优势是什么？"><a href="#问：powershell的强项优势是什么？" class="headerlink" title="问：powershell的强项优势是什么？"></a>问：powershell的强项优势是什么？</h2><p>答：</p>
+<p>1 .net在win中的性能【应该最佳】，强于java和python。用同样语句，用同样对象的powershell脚本，我测了几个，比py稍 快。（未做定论）个人认为是虚拟机优化的最好的原因。</p>
+<p>2 开发winform，wpf图形界面。或者即是命令行，又是图形程序。（类似于ghost.exe）</p>
+<p>3 powershell多线程可以用多核。</p>
+<p>4 win系统管理最强，绝大数微软软件。</p>
+<p>5 管理vmware，微软云，亚马逊云，和云中的虚拟机。 </p>
+<h2 id="问：将来powershell会进入安卓，mac-osx么？"><a href="#问：将来powershell会进入安卓，mac-osx么？" class="headerlink" title="问：将来powershell会进入安卓，mac osx么？"></a>问：将来powershell会进入安卓，mac osx么？</h2><p>答： 不知道。</p>
+<p>但powershell会进入物联网系统。win11 iot？将来树莓派应该可以用上。</p>
+<h2 id="资料文献"><a href="#资料文献" class="headerlink" title="资料文献"></a>资料文献</h2><p>原文地址：<a href="http://www.windoweye.com/news/2016/07/281052.html" target="_blank" rel="external">http://www.windoweye.com/news/2016/07/281052.html</a></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;微软有计划在近期内开源PowerShell&quot;&gt;&lt;a href=&quot;#微软有计划在近期内开源PowerShell&quot; class=&quot;headerlink&quot; title=&quot;微软有计划在近期内开源PowerShell&quot;&gt;&lt;/a&gt;微软有计划在近期内开源PowerShell&lt;/h2&gt;&lt;p&gt;近日微软再次在向开源投出橄榄枝， PowerShell是面向Windows和Windows Server的自动化平台和脚本语言，帮助用户简化系统的管理。在纳德拉的带领下微软也逐渐走向开放，根据相关爆料称微软有计划在近期内 开源该脚本语言。&lt;/p&gt;
+&lt;p&gt;知名Windows爆料人士WalkingCat和Tom Hounsell在推文都分享了他们的发现。Tom在包的元数据说明中注意到这样一段话：“PowerShell是开源、跨平台、脚本语言和丰富的对象Shell。”但是目前尚未得到微软官方证实。&lt;br&gt;
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
     <title>从Unity3D编译器升级聊起Mono</title>
     <link href="https://zhaoqingqing.github.io/2016/08/08/unity3d-csharp-compiler-mono.html"/>
     <id>https://zhaoqingqing.github.io/2016/08/08/unity3d-csharp-compiler-mono.html</id>
     <published>2016-08-07T16:00:00.000Z</published>
-    <updated>2016-08-10T14:16:29.810Z</updated>
+    <updated>2016-08-11T13:48:40.665Z</updated>
     
-    <content type="html"><![CDATA[<p>接上文<a href="http://www.cnblogs.com/zhaoqingqing/p/5745881.html" target="_blank" rel="external">Unity 5.3.5p8 C#编译器升级</a>，本文侧重了解一些Mono的知识。</p>
+    <content type="html"><![CDATA[<p>接前篇<a href="http://www.cnblogs.com/zhaoqingqing/p/5745881.html" target="_blank" rel="external">Unity 5.3.5p8 C#编译器升级</a>，本文侧重了解一些Mono的知识。</p>
 <a id="more"></a>
 <h2 id="Unity3D的编译器升级"><a href="#Unity3D的编译器升级" class="headerlink" title="Unity3D的编译器升级"></a>Unity3D的编译器升级</h2><p>新升级的Mono C#编译器（对应Mono 4.4）</p>
 <p>Unity编辑器及播放器所使用的Mono运行时还未升级。</p>
 <p>新编译器仍针对C# 4，是旧的编译器也支持的版本。</p>
 <p>新编译器目标框架为.Net 3.5，也是之前支持的框架。</p>
-<h3 id="编译器和运行时"><a href="#编译器和运行时" class="headerlink" title="编译器和运行时"></a>编译器和运行时</h3><p>CSharp(*.cs)源文件通过编译器编译成IL(中间文件) - &gt;IL 运行在Mono的 JIT(just in time) -&gt; 运行在真实环境中</p>
+<h3 id="Mono是如何运行的？"><a href="#Mono是如何运行的？" class="headerlink" title="Mono是如何运行的？"></a>Mono是如何运行的？</h3><ol>
+<li>*.cs源文件通过编译器编译成IL(中间文件)</li>
+<li>IL 运行在Mono的 JIT(just in time)</li>
+<li>Mono虚拟机运行在物理机中</li>
+</ol>
 <h3 id="查看Unity使用的Mono版本"><a href="#查看Unity使用的Mono版本" class="headerlink" title="查看Unity使用的Mono版本"></a>查看Unity使用的Mono版本</h3><p>参考：<a href="http://answers.unity3d.com/questions/259448/how-to-determine-mono-version-of-unity-.html" target="_blank" rel="external">http://answers.unity3d.com/questions/259448/how-to-determine-mono-version-of-unity-.html</a></p>
 <p>我在unity 5.3.4f1 中测试有效，而在unity 4.3.4f1下测试无效</p>
 <figure class="highlight csharp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">using</span> UnityEngine;</div><div class="line"><span class="keyword">using</span> System;</div><div class="line"><span class="keyword">using</span> System.Reflection;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">MonoVersion</span> : <span class="title">MonoBehaviour</span> &#123;</div><div class="line">	<span class="function"><span class="keyword">void</span> <span class="title">Start</span>(<span class="params"></span>)</span></div><div class="line">	&#123;</div><div class="line">		Type type = Type.GetType(<span class="string">"Mono.Runtime"</span>);</div><div class="line">		<span class="keyword">if</span> (type != <span class="literal">null</span>)</div><div class="line">		&#123;</div><div class="line">			MethodInfo info = type.GetMethod(<span class="string">"GetDisplayName"</span>, BindingFlags.NonPublic | BindingFlags.Static);</div><div class="line">			</div><div class="line">			<span class="keyword">if</span> (info != <span class="literal">null</span>)</div><div class="line">				Debug.Log(info.Invoke(<span class="literal">null</span>, <span class="literal">null</span>));</div><div class="line">		&#125;</div><div class="line">      <span class="comment">//Debug.Log(System.Enviroment.Version);//net version?</span></div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>方法二</p>
 <figure class="highlight powershell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">d:\Program Files\Unity_5_34\Editor\Data\Mono\bin&gt;monop2 --runtime-version mono.exe</div><div class="line">runtime version: <span class="number">2.0</span>.<span class="number">50727.1433</span></div></pre></td></tr></table></figure>
 <figure class="highlight powershell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">d:\Program Files\Unity_5_34\Editor\Data\Mono\bin&gt;mono.exe --version</div><div class="line">Mono JIT compiler version <span class="number">2.0</span> (Visual Studio built mono)</div><div class="line">Copyright (C) <span class="number">2002</span>-<span class="number">2010</span> Novell, Inc and Contributors. www.mono-project.com</div><div class="line">        TLS:           normal</div><div class="line">        GC:            Included Boehm (with typed GC)</div><div class="line">        SIGSEGV:       normal</div><div class="line">        Notification:  Thread + polling</div><div class="line">        Architecture:  x86</div><div class="line">        Disabled:      none</div></pre></td></tr></table></figure>
-<h2 id="Mono"><a href="#Mono" class="headerlink" title="Mono"></a>Mono</h2><h3 id="Mono实现-Net-Framework"><a href="#Mono实现-Net-Framework" class="headerlink" title="Mono实现.Net Framework"></a>Mono实现.Net Framework</h3><p>.NET和Mono两者是完全独立的，简单的理解：Mono项目是第三方的.Net Framework实现，比喻为.Net的跨平台版，绝大多数C#的特性在.net和mono中都是相同的，少部分特性两者的实现不一致。</p>
+<h2 id="Mono"><a href="#Mono" class="headerlink" title="Mono"></a>Mono</h2><h3 id="Mono是-Net-Framework？"><a href="#Mono是-Net-Framework？" class="headerlink" title="Mono是.Net Framework？"></a>Mono是.Net Framework？</h3><p>.NET和Mono两者是完全独立的，简单的理解：Mono项目是第三方的.Net Framework实现，比喻为.Net的跨平台版，绝大多数C#的特性在.net和mono中都是相同的，少部分特性两者的实现不一致。</p>
 <p>Mono的目标是创建一系列符合ECMA 标准（<code>Ecma-334</code>和<code>Ecma-33</code>5）的.NET 工具，包括C# 编译器和共通语言执行平台</p>
 <p>Mono 虚拟机包含一个实时编译引擎，该引擎可用于如下处理器：x86，SPARC，PowerPC，ARM，S390（32位模式和64位模式），x86-64，IA64 和64位模式的 SPARC。该虚拟机可以将代码实时编译或者预先编译到原生代码。对于那些没有列出来的系统，则使用的是代码解释器。</p>
 <hr>
-<p>摘自：<a href="http://www.mono-project.com/docs/about-mono/" target="_blank" rel="external">http://www.mono-project.com/docs/about-mono/</a></p>
+<p>这部分内容摘自：<a href="http://www.mono-project.com/docs/about-mono/" target="_blank" rel="external">http://www.mono-project.com/docs/about-mono/</a></p>
 <h3 id="mono-C-Compiler"><a href="#mono-C-Compiler" class="headerlink" title="mono - C# Compiler"></a>mono - C# Compiler</h3><blockquote>
 <p>Mono’s C# compiler is feature complete for C# 1.0, 2.0, 3.0, 4.0 and 5.0 (ECMA). A good description of the feature of the various versions is available on <a href="http://en.wikipedia.org/wiki/C_Sharp_%28programming_language%29#Versions" target="_blank" rel="external">Wikipedia</a>.</p>
 <p>mono的c#编译器提供c# 1.0,2.0,3.0,4.0和5.0(ECMA)完整的功能。不同版本的特性的描述可以在<a href="http://en.wikipedia.org/wiki/C_Sharp_%28programming_language%29#Versions" target="_blank" rel="external">维基百科</a>上查看。</p>
@@ -63,28 +151,41 @@
 <th>.net framework</th>
 <th>c# version</th>
 <th>note</th>
+<th>date</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>.net 3.5</td>
 <td>3.0</td>
-<td></td>
+<td>vs2008</td>
+<td>2007-08</td>
 </tr>
 <tr>
 <td>.net 4.0</td>
 <td>4.0</td>
-<td></td>
+<td>vs2010</td>
+<td>2010-04</td>
 </tr>
 <tr>
-<td></td>
-<td></td>
+<td>.net 4.5</td>
+<td>5.0</td>
+<td>vs2012/13</td>
+<td>2012-10</td>
+</tr>
+<tr>
+<td>.net 4.6</td>
+<td>6.0</td>
+<td>vs2015</td>
+<td>2015-07</td>
 </tr>
 </tbody>
 </table>
-<h3 id="Net和Mono版本关系"><a href="#Net和Mono版本关系" class="headerlink" title=".Net和Mono版本关系"></a>.Net和Mono版本关系</h3><table>
+<h3 id="Net和Mono版本关系"><a href="#Net和Mono版本关系" class="headerlink" title=".Net和Mono版本关系"></a>.Net和Mono版本关系</h3><p>一个大致的版本对应关系</p>
+<table>
 <thead>
 <tr>
+<th>date</th>
 <th>mono version</th>
 <th>net version</th>
 <th>note</th>
@@ -92,18 +193,27 @@
 </thead>
 <tbody>
 <tr>
-<td>mono 4.4</td>
-<td>.net 3.5</td>
+<td>2008-10-01</td>
+<td>mono 2.0</td>
+<td>.net 2.0    c# 3.0</td>
 <td></td>
 </tr>
 <tr>
-<td></td>
-<td></td>
+<td>2011-12-19</td>
+<td>mono 2.10.8</td>
+<td>.net 4.0    c# 4.0</td>
 <td></td>
 </tr>
 <tr>
+<td>2014-03-31</td>
+<td>mono 3.4</td>
+<td>.net 4.5    c#5.0</td>
 <td></td>
-<td></td>
+</tr>
+<tr>
+<td>2016-06-08</td>
+<td>mono 4.4.0</td>
+<td>.net 4.6.1    c#6.0</td>
 </tr>
 </tbody>
 </table>
@@ -172,8 +282,55 @@
 <blockquote>
 <p>参考资料</p>
 </blockquote>
-<p>Mono release: <a href="http://www.mono-project.com/docs/about-mono/releases/" target="_blank" rel="external">http://www.mono-project.com/docs/about-mono/releases/</a><br>Mono 4.4：<a href="http://www.mono-project.com/docs/about-mono/releases/4.4.0/" target="_blank" rel="external">http://www.mono-project.com/docs/about-mono/releases/4.4.0/</a><br>Mono software: <a href="https://en.wikipedia.org/wiki/Mono" target="_blank" rel="external">https://en.wikipedia.org/wiki/Mono</a></p>
-<h3 id="Unity3D发行版本"><a href="#Unity3D发行版本" class="headerlink" title="Unity3D发行版本"></a>Unity3D发行版本</h3><p><a href="http://blogs.unity3d.com/2016/04/01/unity-joins-the-net-foundation/" target="_blank" rel="external">http://blogs.unity3d.com/2016/04/01/unity-joins-the-net-foundation/</a></p>
+<p>Mono release: <a href="http://www.mono-project.com/docs/about-mono/releases/" target="_blank" rel="external">http://www.mono-project.com/docs/about-mono/releases/</a><br>Mono 4.4：<a href="http://www.mono-project.com/docs/about-mono/releases/4.4.0/" target="_blank" rel="external">http://www.mono-project.com/docs/about-mono/releases/4.4.0/</a><br>Mono software: <a href="https://en.wikipedia.org/wiki/Mono_(software" target="_blank" rel="external">https://en.wikipedia.org/wiki/Mono_(software)</a>)</p>
+<h3 id="Unity3D发行版本"><a href="#Unity3D发行版本" class="headerlink" title="Unity3D发行版本"></a>Unity3D发行版本</h3><table>
+<thead>
+<tr>
+<th>Unity Version</th>
+<th>Mono Runtime/Compiler Version</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>3.5</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>4.0</td>
+<td></td>
+<td>引擎大版本升级</td>
+</tr>
+<tr>
+<td>4.3</td>
+<td></td>
+<td>新的2D工具，Sprite</td>
+</tr>
+<tr>
+<td>4.6</td>
+<td></td>
+<td>uGUI，IL2CPP</td>
+</tr>
+<tr>
+<td>5.0</td>
+<td>2.0/2.0</td>
+<td>shader，assetbundle重大改变 ，等等</td>
+</tr>
+<tr>
+<td>5.3.5p8</td>
+<td>2.0/4.4</td>
+<td>Mono编译器升级运行时未升级，等等</td>
+</tr>
+<tr>
+<td>5.4.0 f1</td>
+<td>2.0/2.0</td>
+<td>更多VR平台支持，等等</td>
+</tr>
+</tbody>
+</table>
+<p>扩展资料</p>
+<p><a href="http://blogs.unity3d.com/2016/04/01/unity-joins-the-net-foundation/" target="_blank" rel="external">http://blogs.unity3d.com/2016/04/01/unity-joins-the-net-foundation/</a></p>
 <h2 id="更多信息"><a href="#更多信息" class="headerlink" title="更多信息"></a>更多信息</h2><h3 id="我的疑问"><a href="#我的疑问" class="headerlink" title="我的疑问"></a>我的疑问</h3><p>  编译器和运行时版本不匹配可以正常执行？</p>
 <h3 id="文献资料"><a href="#文献资料" class="headerlink" title="文献资料"></a>文献资料</h3><p>mono project github: <a href="https://github.com/mono/mono" target="_blank" rel="external">https://github.com/mono/mono</a></p>
 <p>mono doc: <a href="http://www.mono-project.com/docs/" target="_blank" rel="external">http://www.mono-project.com/docs/</a></p>
@@ -188,7 +345,7 @@
     
     <summary type="html">
     
-      &lt;p&gt;接上文&lt;a href=&quot;http://www.cnblogs.com/zhaoqingqing/p/5745881.html&quot;&gt;Unity 5.3.5p8 C#编译器升级&lt;/a&gt;，本文侧重了解一些Mono的知识。&lt;/p&gt;
+      &lt;p&gt;接前篇&lt;a href=&quot;http://www.cnblogs.com/zhaoqingqing/p/5745881.html&quot;&gt;Unity 5.3.5p8 C#编译器升级&lt;/a&gt;，本文侧重了解一些Mono的知识。&lt;/p&gt;
     
     </summary>
     
@@ -454,90 +611,6 @@ StreamingAssets
     
     
       <category term="Unity3D" scheme="https://zhaoqingqing.github.io/tags/Unity3D/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>微软准备开源PowerShell</title>
-    <link href="https://zhaoqingqing.github.io/2016/08/02/microsoft-powershell-opensource.html"/>
-    <id>https://zhaoqingqing.github.io/2016/08/02/microsoft-powershell-opensource.html</id>
-    <published>2016-08-02T12:35:38.692Z</published>
-    <updated>2016-08-02T15:29:08.418Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="微软有计划在近期内开源PowerShell"><a href="#微软有计划在近期内开源PowerShell" class="headerlink" title="微软有计划在近期内开源PowerShell"></a>微软有计划在近期内开源PowerShell</h2><p>近日微软再次在向开源投出橄榄枝， PowerShell是面向Windows和Windows Server的自动化平台和脚本语言，帮助用户简化系统的管理。在纳德拉的带领下微软也逐渐走向开放，根据相关爆料称微软有计划在近期内 开源该脚本语言。</p>
-<p>知名Windows爆料人士WalkingCat和Tom Hounsell在推文都分享了他们的发现。Tom在包的元数据说明中注意到这样一段话：“PowerShell是开源、跨平台、脚本语言和丰富的对象Shell。”但是目前尚未得到微软官方证实。<br><a id="more"></a></p>
-<h2 id="PowerShell已经开源了？"><a href="#PowerShell已经开源了？" class="headerlink" title="PowerShell已经开源了？"></a>PowerShell已经开源了？</h2><p>问：微软的PowerShell脚本语言已经开源了 ？</p>
-<p>答：绝对真的！已经！</p>
-<p>问：源码在哪？</p>
-<p>答：微软.net源码网站。   <a href="http://referencesource.microsoft.com/" target="_blank" rel="external">http://referencesource.microsoft.com/</a></p>
-<p> 问：为什么在哪里？</p>
-<p>答： powershell本身是基于.net的。是<code>System.Management</code>其中的一个类。</p>
-<p>问：powershell源码如何看？</p>
-<p>答：在 namespaces 搜索栏输入  </p>
-<p><code>System.Management.Automation.PowerShell</code></p>
-<p><code>System.Management.Automation.ScriptBlock</code> 等。</p>
-<h2 id="问：powershell有什么特色？"><a href="#问：powershell有什么特色？" class="headerlink" title="问：powershell有什么特色？"></a>问：powershell有什么特色？</h2><p>答：cmd（bat）中有命令行管道。vbs中有面向对象。 powershell相当于bat+vbs。既有命令行和管道，又有面向对象。并极大增强了命令。相当于linux中的bash+python。</p>
-<p>面向对象比字符串增加了属性和方法。 返回的属性，比字符串粒度更小，更严禁细致。让你写脚本不用扣字符串。 方法让你不用编程，就有相关功能。</p>
-<h2 id="问：能否介绍下windows命令行的历史？"><a href="#问：能否介绍下windows命令行的历史？" class="headerlink" title="问：能否介绍下windows命令行的历史？"></a>问：能否介绍下windows命令行的历史？</h2><p>答： win2000时代：基本上只有图形功能，而对应的命令缺失。</p>
-<p>win2003时代：图形功能，基本都有对应的命令。但只限于win。</p>
-<p>win2008时代：除了win之外的微软软件中。图形功能，而对应的命令基本全了。但还都是面向字符串的。</p>
-<p>win2012时代：重新造所有轮，用所有powershell命令代替所有字符串命令。使windows命令行全面进化到【面向对象】阶段。 </p>
-<p>winxp：cmd命令行。</p>
-<p>win7：基本powershell。</p>
-<p>win8.1：全面【面向对象】。</p>
-<p>win10：更全面，连剪贴板都面向对象了！ </p>
-<h2 id="问：powershell的缺点是什么？"><a href="#问：powershell的缺点是什么？" class="headerlink" title="问：powershell的缺点是什么？"></a>问：powershell的缺点是什么？</h2><p>答： 依赖高版本windows。 </p>
-<h2 id="问：兼容老版CMD"><a href="#问：兼容老版CMD" class="headerlink" title="问：兼容老版CMD?"></a>问：兼容老版CMD?</h2><p>答：1 语法不兼容cmd和bat。powershell语法更佳。</p>
-<p>2 所有外部命令都兼容。比如ping.exe等。 </p>
-<p>问：powershell源码的字体和配色，看起来有点矮丑挫，咋办？</p>
-<p>答：用powershell ise 高大上 【字体 + 配色文件】。  </p>
-<h2 id="问：powershell比CMD（bat）强在哪"><a href="#问：powershell比CMD（bat）强在哪" class="headerlink" title="问：powershell比CMD（bat）强在哪?"></a>问：powershell比CMD（bat）强在哪?</h2><p>答：</p>
-<p>1 语法方面。语法简单。有函数，功能强大。</p>
-<p>2 有正则，有查找，替换，切割，有大字符串对象，更适合于处理字符串。</p>
-<p>3 有多线程并发，多进程并发。有计时器。有图形界面。</p>
-<h2 id="问：powershell比python如何？"><a href="#问：powershell比python如何？" class="headerlink" title="问：powershell比python如何？"></a>问：powershell比python如何？</h2><p>答：</p>
-<p>1 python可以跨平台，powershell暂时不能，这是缺点。</p>
-<p>2 powershell为win峰。win本地深耕比python深。而python有些独有的linux功能powershell没有。</p>
-<p>2.1 有管理dns服务器，dhcp服务器，打印机，网卡，域服务器，exchange服务器管理命令。这些python不行。</p>
-<p>2.2 .net内置图形界面【System.Windows.Forms】powershell开发图形界面比python容易。</p>
-<p>3 手册中文，开发工具中文，调试功能佳。不容易乱码等。   </p>
-<h2 id="问：powershell比linux-bash如何？"><a href="#问：powershell比linux-bash如何？" class="headerlink" title="问：powershell比linux bash如何？"></a>问：powershell比linux bash如何？</h2><p>答：</p>
-<p>1 bash中没有属性方法，python中没有管道命令行。假如python带有命令行管道，bash跪不？</p>
-<p>2 bash中有多线程，计时器，图形界面？ </p>
-<h2 id="问：我听说linux命令比win多，更全，对么？"><a href="#问：我听说linux命令比win多，更全，对么？" class="headerlink" title="问：我听说linux命令比win多，更全，对么？"></a>问：我听说linux命令比win多，更全，对么？</h2><p>答：</p>
-<p>win中命令更多，更全面，linux不行。</p>
-<p>1 powershell命令比linux多得多。</p>
-<p>2 linux软件中，很多命令缺失。不能【修改软件运行时的配置】。</p>
-<p>2.1 上述exchange服务器，命令手册在：    <a href="https://technet.microsoft.com/zh-cn/library/bb124413.aspx" target="_blank" rel="external">https://technet.microsoft.com/zh-cn/library/bb124413.aspx</a>    500多条命令，哪个linux邮件服务器能比？</p>
-<p>2.2 给bind服务器中的一个dns域中的一个域名，添加一个ip。如何用命令实现？</p>
-<p>3 linux软件依赖配置文件，但是有些命令只能【修改软件运行时的配置】。而没有【导出单个配置到文件】，【导出所有配置到文件】的功能。</p>
-<p>3.1 win2012中的iis管理命令中有Backup-WebConfiguration，Clear-WebConfiguration，Get-WebConfiguration，Restore-WebConfiguration。这些命令 今年出的nginx中有对应的命令么？ </p>
-<h2 id="问：powershell能管理linux么？"><a href="#问：powershell能管理linux么？" class="headerlink" title="问：powershell能管理linux么？"></a>问：powershell能管理linux么？</h2><p>答： 可以的。</p>
-<p>powershell的做法是外部合作，而不是内部取代bash。</p>
-<p>1 通过【powershell dsc】或【powershell + sftp客户端】来推拉配置文件。</p>
-<p>2 通过【ssh客户端模块】，模拟linux终端。远程调用linux内置的bash，python等，返回结果。 </p>
-<h2 id="问：我只有winxp，2001年出的，没装powershell，没有curl，就没法用powershell了吧？"><a href="#问：我只有winxp，2001年出的，没装powershell，没有curl，就没法用powershell了吧？" class="headerlink" title="问：我只有winxp，2001年出的，没装powershell，没有curl，就没法用powershell了吧？"></a>问：我只有winxp，2001年出的，没装powershell，没有curl，就没法用powershell了吧？</h2><p>答： 可以的。</p>
-<p>还是用外部合作的办法。通过http(s)，用b/s的方法访问。</p>
-<p>1 找一台有高版本win的电脑或虚拟机，在上面安装上支持powershell的http服务器。如： <a href="http://www.poshserver.net/" target="_blank" rel="external">http://www.poshserver.net/</a>            这个软件支持http，https，php，powershell，自定义端口，win认证。</p>
-<p>2 在bat中用mshta ( <a href="http://powershell服务器ip/xxx.ps1" target="_blank" rel="external">http://powershell服务器ip/xxx.ps1</a> “get-date” ) 之类的命令即可。 </p>
-<h2 id="问：powershell的强项优势是什么？"><a href="#问：powershell的强项优势是什么？" class="headerlink" title="问：powershell的强项优势是什么？"></a>问：powershell的强项优势是什么？</h2><p>答：</p>
-<p>1 .net在win中的性能【应该最佳】，强于java和python。用同样语句，用同样对象的powershell脚本，我测了几个，比py稍 快。（未做定论）个人认为是虚拟机优化的最好的原因。</p>
-<p>2 开发winform，wpf图形界面。或者即是命令行，又是图形程序。（类似于ghost.exe）</p>
-<p>3 powershell多线程可以用多核。</p>
-<p>4 win系统管理最强，绝大数微软软件。</p>
-<p>5 管理vmware，微软云，亚马逊云，和云中的虚拟机。 </p>
-<h2 id="问：将来powershell会进入安卓，mac-osx么？"><a href="#问：将来powershell会进入安卓，mac-osx么？" class="headerlink" title="问：将来powershell会进入安卓，mac osx么？"></a>问：将来powershell会进入安卓，mac osx么？</h2><p>答： 不知道。</p>
-<p>但powershell会进入物联网系统。win11 iot？将来树莓派应该可以用上。</p>
-<p>原文地址：<a href="http://www.windoweye.com/news/2016/07/281052.html" target="_blank" rel="external">http://www.windoweye.com/news/2016/07/281052.html</a></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h2 id=&quot;微软有计划在近期内开源PowerShell&quot;&gt;&lt;a href=&quot;#微软有计划在近期内开源PowerShell&quot; class=&quot;headerlink&quot; title=&quot;微软有计划在近期内开源PowerShell&quot;&gt;&lt;/a&gt;微软有计划在近期内开源PowerShell&lt;/h2&gt;&lt;p&gt;近日微软再次在向开源投出橄榄枝， PowerShell是面向Windows和Windows Server的自动化平台和脚本语言，帮助用户简化系统的管理。在纳德拉的带领下微软也逐渐走向开放，根据相关爆料称微软有计划在近期内 开源该脚本语言。&lt;/p&gt;
-&lt;p&gt;知名Windows爆料人士WalkingCat和Tom Hounsell在推文都分享了他们的发现。Tom在包的元数据说明中注意到这样一段话：“PowerShell是开源、跨平台、脚本语言和丰富的对象Shell。”但是目前尚未得到微软官方证实。&lt;br&gt;
-    
-    </summary>
-    
     
   </entry>
   
