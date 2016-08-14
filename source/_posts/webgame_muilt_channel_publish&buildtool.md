@@ -214,6 +214,24 @@ msbuild /m WinForm.sln /t:Rebuild /p:Configuration=Debug /p:DefineConstants="App
 
 `/p:DefineConstants="AppStore"`  指定宏
 
+### proj配置文件分析
+
+*.proj (.net项目文件)，本质上是一个xml文件，在build时根据这里面的参数进行build
+
+```xml
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;AppStore</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+```
+
 ### msbuild 文档资料
 
 MSBuild 命令行参考  [https://technet.microsoft.com/zh-cn/library/ms164311(v=vs.85).aspx](https://technet.microsoft.com/zh-cn/library/ms164311(v=vs.85).aspx)
