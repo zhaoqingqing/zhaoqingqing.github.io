@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://zhaoqingqing.github.io/"/>
-  <updated>2016-08-14T13:19:48.722Z</updated>
+  <updated>2016-08-14T13:40:03.642Z</updated>
   <id>https://zhaoqingqing.github.io/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="https://zhaoqingqing.github.io/2016/08/14/webgame_muilt_channel_publish&amp;buildtool.html"/>
     <id>https://zhaoqingqing.github.io/2016/08/14/webgame_muilt_channel_publish&amp;buildtool.html</id>
     <published>2016-08-14T10:23:25.000Z</published>
-    <updated>2016-08-14T13:19:48.722Z</updated>
+    <updated>2016-08-14T13:40:03.642Z</updated>
     
     <content type="html"><![CDATA[<h2 id="页游微端的几个问题及解答"><a href="#页游微端的几个问题及解答" class="headerlink" title="页游微端的几个问题及解答"></a>页游微端的几个问题及解答</h2><h3 id="为什么要开发游戏微游？"><a href="#为什么要开发游戏微游？" class="headerlink" title="为什么要开发游戏微游？"></a>为什么要开发游戏微游？</h3><p>众所周知，Google大佬的Chrome浏览器在2015年时停止支持NPAPI，unity3d引擎的web player也是NPAPI的范畴，而我司的3D网页游戏正是使用unity3d引擎的web player，所以在Chrome 45及之后版本将打开我们的游戏。</p>
 <a id="more"></a>
@@ -131,6 +131,8 @@
 <p>假设当前要打包 AppStore渠道</p>
 <figure class="highlight powershell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">msbuild /m WinForm.sln /t:Rebuild /p:Configuration=Debug /p:DefineConstants=<span class="string">"AppStore"</span></div></pre></td></tr></table></figure>
 <p><code>/p:DefineConstants=&quot;AppStore&quot;</code>  指定宏</p>
+<h3 id="proj配置文件分析"><a href="#proj配置文件分析" class="headerlink" title="proj配置文件分析"></a>proj配置文件分析</h3><p>*.proj (.net项目文件)，本质上是一个xml文件，在build时根据这里面的参数进行build</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">PropertyGroup</span> <span class="attr">Condition</span>=<span class="string">" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' "</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">PlatformTarget</span>&gt;</span>AnyCPU<span class="tag">&lt;/<span class="name">PlatformTarget</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">DebugSymbols</span>&gt;</span>true<span class="tag">&lt;/<span class="name">DebugSymbols</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">DebugType</span>&gt;</span>full<span class="tag">&lt;/<span class="name">DebugType</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">Optimize</span>&gt;</span>false<span class="tag">&lt;/<span class="name">Optimize</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">OutputPath</span>&gt;</span>bin\Debug\<span class="tag">&lt;/<span class="name">OutputPath</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">DefineConstants</span>&gt;</span>TRACE;DEBUG;AppStore<span class="tag">&lt;/<span class="name">DefineConstants</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">ErrorReport</span>&gt;</span>prompt<span class="tag">&lt;/<span class="name">ErrorReport</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">WarningLevel</span>&gt;</span>4<span class="tag">&lt;/<span class="name">WarningLevel</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">Prefer32Bit</span>&gt;</span>false<span class="tag">&lt;/<span class="name">Prefer32Bit</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">PropertyGroup</span>&gt;</span></div></pre></td></tr></table></figure>
 <h3 id="msbuild-文档资料"><a href="#msbuild-文档资料" class="headerlink" title="msbuild 文档资料"></a>msbuild 文档资料</h3><p>MSBuild 命令行参考  <a href="https://technet.microsoft.com/zh-cn/library/ms164311(v=vs.85" target="_blank" rel="external">https://technet.microsoft.com/zh-cn/library/ms164311(v=vs.85).aspx</a>.aspx)</p>
 <p>msbuild-msdn : <a href="https://msdn.microsoft.com/zh-cn/library/dd393574.aspx" target="_blank" rel="external">https://msdn.microsoft.com/zh-cn/library/dd393574.aspx</a></p>
 <h3 id="可能遇到的问题"><a href="#可能遇到的问题" class="headerlink" title="可能遇到的问题"></a>可能遇到的问题</h3><p><strong>msbuild 不是内部或外部命令？</strong></p>
