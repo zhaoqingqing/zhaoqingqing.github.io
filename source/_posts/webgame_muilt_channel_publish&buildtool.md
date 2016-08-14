@@ -1,20 +1,27 @@
-## 页游微端多平台/渠道
+---
+title:页游微端多平台/渠道
+date: 2016/08/14 18:23:25
+tags:
+    - Unity3D
+	- Visual Studio
+categories: Unity3D项目日志
+---
 
-### 页游微端的几个问题及解答
+## 页游微端的几个问题及解答
 
-**为什么要开发游戏微游？**
+### 为什么要开发游戏微游？
 
 众所周知，Google大佬的Chrome浏览器在2015年时停止支持NPAPI，unity3d引擎的web player也是NPAPI的范畴，而我司的3D网页游戏正是使用unity3d引擎的web player，所以在Chrome 45及之后版本将打开我们的游戏。
 
 
 
-**微端版本是导出windows平台而不是web player?**
+### 微端版是导出windows平台而不是web player?
 
-正是如此，下载微端玩的游戏正是导出game.exe+game_Data而不是webplayer.unity3d+html，简单点来说: 通过下载微端玩游戏其实是客户端游戏(端游)，而通过网页入口玩游戏还是unity web player.
+正是如此，下载微端玩的正是导出game.exe+game_Data而不是webplayer.unity3d+html，简单点来说: 通过下载微端玩游戏其实是客户端游戏(端游)，而通过网页入口玩游戏还是unity web player.
 
 
 
-**为什么微端不是内嵌网页而是客户端游戏？**
+### 为什么微端不是内嵌网页而是客户端游戏？
 
 这个问题问的好！
 
@@ -24,7 +31,7 @@
 
 
 
-**为什么要做微端多平台/渠道打包功能？**
+### 为什么要做多平台/渠道打包功能？
 
 我司U3D开发的大型3DMMORPG网页游戏，先后在腾讯，49游上线，近期内将和更多渠道和平台联运，包括多玩(yy)，37玩，爱乐玩等。
 
@@ -56,7 +63,7 @@
 
 微端的技术分析请阅读：[[http://www.cnblogs.com/zhaoqingqing/p/5671398.html](http://www.cnblogs.com/zhaoqingqing/p/5671398.html)](http://www.cnblogs.com/zhaoqingqing/p/5671398.html)
 
-
+## 制作多渠道的思路分析
 
 ### 思路1.单母包+安装器+配置表
 
@@ -168,23 +175,60 @@ https://msdn.microsoft.com/zh-cn/library/24b2tcy0%28VS.80%29.aspx?f=255&MSPPErro
 
 msbuild: https://msdn.microsoft.com/zh-cn/library/dd393574.aspx
 
-msbuild + xml (uninst.csproj)
+msbuild + xml (project.csproj)
 
-```xml
- <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Test|AnyCPU'">
-    <OutputPath>bin\Test\</OutputPath>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
-    <PlatformTarget>x64</PlatformTarget>
-    <OutputPath>bin\x64\Debug\</OutputPath>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
-    <PlatformTarget>x64</PlatformTarget>
-    <OutputPath>bin\x64\Release\</OutputPath>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Test|x64'">
-    <PlatformTarget>x64</PlatformTarget>
-    <OutputPath>bin\x64\Test\</OutputPath>
-    <DefineConstants>you49</DefineConstants>
-  </PropertyGroup>
+## msbuild 打包
+
+### 指定条件编译符号(预编译宏)
+
+项目解决方案：WinForm.sln，主要代码如下：
+
+```c#
+    public partial class Form1 : Form
+    {
+        public Form1()
+        {
+            InitializeComponent();
+            string channel = "default";
+#if GooglePlay
+            channel="google play";
+#elif Samsung
+            channel="sam sung store";
+#elif AppStore
+            channel="app store";
+#endif
+            this.textBox1.Text = channel;
+        }
+    }
 ```
+
+假设当前要打包 googleplay渠道
+
+```powershell
+msbuild /m WinForm.sln /t:Rebuild /p:Configuration=Debug /p:DefineConstants="GooglePlay"
+```
+假设当前要打包 AppStore渠道
+
+```powershell
+msbuild /m WinForm.sln /t:Rebuild /p:Configuration=Debug /p:DefineConstants="AppStore"
+```
+
+`/p:DefineConstants="AppStore"`  指定宏
+
+### msbuild 文档资料
+
+MSBuild 命令行参考  [https://technet.microsoft.com/zh-cn/library/ms164311(v=vs.85).aspx](https://technet.microsoft.com/zh-cn/library/ms164311(v=vs.85).aspx)
+
+msbuild-msdn : [https://msdn.microsoft.com/zh-cn/library/dd393574.aspx](https://msdn.microsoft.com/zh-cn/library/dd393574.aspx)
+
+### 可能遇到的问题
+
+**msbuild 不是内部或外部命令？**
+
+起因：家里的机器上同时安装VS2013 ，VS15(2016) 莫名出现msbuild不是内部或外部命令
+
+解决：C:\Program Files (x86)\MSBuild\12.0\Bin\  添加到环境变量的path中
+
+**devenv 不是内部或外部命令？**
+
+解决：C:\Program Files (x86)\Microsoft Visual Studio 12.0\Common7\IDE\ 添加到环境变量的path中
