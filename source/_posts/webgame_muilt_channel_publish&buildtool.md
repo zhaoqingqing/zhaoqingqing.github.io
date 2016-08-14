@@ -1,9 +1,8 @@
 ---
-title:页游微端多平台/渠道
+title: 页游微端多平台/渠道
 date: 2016/08/14 18:23:25
-tags:
+tags: 
     - Unity3D
-	- Visual Studio
 categories: Unity3D项目日志
 ---
 
@@ -63,7 +62,7 @@ categories: Unity3D项目日志
 
 微端的技术分析请阅读：[[http://www.cnblogs.com/zhaoqingqing/p/5671398.html](http://www.cnblogs.com/zhaoqingqing/p/5671398.html)](http://www.cnblogs.com/zhaoqingqing/p/5671398.html)
 
-## 制作多渠道的思路分析
+## 多渠道思路分析
 
 ### 思路1.单母包+安装器+配置表
 
@@ -179,7 +178,7 @@ msbuild + xml (project.csproj)
 
 ## msbuild 打包
 
-### 指定条件编译符号(预编译宏)
+### 条件编译符号(预编译宏)
 
 项目解决方案：WinForm.sln，主要代码如下：
 
