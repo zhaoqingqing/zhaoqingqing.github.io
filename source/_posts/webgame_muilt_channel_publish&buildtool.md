@@ -12,7 +12,7 @@ categories: Unity3D项目日志
 
 众所周知，Google大佬的Chrome浏览器在2015年时停止支持NPAPI，unity3d引擎的web player也是NPAPI的范畴，而我司的3D网页游戏正是使用unity3d引擎的web player，所以在Chrome 45及之后版本将打开我们的游戏。
 
-
+<!-- more -->
 
 ### 微端版是导出windows平台而不是web player?
 
