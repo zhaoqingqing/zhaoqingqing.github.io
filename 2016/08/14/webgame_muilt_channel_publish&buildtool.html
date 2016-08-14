@@ -1,0 +1,856 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Unity3D," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="qingqing.zhao's blog" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="页游微端的几个问题及解答为什么要开发游戏微游？众所周知，Google大佬的Chrome浏览器在2015年时停止支持NPAPI，unity3d引擎的web player也是NPAPI的范畴，而我司的3D网页游戏正是使用unity3d引擎的web player，所以在Chrome 45及之后版本将打开我们的游戏。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="页游微端多平台/渠道">
+<meta property="og:url" content="https://zhaoqingqing.github.io/2016/08/14/webgame_muilt_channel_publish&buildtool.html">
+<meta property="og:site_name" content="qingqing.zhao's blog">
+<meta property="og:description" content="页游微端的几个问题及解答为什么要开发游戏微游？众所周知，Google大佬的Chrome浏览器在2015年时停止支持NPAPI，unity3d引擎的web player也是NPAPI的范畴，而我司的3D网页游戏正是使用unity3d引擎的web player，所以在Chrome 45及之后版本将打开我们的游戏。">
+<meta property="og:updated_time" content="2016-08-14T13:19:48.722Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="页游微端多平台/渠道">
+<meta name="twitter:description" content="页游微端的几个问题及解答为什么要开发游戏微游？众所周知，Google大佬的Chrome浏览器在2015年时停止支持NPAPI，unity3d引擎的web player也是NPAPI的范畴，而我司的3D网页游戏正是使用unity3d引擎的web player，所以在Chrome 45及之后版本将打开我们的游戏。">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 1620787,
+      author: 'Author'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="https://zhaoqingqing.github.io/2016/08/14/webgame_muilt_channel_publish&buildtool.html"/>
+
+  <title> 页游微端多平台/渠道 | qingqing.zhao's blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//tajs.qq.com/stats?sId=57817168";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">qingqing.zhao's blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                页游微端多平台/渠道
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-08-14T18:23:25+08:00" content="2016-08-14">
+              2016-08-14
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Unity3D项目日志/" itemprop="url" rel="index">
+                    <span itemprop="name">Unity3D项目日志</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/08/14/webgame_muilt_channel_publish&buildtool.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/14/webgame_muilt_channel_publish&buildtool.html" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="页游微端的几个问题及解答"><a href="#页游微端的几个问题及解答" class="headerlink" title="页游微端的几个问题及解答"></a>页游微端的几个问题及解答</h2><h3 id="为什么要开发游戏微游？"><a href="#为什么要开发游戏微游？" class="headerlink" title="为什么要开发游戏微游？"></a>为什么要开发游戏微游？</h3><p>众所周知，Google大佬的Chrome浏览器在2015年时停止支持NPAPI，unity3d引擎的web player也是NPAPI的范畴，而我司的3D网页游戏正是使用unity3d引擎的web player，所以在Chrome 45及之后版本将打开我们的游戏。</p>
+<a id="more"></a>
+<h3 id="微端版是导出windows平台而不是web-player"><a href="#微端版是导出windows平台而不是web-player" class="headerlink" title="微端版是导出windows平台而不是web player?"></a>微端版是导出windows平台而不是web player?</h3><p>正是如此，下载微端玩的正是导出game.exe+game_Data而不是webplayer.unity3d+html，简单点来说: 通过下载微端玩游戏其实是客户端游戏(端游)，而通过网页入口玩游戏还是unity web player.</p>
+<h3 id="为什么微端不是内嵌网页而是客户端游戏？"><a href="#为什么微端不是内嵌网页而是客户端游戏？" class="headerlink" title="为什么微端不是内嵌网页而是客户端游戏？"></a>为什么微端不是内嵌网页而是客户端游戏？</h3><p>这个问题问的好！</p>
+<p>假如是内嵌网页，那么玩家的还是要已安装unity web player才能进入游戏(网页插件类似flash)</p>
+<p>客户端游戏无需安装web player插件，且端游可以利用更多系统性能，比如多线程，保存资源到本地等</p>
+<h3 id="为什么要做多平台-渠道打包功能？"><a href="#为什么要做多平台-渠道打包功能？" class="headerlink" title="为什么要做多平台/渠道打包功能？"></a>为什么要做多平台/渠道打包功能？</h3><p>我司U3D开发的大型3DMMORPG网页游戏，先后在腾讯，49游上线，近期内将和更多渠道和平台联运，包括多玩(yy)，37玩，爱乐玩等。</p>
+<p>微端登录和充值的流程</p>
+<ol>
+<li>微端登录器 ——&gt; 登录渠道——&gt;回调游戏服务器 ——&gt;启动并进入游戏</li>
+<li>游戏内充值——&gt; 跳到渠道的充值接口——&gt;回调游戏服务器——&gt;向游戏发放道具</li>
+</ol>
+<p><strong>1. 代理商和策划提出的需求</strong></p>
+<ul>
+<li>腾讯的游戏版本是1.1</li>
+<li>多玩的版本是1.2</li>
+<li>49游的版本是1.3</li>
+</ul>
+<p>所以游戏资源需要进行分渠道管理，代码也进行分支版本管理。</p>
+<p><strong>2. 不同渠道/平台的微端有什么区别？</strong></p>
+<ul>
+<li>腾讯渠道：ab资源+代码，微端登录页QQ空间，支付是跳转到广点通</li>
+<li>49游渠道：ab资源+代码，微端登录页平台分配的游戏入口，支付是跳转到49游充值</li>
+<li>多玩渠道：ab资源+代码，微端登录页yy登录，支付是跳转到yy游戏充值中心</li>
+<li>爱 乐 玩  ：ab资源+代码，微端登录页平台分配的游戏入口，支付是跳转到爱乐玩充值</li>
+</ul>
+<p><strong>3. 多平台要做的事</strong></p>
+<p>从上述2中可以看出，不同的渠道对应不同的微端以应付差异化，目前来说资源路径，代码，登录，充值链接等一些配置信息上的差异，当然每个渠道微端的外观也可能有差异</p>
+<p>微端的技术分析请阅读：<a href="http://www.cnblogs.com/zhaoqingqing/p/5671398.html" target="_blank" rel="external"><a href="http://www.cnblogs.com/zhaoqingqing/p/5671398.html" target="_blank" rel="external">http://www.cnblogs.com/zhaoqingqing/p/5671398.html</a></a></p>
+<h2 id="多渠道思路分析"><a href="#多渠道思路分析" class="headerlink" title="多渠道思路分析"></a>多渠道思路分析</h2><h3 id="思路1-单母包-安装器-配置表"><a href="#思路1-单母包-安装器-配置表" class="headerlink" title="思路1.单母包+安装器+配置表"></a>思路1.单母包+安装器+配置表</h3><p>微端只打包一次，安装器打包多次，每个平台/渠道有自己的专属配置文件</p>
+<p><strong>如何识别微端的渠道？</strong></p>
+<p>微端启动时读取目录中的配置文件识别当前平台，并将参数传递给游戏客户端</p>
+<p><strong>如何发布不同渠道的微端？</strong></p>
+<ul>
+<li><p>A渠道 = 母包 + A渠道配置文件 + A渠道安装器</p>
+</li>
+<li><p>B渠道 = 母包 + B渠道配置文件 + B渠道安装器</p>
+</li>
+<li><p>N渠道 = 母包 + N渠道配置文件 + N渠道安装器</p>
+</li>
+</ul>
+<p><strong>微端母包有那些文件？</strong></p>
+<ul>
+<li>fileupdate : 检查更新程序</li>
+<li>launcher:  游戏登录器/启动器</li>
+<li>uninst : 卸载程序</li>
+<li>unity pc game : unity 导出的windows程序，包含游戏的初始资源及配置文件</li>
+</ul>
+<p>更多微端的技术分析请阅读：<a href="http://www.cnblogs.com/zhaoqingqing/p/5671398.html" target="_blank" rel="external">http://www.cnblogs.com/zhaoqingqing/p/5671398.html</a></p>
+<h3 id="思路2-打多次包-宏定义"><a href="#思路2-打多次包-宏定义" class="headerlink" title="思路2.打多次包 宏定义"></a>思路2.打多次包 宏定义</h3><p>把渠道的配置信息写在代码中，通过宏定义区分不同的渠道，但需要打包多次</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">	     <span class="keyword">string</span> loginURL = <span class="string">""</span>;</div><div class="line"><span class="meta">#<span class="meta-keyword">if</span> you49</span></div><div class="line">		loginURL = http:<span class="comment">//ylxxz.49you.com/client_login.html</span></div><div class="line"><span class="meta">#<span class="meta-keyword">elif</span> ewan21</span></div><div class="line">		loginURL = http:<span class="comment">//www.2lewan.com/client/ylxxz</span></div><div class="line"><span class="meta">#<span class="meta-keyword">elif</span> duowan</span></div><div class="line">		loginURL = http:<span class="comment">//www.duowan.com/ylxxz</span></div><div class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></div></pre></td></tr></table></figure>
+<p><strong>如何识别微端的渠道？</strong></p>
+<p>答：微端启动时，通过代码中的宏定义识别识别当前平台，并将参数传递给游戏客户端</p>
+<p><strong>如何发布不同渠道的微端？</strong></p>
+<ul>
+<li>A渠道 = 打包A渠道包</li>
+<li>A渠道 = 打包B渠道包</li>
+<li>N渠道 = 打包N渠道包</li>
+</ul>
+<h2 id="我的解决方案"><a href="#我的解决方案" class="headerlink" title="我的解决方案"></a>我的解决方案</h2><p>经过思考后我使用思路1<strong>母包+配置表</strong> (注意点：针对不同的渠道，安装器需要重新打包)</p>
+<h3 id="实现步骤"><a href="#实现步骤" class="headerlink" title="实现步骤"></a>实现步骤</h3><p>自己编写简易的多渠道打包工具，打包工具主要功能及界面如下</p>
+<ul>
+<li>主界面：自动编译母包+安装器</li>
+<li>渠道选择：从列表选择渠道，程序自动验证渠道配置信息并提供预览</li>
+<li>打包结果：记录并显示打包结果</li>
+</ul>
+<h3 id="项目设定"><a href="#项目设定" class="headerlink" title="项目设定"></a>项目设定</h3><p>打包工具结合项目的配置信息，进行多渠道打包，项目工程目录如下</p>
+<ul>
+<li>微端母包 源代码</li>
+<li>微端安装器 源代码</li>
+<li><p>各个平台/渠道 配置文件 /channel_configs  里面的文件如下</p>
+<ul>
+<li>49you.json</li>
+<li>2lewan.json</li>
+<li>duowan.json</li>
+<li>37wan.json</li>
+</ul>
+</li>
+<li><p>打包后的渠道文件存放位置 /channel_packages</p>
+<ul>
+<li>/49you</li>
+<li>/2lewan</li>
+<li>/duowan</li>
+<li>/37wan</li>
+</ul>
+</li>
+</ul>
+<h3 id="安装器打包思路"><a href="#安装器打包思路" class="headerlink" title="安装器打包思路"></a>安装器打包思路</h3><ol>
+<li>合并安装器+配置文件</li>
+<li>vs打包配置(xml)</li>
+<li>配置信息写在代码中，打包时替换代码文件或动态生成代码文件</li>
+</ol>
+<h3 id="思路1-安装器和config合并"><a href="#思路1-安装器和config合并" class="headerlink" title="思路1. 安装器和config合并"></a>思路1. 安装器和config合并</h3><p><strong>通过ilmerge合并文件</strong></p>
+<p>只能合并.net assemblies ，不能合并txt等非.net类型文件</p>
+<p><a href="http://www.microsoft.com/en-us/download/details.aspx?id=17630" target="_blank" rel="external">http://www.microsoft.com/en-us/download/details.aspx?id=17630</a></p>
+<p><a href="https://ilmergegui.codeplex.com/" target="_blank" rel="external">https://ilmergegui.codeplex.com/</a></p>
+<p><strong>通过配置文件创建纯资源dll</strong> </p>
+<p><a href="https://msdn.microsoft.com/zh-cn/library/24b2tcy0%28VS.80%29.aspx?f=255&amp;MSPPError=-2147217396" target="_blank" rel="external">https://msdn.microsoft.com/zh-cn/library/24b2tcy0%28VS.80%29.aspx?f=255&amp;MSPPError=-2147217396</a></p>
+<p>此方法觉得本末倒置了，所以决定使用msbuild来打包不同的安装器</p>
+<h3 id="思路2-msbuild"><a href="#思路2-msbuild" class="headerlink" title="思路2. msbuild"></a>思路2. msbuild</h3><p>在 Visual Studio 中构建应用程序  <a href="https://msdn.microsoft.com/zh-cn/library/cyz1h6zd.aspx" target="_blank" rel="external">https://msdn.microsoft.com/zh-cn/library/cyz1h6zd.aspx</a></p>
+<p>msbuild: <a href="https://msdn.microsoft.com/zh-cn/library/dd393574.aspx" target="_blank" rel="external">https://msdn.microsoft.com/zh-cn/library/dd393574.aspx</a></p>
+<p>msbuild + xml (project.csproj)</p>
+<h2 id="msbuild-打包"><a href="#msbuild-打包" class="headerlink" title="msbuild 打包"></a>msbuild 打包</h2><h3 id="条件编译符号-预编译宏"><a href="#条件编译符号-预编译宏" class="headerlink" title="条件编译符号(预编译宏)"></a>条件编译符号(预编译宏)</h3><p>项目解决方案：WinForm.sln，主要代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">    public partial class Form1 : Form</div><div class="line">    &#123;</div><div class="line">        public Form1()</div><div class="line">        &#123;</div><div class="line">            InitializeComponent();</div><div class="line">            string channel = &quot;default&quot;;</div><div class="line">#if GooglePlay</div><div class="line">            channel=&quot;google play&quot;;</div><div class="line">#elif Samsung</div><div class="line">            channel=&quot;sam sung store&quot;;</div><div class="line">#elif AppStore</div><div class="line">            channel=&quot;app store&quot;;</div><div class="line">#endif</div><div class="line">            this.textBox1.Text = channel;</div><div class="line">        &#125;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<p>假设当前要打包 googleplay渠道</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">msbuild /m WinForm.sln /t:Rebuild /p:Configuration=Debug /p:DefineConstants=<span class="string">"GooglePlay"</span></div></pre></td></tr></table></figure>
+<p>假设当前要打包 AppStore渠道</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">msbuild /m WinForm.sln /t:Rebuild /p:Configuration=Debug /p:DefineConstants=<span class="string">"AppStore"</span></div></pre></td></tr></table></figure>
+<p><code>/p:DefineConstants=&quot;AppStore&quot;</code>  指定宏</p>
+<h3 id="msbuild-文档资料"><a href="#msbuild-文档资料" class="headerlink" title="msbuild 文档资料"></a>msbuild 文档资料</h3><p>MSBuild 命令行参考  <a href="https://technet.microsoft.com/zh-cn/library/ms164311(v=vs.85" target="_blank" rel="external">https://technet.microsoft.com/zh-cn/library/ms164311(v=vs.85).aspx</a>.aspx)</p>
+<p>msbuild-msdn : <a href="https://msdn.microsoft.com/zh-cn/library/dd393574.aspx" target="_blank" rel="external">https://msdn.microsoft.com/zh-cn/library/dd393574.aspx</a></p>
+<h3 id="可能遇到的问题"><a href="#可能遇到的问题" class="headerlink" title="可能遇到的问题"></a>可能遇到的问题</h3><p><strong>msbuild 不是内部或外部命令？</strong></p>
+<p>起因：家里的机器上同时安装VS2013 ，VS15(2016) 莫名出现msbuild不是内部或外部命令</p>
+<p>解决：C:\Program Files (x86)\MSBuild\12.0\Bin\  添加到环境变量的path中</p>
+<p><strong>devenv 不是内部或外部命令？</strong></p>
+<p>解决：C:\Program Files (x86)\Microsoft Visual Studio 12.0\Common7\IDE\ 添加到环境变量的path中</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Unity3D/" rel="tag">#Unity3D</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/08/11/microsoft-powershell-opensource.html" rel="next" title="微软准备开源PowerShell">
+                <i class="fa fa-chevron-left"></i> 微软准备开源PowerShell
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <a class="jiathis_button_tsina"></a>
+  <a class="jiathis_button_tqq"></a>
+  <a class="jiathis_button_weixin"></a>
+  <a class="jiathis_button_cqq"></a>
+  <a class="jiathis_button_douban"></a>
+  <a class="jiathis_button_renren"></a>
+  <a class="jiathis_button_qzone"></a>
+  <a class="jiathis_button_kaixin001"></a>
+  <a class="jiathis_button_copy"></a>
+  <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+  var jiathis_config={
+    hideMore:false
+  }
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/08/14/webgame_muilt_channel_publish&buildtool.html"
+           data-title="页游微端多平台/渠道" data-url="https://zhaoqingqing.github.io/2016/08/14/webgame_muilt_channel_publish&buildtool.html">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="qingqing-zhao" />
+          <p class="site-author-name" itemprop="name">qingqing-zhao</p>
+          <p class="site-description motion-element" itemprop="description">每天叫醒自己的不是闹钟而是梦想。</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">6</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="github https://github.com/zhaoqingqing/" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/people/zhaoqingqing" target="_blank" title="ZhiHu">
+                  
+                    <i class="fa fa-fw fa-tencent-weibo"></i>
+                  
+                  ZhiHu
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.cnblogs.com/zhaoqingqing/" target="_blank" title="CNBlogs">
+                  
+                    <i class="fa fa-fw fa-wordpress"></i>
+                  
+                  CNBlogs
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://stackexchange.com/users/8823592/qingqing-zhao" target="_blank" title="StackOverflow">
+                  
+                    <i class="fa fa-fw fa-stack-overflow"></i>
+                  
+                  StackOverflow
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-block">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              友情链接
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.jianshu.com/users/674f1a626944/latest_articles" title="Mr-Kelly - 简书" target="_blank">Mr-Kelly - 简书</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.cnblogs.com/xingxueliao/" title="Alex-Liao 博客园" target="_blank">Alex-Liao 博客园</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.cnblogs.com/zhaoqingqing/" title="赵青青 - 博客园" target="_blank">赵青青 - 博客园</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#页游微端的几个问题及解答"><span class="nav-number">1.</span> <span class="nav-text">页游微端的几个问题及解答</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#为什么要开发游戏微游？"><span class="nav-number">1.1.</span> <span class="nav-text">为什么要开发游戏微游？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#微端版是导出windows平台而不是web-player"><span class="nav-number">1.2.</span> <span class="nav-text">微端版是导出windows平台而不是web player?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#为什么微端不是内嵌网页而是客户端游戏？"><span class="nav-number">1.3.</span> <span class="nav-text">为什么微端不是内嵌网页而是客户端游戏？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#为什么要做多平台-渠道打包功能？"><span class="nav-number">1.4.</span> <span class="nav-text">为什么要做多平台/渠道打包功能？</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#多渠道思路分析"><span class="nav-number">2.</span> <span class="nav-text">多渠道思路分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#思路1-单母包-安装器-配置表"><span class="nav-number">2.1.</span> <span class="nav-text">思路1.单母包+安装器+配置表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#思路2-打多次包-宏定义"><span class="nav-number">2.2.</span> <span class="nav-text">思路2.打多次包 宏定义</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#我的解决方案"><span class="nav-number">3.</span> <span class="nav-text">我的解决方案</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#实现步骤"><span class="nav-number">3.1.</span> <span class="nav-text">实现步骤</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#项目设定"><span class="nav-number">3.2.</span> <span class="nav-text">项目设定</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装器打包思路"><span class="nav-number">3.3.</span> <span class="nav-text">安装器打包思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#思路1-安装器和config合并"><span class="nav-number">3.4.</span> <span class="nav-text">思路1. 安装器和config合并</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#思路2-msbuild"><span class="nav-number">3.5.</span> <span class="nav-text">思路2. msbuild</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#msbuild-打包"><span class="nav-number">4.</span> <span class="nav-text">msbuild 打包</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#条件编译符号-预编译宏"><span class="nav-number">4.1.</span> <span class="nav-text">条件编译符号(预编译宏)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#msbuild-文档资料"><span class="nav-number">4.2.</span> <span class="nav-text">msbuild 文档资料</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#可能遇到的问题"><span class="nav-number">4.3.</span> <span class="nav-text">可能遇到的问题</span></a></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">qingqing-zhao</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"mr-qing"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/vendors/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
