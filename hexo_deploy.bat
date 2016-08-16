@@ -7,5 +7,10 @@ rem e:
 rem cd Code\zhaoqingqing.github.io\
 rem hexo generate  --deploy
 
-C:\Program Files\Git\usr\bin
-ssh -vT git@github.com
+rem ===== ssh test =====
+rem cd c:\
+rem cd Program Files\Git\usr\bin
+rem ssh -vT git@github.com
+
+
+rem PTY allocation request failed on channel 0
