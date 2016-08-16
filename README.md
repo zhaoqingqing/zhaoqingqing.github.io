@@ -329,7 +329,7 @@ title：自定义
 
 key: **id_rsa.pub**的所有内容
 
-3、输入 ssh -vT git@github.com 进行测试
+3、输入 ssh -T git@github.com 进行测试
 
 ```powershell
 C:\Program Files\Git\usr\bin>ssh -vT git@github.com
@@ -444,7 +444,7 @@ E:\Code\zhaoqingqing.github.io>
 1. 使用git cmd 进入到ssh-agent.exe安装目录`C:\Program Files\Git\usr\bin>`
 2. 输入指令 C:\Program Files\Git\usr\bin>`ssh-keygen -t rsa -C "zhaoqignqing@gmail.com"`
 3. 复制`C:\Users\qingqing.ssh\id_rsa.pub`的所有内容，在github的配置中添加新的SSH Keys
-4. 输入 ssh -vT git@github.com 进行测试，如果看到 Hi zhaoqingqing! You've successfully authenticated, but GitHub does not provide shell access. 就配置成功了
+4. 输入 `ssh -T git@github.com` 进行测试，如果看到 Hi zhaoqingqing! You've successfully authenticated, but GitHub does not provide shell access. 就配置成功了
 
 ## next主题定制
 
