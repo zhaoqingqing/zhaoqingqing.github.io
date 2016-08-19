@@ -1,5 +1,5 @@
 ---
-title: 在手机上查看Unity3D Console输出的Log
+title: Unity3D手机上查看Console的Log
 ---
 
 ## Logs Viewer
@@ -40,13 +40,15 @@ AssetStore: [https://www.assetstore.unity3d.com/en/#!/content/12047]( https://ww
 
 GitHub: [https://github.com/aliessmael/Unity-Logs-Viewer/]( https://github.com/aliessmael/Unity-Logs-Viewer/)
 
-详细的功能文档：导入资源后在 `Reporter/Documentation/index.html`
+插件自带的文档：导入资源后在 `Reporter/Documentation/index.html`
 
-https://github.com/zhaoqingqing/blog_samplecode/tree/master/unity_protobuf_sample/Assets/Reporter
+或参考：https://github.com/zhaoqingqing/blog_samplecode/tree/master/unity_protobuf_sample/Assets/Reporter
+
+
 
 ## 改进或建议
 
-本文基于1.6版本 (2016-06-13发布)
+本文基于插件的1.6版本 (2016-06-13发布)，Unity 5.3.4f1 运行正常。
 
 ### 修改开启圈数
 
@@ -84,11 +86,8 @@ void OnHideReporter()
 
 
 
-### 场景使用Assetbundle
-
-
-
-### 扩展资料
-
+### 场景使用Assetbundle加载
+亮兄在此文中提到，如果场景是使用Assetbundle加载的话，把用到 string[] scenes ;的地方进行了屏蔽(注释)
 [http://www.maosongliang.com/archives/175](http://www.maosongliang.com/archives/175)
 
+我并没有详细测试通过ab场景的情况，也可以通过判空避免，查看我的修改：https://github.com/zhaoqingqing/blog_samplecode/commit/f0eb5045cd9aa1bda7efe257647e885f6367ed14
