@@ -319,33 +319,13 @@
 
       
         
-          
-            <h2 id="Logs-Viewer"><a href="#Logs-Viewer" class="headerlink" title="Logs Viewer"></a>Logs Viewer</h2><h3 id="功能描述"><a href="#功能描述" class="headerlink" title="功能描述"></a>功能描述</h3><p>Using this tool you can easily check your editor console logs inside the game itself! No need to go back to the project and do any tests to track the problems!</p>
+          <h2 id="Logs-Viewer"><a href="#Logs-Viewer" class="headerlink" title="Logs Viewer"></a>Logs Viewer</h2><h3 id="功能描述"><a href="#功能描述" class="headerlink" title="功能描述"></a>功能描述</h3><p>Using this tool you can easily check your editor console logs inside the game itself! No need to go back to the project and do any tests to track the problems!</p>
 <p>使用此工具，不管在手机或者Unity Editor中，你都可以很容易地检查/查看游戏输出的日志，而不需要回到项目和做任何测试跟踪问题!</p>
-<h3 id="开启方法"><a href="#开启方法" class="headerlink" title="开启方法"></a>开启方法</h3><p>All what you have to do is to make a circle gesture using your mouse (click and drag) or your finger (touch and drag) on the mobile screen to show all these logs!</p>
-<p>那要怎样显示此日志呢？在PC/MAC等桌面平台，你需要使用鼠标按住并画圈圈，在Mobile平台上，你需要使用手指画圈圈就可以显示日志了</p>
-<h3 id="设置步骤"><a href="#设置步骤" class="headerlink" title="设置步骤"></a>设置步骤</h3><p>To setup log viewer do the following</p>
-<ol>
-<li>create reporter from menu (Reporter-&gt;Create) at first scene your game start .</li>
-<li>then set the ” Scrip execution order ” in (Edit -&gt; Project Settings ) of Reporter.cs to be the highest.</li>
-</ol>
-<p>设置步骤</p>
-<ol>
-<li>在游戏的主场景(首次启动的Scene)，点击菜单栏 <strong>Reporter</strong> —— <strong>Create</strong>，将会在场景中创建一个<strong>Reporter</strong>的Gameobject上绑定了<strong>Reporter</strong>和<strong>ReporterMessageReceiver</strong>脚本</li>
-<li>点击 <strong>Edit</strong> —— <strong>Project Settings</strong> ——<strong>Scrip Execution Order</strong>，在打开的MonoManager中，点击+号,添加Reporter</li>
-</ol>
-<h3 id="下载地址"><a href="#下载地址" class="headerlink" title="下载地址"></a>下载地址</h3><p>AssetStore: <a href="https://www.assetstore.unity3d.com/en/#!/content/12047" target="_blank" rel="external">https://www.assetstore.unity3d.com/en/#!/content/12047</a></p>
-<p>GitHub: <a href="https://github.com/aliessmael/Unity-Logs-Viewer/" target="_blank" rel="external">https://github.com/aliessmael/Unity-Logs-Viewer/</a></p>
-<p>插件自带的文档：导入资源后在 <code>Reporter/Documentation/index.html</code></p>
-<p>或参考：<a href="https://github.com/zhaoqingqing/blog_samplecode/tree/master/unity_protobuf_sample/Assets/Reporter" target="_blank" rel="external">https://github.com/zhaoqingqing/blog_samplecode/tree/master/unity_protobuf_sample/Assets/Reporter</a></p>
-<h2 id="改进或建议"><a href="#改进或建议" class="headerlink" title="改进或建议"></a>改进或建议</h2><p>本文基于插件的1.6版本 (2016-06-13发布)，Unity 5.3.4f1 运行正常。</p>
-<h3 id="修改开启圈数"><a href="#修改开启圈数" class="headerlink" title="修改开启圈数"></a>修改开启圈数</h3><p>在<strong>Reporter</strong> 属性面板，修改 <strong>Num of Circle to Sh</strong> 的数值为其它，默认为1</p>
-<h3 id="开启时禁用NGUI的输入"><a href="#开启时禁用NGUI的输入" class="headerlink" title="开启时禁用NGUI的输入"></a>开启时禁用NGUI的输入</h3><p>如果想在开启日志窗口时，禁用NGUI的Input，可以使用添加以下。在ReporterMessageReceiver.cs</p>
-<figure class="highlight csharp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">OnHideReporter</span>(<span class="params"></span>)</span></div><div class="line">	&#123;</div><div class="line">        <span class="comment">//TO DO : resume your game</span></div><div class="line">        <span class="comment">//NOTE if use ngui enable input</span></div><div class="line">        <span class="comment">//if (UICamera.eventHandler != null)</span></div><div class="line">        <span class="comment">//&#123;</span></div><div class="line">        <span class="comment">//    UICamera.eventHandler.useMouse = true;</span></div><div class="line">        <span class="comment">//    UICamera.eventHandler.useTouch = true;</span></div><div class="line">        <span class="comment">//&#125;</span></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">OnShowReporter</span>(<span class="params"></span>)</span></div><div class="line">	&#123;</div><div class="line">        <span class="comment">//TO DO : pause your game and disable its GUI</span></div><div class="line">        <span class="comment">//NOTE if use ngui disable input</span></div><div class="line">        <span class="comment">//if (UICamera.eventHandler != null)</span></div><div class="line">        <span class="comment">//&#123;</span></div><div class="line">        <span class="comment">//    UICamera.eventHandler.useMouse = false;</span></div><div class="line">        <span class="comment">//    UICamera.eventHandler.useTouch = false;</span></div><div class="line">        <span class="comment">//&#125;</span></div><div class="line">    &#125;</div></pre></td></tr></table></figure>
-<h3 id="场景使用Assetbundle加载"><a href="#场景使用Assetbundle加载" class="headerlink" title="场景使用Assetbundle加载"></a>场景使用Assetbundle加载</h3><p>亮兄在此文中提到，如果场景是使用Assetbundle加载的话，把用到 string[] scenes ;的地方进行了屏蔽(注释)<br><a href="http://www.maosongliang.com/archives/175" target="_blank" rel="external">http://www.maosongliang.com/archives/175</a></p>
-<p>我并没有详细测试通过ab场景的情况，也可以通过判空避免，查看我的修改：<a href="https://github.com/zhaoqingqing/blog_samplecode/commit/f0eb5045cd9aa1bda7efe257647e885f6367ed14" target="_blank" rel="external">https://github.com/zhaoqingqing/blog_samplecode/commit/f0eb5045cd9aa1bda7efe257647e885f6367ed14</a></p>
-
-          
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/08/19/unity-logs-viewer_(viewlog_inmobile).html#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
         
       
     </div>
