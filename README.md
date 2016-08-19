@@ -303,7 +303,7 @@ http://www.cnblogs.com/amaoxiaozhu/p/3319233.html
 
 **解决办法**
 
-添加了此环境变量
+[可选]添加了此环境变量
 
 变量名：GIT_SSH
 
