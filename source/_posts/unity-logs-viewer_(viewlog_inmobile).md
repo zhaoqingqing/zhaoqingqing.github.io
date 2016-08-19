@@ -10,7 +10,7 @@ Using this tool you can easily check your editor console logs inside the game it
 
 使用此工具，不管在手机或者Unity Editor中，你都可以很容易地检查/查看游戏输出的日志，而不需要回到项目和做任何测试跟踪问题!
 
-
+<!-- more -->
 
 ### 开启方法
 
