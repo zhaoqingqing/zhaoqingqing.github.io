@@ -1,5 +1,5 @@
 ---
-title: Unity3D手机上查看Console的Log
+title: 便捷的方式在手机上查看Unity3D的Console Log
 ---
 
 ## Logs Viewer
@@ -28,8 +28,8 @@ To setup log viewer do the following
 2. then set the ” Scrip execution order ” in (Edit -> Project Settings ) of Reporter.cs to be the highest.
 
 设置步骤
-1. 在游戏的主场景(首次启动的Scene)，点击菜单栏 **Reporter** —— **Create**，将会在场景中创建一个**Reporter**的Gameobject上绑定了**Reporter**和**ReporterMessageReceiver**脚本
-2. 点击 **Edit** —— **Project Settings** ——**Scrip Execution Order**，在打开的MonoManager中，点击+号,添加Reporter
+1. 在游戏的主场景(首次启动的Scene)，点击菜单栏 **Reporter** — **Create**，将会在场景中创建一个**Reporter**的Gameobject上绑定了**Reporter**和**ReporterMessageReceiver**脚本
+2. 点击 **Edit** — **Project Settings** —**Scrip Execution Order**，在打开的MonoManager中，点击+号,添加Reporter
 
 
 
@@ -86,8 +86,8 @@ void OnHideReporter()
 
 
 
-### 场景使用Assetbundle加载
-亮兄在此文中提到，如果场景是使用Assetbundle加载的话，把用到 string[] scenes ;的地方进行了屏蔽(注释)
-[http://www.maosongliang.com/archives/175](http://www.maosongliang.com/archives/175)
+### 其它注意事项
+[亮兄此文中提到](http://www.maosongliang.com/archives/175)，如果场景是使用Assetbundle加载的话，把用到 string[] scenes ;的地方进行了屏蔽(注释)
 
-我并没有详细测试通过ab场景的情况，也可以通过判空避免，查看我的修改：https://github.com/zhaoqingqing/blog_samplecode/commit/f0eb5045cd9aa1bda7efe257647e885f6367ed14
+
+我并没有详细测试使用ab场景的情况，我是通过判空来避免异常的出现，查看我的修改：https://github.com/zhaoqingqing/blog_samplecode/commit/f0eb5045cd9aa1bda7efe257647e885f6367ed14
