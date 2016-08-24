@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://zhaoqingqing.github.io/"/>
-  <updated>2016-08-19T14:06:09.969Z</updated>
+  <updated>2016-08-21T15:35:11.880Z</updated>
   <id>https://zhaoqingqing.github.io/</id>
   
   <author>
@@ -16,11 +16,11 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>Unity3D手机上查看Console的Log</title>
+    <title>便捷的方式在手机上查看Unity3D的Console Log</title>
     <link href="https://zhaoqingqing.github.io/2016/08/19/unity-logs-viewer_(viewlog_inmobile).html"/>
     <id>https://zhaoqingqing.github.io/2016/08/19/unity-logs-viewer_(viewlog_inmobile).html</id>
     <published>2016-08-19T13:21:34.148Z</published>
-    <updated>2016-08-19T14:06:09.969Z</updated>
+    <updated>2016-08-21T15:35:11.880Z</updated>
     
     <content type="html"><![CDATA[<h2 id="Logs-Viewer"><a href="#Logs-Viewer" class="headerlink" title="Logs Viewer"></a>Logs Viewer</h2><h3 id="功能描述"><a href="#功能描述" class="headerlink" title="功能描述"></a>功能描述</h3><p>Using this tool you can easily check your editor console logs inside the game itself! No need to go back to the project and do any tests to track the problems!</p>
 <p>使用此工具，不管在手机或者Unity Editor中，你都可以很容易地检查/查看游戏输出的日志，而不需要回到项目和做任何测试跟踪问题!</p>
@@ -34,8 +34,8 @@
 </ol>
 <p>设置步骤</p>
 <ol>
-<li>在游戏的主场景(首次启动的Scene)，点击菜单栏 <strong>Reporter</strong> —— <strong>Create</strong>，将会在场景中创建一个<strong>Reporter</strong>的Gameobject上绑定了<strong>Reporter</strong>和<strong>ReporterMessageReceiver</strong>脚本</li>
-<li>点击 <strong>Edit</strong> —— <strong>Project Settings</strong> ——<strong>Scrip Execution Order</strong>，在打开的MonoManager中，点击+号,添加Reporter</li>
+<li>在游戏的主场景(首次启动的Scene)，点击菜单栏 <strong>Reporter</strong> — <strong>Create</strong>，将会在场景中创建一个<strong>Reporter</strong>的Gameobject上绑定了<strong>Reporter</strong>和<strong>ReporterMessageReceiver</strong>脚本</li>
+<li>点击 <strong>Edit</strong> — <strong>Project Settings</strong> —<strong>Scrip Execution Order</strong>，在打开的MonoManager中，点击+号,添加Reporter</li>
 </ol>
 <h3 id="下载地址"><a href="#下载地址" class="headerlink" title="下载地址"></a>下载地址</h3><p>AssetStore: <a href="https://www.assetstore.unity3d.com/en/#!/content/12047" target="_blank" rel="external">https://www.assetstore.unity3d.com/en/#!/content/12047</a></p>
 <p>GitHub: <a href="https://github.com/aliessmael/Unity-Logs-Viewer/" target="_blank" rel="external">https://github.com/aliessmael/Unity-Logs-Viewer/</a></p>
@@ -45,8 +45,8 @@
 <h3 id="修改开启圈数"><a href="#修改开启圈数" class="headerlink" title="修改开启圈数"></a>修改开启圈数</h3><p>在<strong>Reporter</strong> 属性面板，修改 <strong>Num of Circle to Sh</strong> 的数值为其它，默认为1</p>
 <h3 id="开启时禁用NGUI的输入"><a href="#开启时禁用NGUI的输入" class="headerlink" title="开启时禁用NGUI的输入"></a>开启时禁用NGUI的输入</h3><p>如果想在开启日志窗口时，禁用NGUI的Input，可以使用添加以下。在ReporterMessageReceiver.cs</p>
 <figure class="highlight csharp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">OnHideReporter</span>(<span class="params"></span>)</span></div><div class="line">	&#123;</div><div class="line">        <span class="comment">//TO DO : resume your game</span></div><div class="line">        <span class="comment">//NOTE if use ngui enable input</span></div><div class="line">        <span class="comment">//if (UICamera.eventHandler != null)</span></div><div class="line">        <span class="comment">//&#123;</span></div><div class="line">        <span class="comment">//    UICamera.eventHandler.useMouse = true;</span></div><div class="line">        <span class="comment">//    UICamera.eventHandler.useTouch = true;</span></div><div class="line">        <span class="comment">//&#125;</span></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">OnShowReporter</span>(<span class="params"></span>)</span></div><div class="line">	&#123;</div><div class="line">        <span class="comment">//TO DO : pause your game and disable its GUI</span></div><div class="line">        <span class="comment">//NOTE if use ngui disable input</span></div><div class="line">        <span class="comment">//if (UICamera.eventHandler != null)</span></div><div class="line">        <span class="comment">//&#123;</span></div><div class="line">        <span class="comment">//    UICamera.eventHandler.useMouse = false;</span></div><div class="line">        <span class="comment">//    UICamera.eventHandler.useTouch = false;</span></div><div class="line">        <span class="comment">//&#125;</span></div><div class="line">    &#125;</div></pre></td></tr></table></figure>
-<h3 id="场景使用Assetbundle加载"><a href="#场景使用Assetbundle加载" class="headerlink" title="场景使用Assetbundle加载"></a>场景使用Assetbundle加载</h3><p>亮兄在此文中提到，如果场景是使用Assetbundle加载的话，把用到 string[] scenes ;的地方进行了屏蔽(注释)<br><a href="http://www.maosongliang.com/archives/175" target="_blank" rel="external">http://www.maosongliang.com/archives/175</a></p>
-<p>我并没有详细测试通过ab场景的情况，也可以通过判空避免，查看我的修改：<a href="https://github.com/zhaoqingqing/blog_samplecode/commit/f0eb5045cd9aa1bda7efe257647e885f6367ed14" target="_blank" rel="external">https://github.com/zhaoqingqing/blog_samplecode/commit/f0eb5045cd9aa1bda7efe257647e885f6367ed14</a></p>
+<h3 id="其它注意事项"><a href="#其它注意事项" class="headerlink" title="其它注意事项"></a>其它注意事项</h3><p><a href="http://www.maosongliang.com/archives/175" target="_blank" rel="external">亮兄此文中提到</a>，如果场景是使用Assetbundle加载的话，把用到 string[] scenes ;的地方进行了屏蔽(注释)</p>
+<p>我并没有详细测试使用ab场景的情况，我是通过判空来避免异常的出现，查看我的修改：<a href="https://github.com/zhaoqingqing/blog_samplecode/commit/f0eb5045cd9aa1bda7efe257647e885f6367ed14" target="_blank" rel="external">https://github.com/zhaoqingqing/blog_samplecode/commit/f0eb5045cd9aa1bda7efe257647e885f6367ed14</a></p>
 ]]></content>
     
     <summary type="html">
