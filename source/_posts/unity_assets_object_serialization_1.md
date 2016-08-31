@@ -6,6 +6,9 @@ tags:
 categories: Unity3D项目日志
 ---
 
+这是一系列文章中的第二章，覆盖了[Unity5的Assets，Resources和资源管理](https://unity3d.com/learn/tutorials/topics/best-practices/guide-asset-bundles-and-resources)
+
+
 
 本文将从Unity编辑器和运行时两个角度出发，主要探讨以下两方面内容：**Unity序列化系统内部细节**以及**Unity如何维护不同对象之间的强引用**。另外还会讨论对象与资源的技术实现差别。
 
@@ -26,14 +29,14 @@ categories: Unity3D项目日志
 
 ### UnityEngine.Object
 
-UnityEngine.Object，或者说以大写字母O开头的Object——对象，代表序列化数据的集合，表示某个资源的具体实例。它可以是Unity引擎使用的任何类型的资源，例如网格，Sprite，音频剪辑或动画剪辑。所有的对象（Object）都是UnityEngine.Object基类的子类。
+[UnityEngine.Object](http://docs.unity3d.com/ScriptReference/Object.html?_ga=1.146782647.2098911022.1464579255)，或者说以大写字母O开头的Object——对象，代表序列化数据的集合，表示某个资源的具体实例。它可以是Unity引擎使用的任何类型的资源，例如网格，Sprite，音频剪辑或动画剪辑。所有的对象（Object）都是UnityEngine.Object基类的子类。
 
 ### 特殊的Object类型
 
 几乎所有的对象（Object）类型都是内建的，其中有两种比较特殊的类型。
 
-1. **ScriptableObject**为开发者提供了一套便捷的系统，供开发者自定义数据类型。这些类型可以被Unity直接序列化或反序列化，并在Unity编辑器的检视器窗口中进行操作。
-2. **MonoBehaviour**提供了链接MonoScript的容器。MonoScript是一种内部数据类型，Unity用它保存对某个特定程序集和命名空间中特定脚本类的引用，MonoScript本身不包含任何实际的可执行代码。
+1. **[ScriptableObject](http://docs.unity3d.com/ScriptReference/ScriptableObject.html?_ga=1.146782647.2098911022.1464579255)**为开发者提供了一套便捷的系统，供开发者自定义数据类型。这些类型可以被Unity直接序列化或反序列化，并在Unity编辑器的检视器窗口中进行操作。
+2. **[MonoBehaviour](http://docs.unity3d.com/ScriptReference/MonoBehaviour.html?_ga=1.217438613.2098911022.1464579255)**提供了链接[MonoScript](http://docs.unity3d.com/ScriptReference/MonoScript.html?_ga=1.217438613.2098911022.1464579255)的容器。MonoScript是一种内部数据类型，Unity用它保存对某个特定程序集和命名空间中特定脚本类的引用，MonoScript本身不包含任何实际的可执行代码。
 
 ### 一对多关系
 
@@ -43,7 +46,7 @@ UnityEngine.Object，或者说以大写字母O开头的Object——对象，代�
 
 所有UnityEngine.Objects都可以引用其他的UnityEngine.Objects。这里“其他的Object”可能存在于相同的资源文件中，或需要从其他资源文件导入。例如，一个材质Object通常有一个或多个纹理Object的引用。这些纹理Object一般是从一个或多个纹理资源文件中导入的（例如PNG或JPG文件）。
 
-序列化后，这些引用由两部分数据组成：文件GUID和本地ID。文件GUID用于识别资源（Asset）文件中目标资源（Resource）的存储位置。而本地唯一的ID负责识别单个资源文件中的Object，因为一个资源文件可能会包含多个Object。
+序列化后，这些引用由两部分数据组成：文件GUID和本地ID。文件GUID用于识别资源（Asset）文件中目标资源（Resource）的存储位置。而本地唯一(1)的ID负责识别单个资源文件中的Object，因为一个资源文件可能会包含多个Object。
 
 ### 文件GUID(.meta)
 
@@ -107,7 +110,7 @@ Unity编辑器负责维护一张文件路径与文件GUID之间关系的映射�
 
 ### 资源导入器
 
-正如前面深入理解资源与对象中所说的一样，不能被Unity直接支持的资源类型必须经过导入才可以使用——使用资源导入器来完成。这些导入器是自动调用的，您也可以使用AssetImporter在脚本中调用API及其子类。例如，在导入单独的纹理资源例如PNG和JPG时，TextureImporter API提供了导入时要使用的相关设置的访问。
+正如前面深入理解资源与对象中所说的一样，不能被Unity直接支持的[资源类型](https://unity3d.com/cn/learn/tutorials/topics/best-practices/assets-objects-and-serialization?playlist=30089#Inside_Assets_and_Objects)必须经过导入才可以使用——使用资源导入器来完成。这些导入器是自动调用的，您也可以使用[AssetImporter](http://docs.unity3d.com/ScriptReference/AssetImporter.html?_ga=1.200234669.2098911022.1464579255)在脚本中调用API及其子类。例如，在导入单独的纹理资源例如PNG和JPG时，[TextureImporter](http://docs.unity3d.com/ScriptReference/TextureImporter.html?_ga=1.200234669.2098911022.1464579255) API提供了导入时要使用的相关设置的访问。
 
 导入过程最终的产物是一系列UnityEngine.Object。在Unity编辑器中，这些对象会具体表现为父资源下的多个子资源，例如作为Sprite Atlas导入的纹理材质，其下属会有多个嵌套的Sprite。每一个对象都会使用相同的文件GUID，因为它们的源数据都存储在同一个资源文件中。它们在纹理资源中的具体区分工作则使用本地ID来完成。
 
@@ -125,24 +128,20 @@ Unity编辑器负责维护一张文件路径与文件GUID之间关系的映射�
 
 
 
-## 补充说明：
+## Footnotes(脚注)
 
 1. 在文件中，本地ID是唯一的。即在一个资源文件中，里面包含的本地ID都是不重复的。
-
 2. 在内部，这种缓存被称为PersistentManager。实际的转换工作在在Unity的C++ Remapper类中进行，Remapper类没有提供任何C# API调用接口。
-
-3. 运行时创建资源的示例是在脚本中创建Texture2D对象：
-
-   var myTexture = new Texture2D(1027, 768);
-
+3. 运行时创建资源的示例是在脚本中创建Texture2D对象：`var myTexture = new Texture2D(1027, 768);`
 4. 程序运行时对象并没有被卸载却被从内存中移除的情况通常会发生在Unity失去了对图形内容的控制的时候。例如，当手机应用被挂起并被强制在后台运行。这种情况下，手机操作系统通常会将所有的图形资源从GPU显存中强行卸载。之后APP再回到前台运行时，Unity不得不重新向GPU上传需要的材质、着色器和网格数据，以便恢复场景的正常渲染。
-
 
 ------
 
+到此整个Unity内部资源管理与对象引用及序列化的内容就结束了，希望看完本文的你对如何合理分配Unity项目结构都有了比较清晰的概念。
+
 原文链接：[http://unity3d.com/cn/learn/tuto ... tion?playlist=30089](http://unity3d.com/cn/learn/tutorials/topics/best-practices/assets-objects-and-serialization?playlist=30089)
 感谢Unity官方翻译组成员“E.A.S”对本文翻译所做的贡献。
-转载请注明来源：Unity官方中文社区 (forum.china.unity3d.com)。请勿私自更改任何版权说明信息。
+转载请注明来源：Unity官方中文社区 ([forum.china.unity3d.com](http://forum.china.unity3d.com/thread-20129-1-1.html))。请勿私自更改任何版权说明信息。
 
 
 
