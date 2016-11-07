@@ -91,12 +91,12 @@
 本文内容是理解在Unity中如何高效加载和卸载资源的基础。正确的资源管理对缩短加载时间并减少内存占用来说至关重要。之前已经介绍了 上半部分，今天继续为大家">
 <meta property="og:type" content="article">
 <meta property="og:title" content="玩转Unity资源，对象和序列化(下)">
-<meta property="og:url" content="https://zhaoqingqing.github.io/2016/08/30/unity_assets_object_serialization_2.html">
+<meta property="og:url" content="https://zhaoqingqing.github.io/2016/08/31/unity_assets_object_serialization_2.html">
 <meta property="og:site_name" content="qingqing.zhao's blog">
 <meta property="og:description" content="本文将从Unity编辑器和运行时两个角度出发，主要探讨以下两方面内容：Unity序列化系统内部细节以及Unity如何维护不同对象之间的强引用。另外还会讨论对象与资源的技术实现差别。
 译注：除非特别说明，下文中所有的“资源”均指代“Asset”。
 本文内容是理解在Unity中如何高效加载和卸载资源的基础。正确的资源管理对缩短加载时间并减少内存占用来说至关重要。之前已经介绍了 上半部分，今天继续为大家">
-<meta property="og:updated_time" content="2016-08-30T14:41:11.113Z">
+<meta property="og:updated_time" content="2016-10-23T09:02:41.811Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="玩转Unity资源，对象和序列化(下)">
 <meta name="twitter:description" content="本文将从Unity编辑器和运行时两个角度出发，主要探讨以下两方面内容：Unity序列化系统内部细节以及Unity如何维护不同对象之间的强引用。另外还会讨论对象与资源的技术实现差别。
@@ -122,7 +122,7 @@
 
 
 
-  <link rel="canonical" href="https://zhaoqingqing.github.io/2016/08/30/unity_assets_object_serialization_2.html"/>
+  <link rel="canonical" href="https://zhaoqingqing.github.io/2016/08/31/unity_assets_object_serialization_2.html"/>
 
   <title> 玩转Unity资源，对象和序列化(下) | qingqing.zhao's blog </title>
 </head>
@@ -285,8 +285,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-08-30T22:05:25+08:00" content="2016-08-30">
-              2016-08-30
+            <time itemprop="dateCreated" datetime="2016-08-31T13:31:27+08:00" content="2016-08-31">
+              2016-08-31
             </time>
           </span>
 
@@ -315,8 +315,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/08/30/unity_assets_object_serialization_2.html#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/30/unity_assets_object_serialization_2.html" itemprop="commentsCount"></span>
+                <a href="/2016/08/31/unity_assets_object_serialization_2.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/31/unity_assets_object_serialization_2.html" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -341,47 +341,57 @@
       
         <p>本文将从Unity编辑器和运行时两个角度出发，主要探讨以下两方面内容：<strong>Unity序列化系统内部细节</strong>以及<strong>Unity如何维护不同对象之间的强引用</strong>。另外还会讨论对象与资源的技术实现差别。</p>
 <p>译注：除非特别说明，下文中所有的“资源”均指代“Asset”。</p>
-<p>本文内容是理解在Unity中如何高效加载和卸载资源的基础。正确的资源管理对缩短加载时间并减少内存占用来说至关重要。之前已经介绍了 <em>上半部分</em>，今天继续为大家分享下半部分内容。</p>
+<p>本文内容是理解在Unity中如何高效加载和卸载资源的基础。正确的资源管理对缩短加载时间并减少内存占用来说至关重要。之前已经介绍了 <em><a href="http://www.cnblogs.com/zhaoqingqing/p/5823927.html" target="_blank" rel="external">上半部分</a></em>，今天继续为大家分享下半部分内容。</p>
 <a id="more"></a>
-<h3 id="1-5-序列化和实例"><a href="#1-5-序列化和实例" class="headerlink" title="1.5. 序列化和实例"></a>1.5. 序列化和实例</h3><p>尽管文件GUID和本地ID已准备妥当，它们可以强有力地维护资源之间的关系，但还有一个问题，GUID比较效率低下，我们需要为运行时准备一个效率更高的解决方案。Unity在内部维护着一个缓存表(2)，负责将文件GUID和本地ID转换成为整数数值，这个数值在本次会话中是唯一的，称作实例ID。实例ID会简单地以单调递增的方式分配给缓存中新注册的对象。</p>
+<h2 id="1-5-序列化和实例"><a href="#1-5-序列化和实例" class="headerlink" title="1.5. 序列化和实例"></a>1.5. 序列化和实例</h2><h3 id="实例ID"><a href="#实例ID" class="headerlink" title="实例ID"></a>实例ID</h3><p>尽管文件GUID和本地ID已准备妥当，它们可以强有力地维护资源之间的关系，但还有一个问题，GUID比较效率低下，我们需要为运行时准备一个效率更高的解决方案。Unity在内部维护着一个缓存表(2)，负责将文件GUID和本地ID转换成为整数数值，这个数值在本次会话中是唯一的，称作实例ID。实例ID会简单地以单调递增的方式分配给缓存中新注册的对象。</p>
 <p>缓存负责维护实例ID与文件GUID和本地ID定义的对象源数据位置以及对象在内存中的地址（如果存在）的映射。 这样Unity就能够强而有力地保证它们互相之间的引用关系。通过解析实例ID，我们能够快速找到并返回ID对应的已载入实例。如果目标没有被加载，则Unity会通过文件GUID和本地ID解析获得对象的源数据，实时载入对象。</p>
-<p>启动时，实例ID缓存与所有工程内建的对象（例如在场景中被引用），以及Resources文件夹下的所有对象，都会一起被初始化。如果在运行时导入了新的资源，或从AssetBundle中载入了新的对象，缓存会被更新并为这些对象添加相应条目。实例ID仅在失效时才会被从缓存中移除，当提供了指定文件GUID和本地ID的AssetBundle被卸载时就会产生移除操作。</p>
+<p>启动时，实例ID缓存与所有工程内建的对象（例如在场景中被引用），以及Resources文件夹下的所有对象，都会一起被初始化。如果在运行时(3)导入了新的资源，或从AssetBundle中载入了新的对象，缓存会被更新并为这些对象添加相应条目。实例ID仅在失效时才会被从缓存中移除，当提供了指定文件GUID和本地ID的AssetBundle被卸载时就会产生移除操作。</p>
 <p>卸载AssetBundle会使实例ID失效，实例ID与其文件GUID和本地ID之间的映射会被删除以便节省内存。重新载入AssetBundle后，载入的每个对象都会获得一个新的实例ID。</p>
-<p>关于AssetBundle隐式卸载的更深层次讨论，参考AssetBundle Usage Patterns中的管理已加载资源章节。</p>
-<p>注意在某些平台上，有一些系统事件会使得对象在内存中被强行卸载。例如iOS平台上，当一个app处于挂起状态时，图形资源就会从显存中卸载。如果这些对象都来自于一个已被卸除的AssetBundle时，Unity将无法再次从源数据处加载这些对象。任何已有的对这些对象的引用都会失效。这个例子中，导致的后果就是出现网格不可见（丢失），或模型的纹理和材质呈现为洋红色（Shader丢失）。</p>
-<p>提示：在运行时，对上述控制流程的描述并非完全准确。文件GUID和本地ID的比较操作在载入负担较重时的效率也会下降。构建Unity工程时，文件GUID和本地ID，确切地说会被映射到一种更简单的格式中。不过概念还是大致相同的，在考虑“运行时”的时候以文件GUID和本地ID的工作方式为思路还是有一些参考意义的。</p>
+<p>关于AssetBundle隐式卸载的更深层次讨论，参考<a href="https://unity3d.com/learn/tutorials/topics/best-practices/asset-bundle-usage-patterns" target="_blank" rel="external">AssetBundle Usage Patterns</a>中的管理<a href="https://unity3d.com/learn/tutorials/topics/best-practices/asset-bundle-usage-patterns#Managing_Loaded_Assets" target="_blank" rel="external">已加载资源章节</a>。</p>
+<h3 id="注意事项-IOS上挂起状态"><a href="#注意事项-IOS上挂起状态" class="headerlink" title="注意事项(IOS上挂起状态)"></a>注意事项(IOS上挂起状态)</h3><p>注意在某些平台上，有一些系统事件会使得对象在内存中被强行卸载。例如iOS平台上，当一个app处于挂起状态时，图形资源就会从显存中卸载。如果这些对象都来自于一个已被卸除的AssetBundle时，Unity将无法再次从源数据处加载这些对象。任何已有的对这些对象的引用都会失效。这个例子中，导致的后果就是出现网格不可见（丢失），或模型的纹理和材质呈现为洋红色（Shader丢失）。</p>
+<h3 id="提示"><a href="#提示" class="headerlink" title="提示"></a>提示</h3><p>提示：在运行时，对上述控制流程的描述并非完全准确。文件GUID和本地ID的比较操作在载入负担较重时的效率也会下降。构建Unity工程时，文件GUID和本地ID，确切地说会被映射到一种更简单的格式中。不过概念还是大致相同的，在考虑“运行时”的时候以文件GUID和本地ID的工作方式为思路还是有一些参考意义的。</p>
 <p>这也是在运行时资源的文件GUID无法被调取的原因。</p>
-<h3 id="1-6-MonoScripts"><a href="#1-6-MonoScripts" class="headerlink" title="1.6.MonoScripts"></a>1.6.MonoScripts</h3><p>理解MonoBehaviour很重要的一点是知道它有一个对MonoScript的引用。MonoScript的用途非常简单，里面包括了定位某个具体的编程类所需要的信息。这两种对象都没有程序类的可执行代码。</p>
+<h2 id="1-6-MonoScripts"><a href="#1-6-MonoScripts" class="headerlink" title="1.6.MonoScripts"></a>1.6.MonoScripts</h2><p>理解MonoBehaviour很重要的一点是知道它有一个对MonoScript的引用。MonoScript的用途非常简单，里面包括了定位某个具体的编程类所需要的信息。这两种对象都没有程序类的可执行代码。</p>
 <p>一个MonoScript含有三个字符串：程序库名称，类名称，命名空间。</p>
-<p>构建工程时，Unity会收集Assets文件夹中独立的脚本文件并将它们编译，组成一个Mono程序库。要特别说明的是，Unity会将Assets目录中的语言分开编译，Assets/Plugins目录中的脚本同理。Plugins子目录之外的C#脚本会放在Assembly-CSharp.dll中。而Plugins及其子目录中的脚本则放置在Assembly-CSharp-firstpass.dll中，以此类推。</p>
+<h3 id="程序库-dll"><a href="#程序库-dll" class="headerlink" title="程序库(dll)"></a>程序库(dll)</h3><p>构建工程时，Unity会收集Assets文件夹中独立的脚本文件并将它们编译，组成一个Mono程序库。要特别说明的是，Unity会将Assets目录中的语言分开编译，Assets/Plugins目录中的脚本同理。Plugins子目录之外的C#脚本会放在Assembly-CSharp.dll中。而Plugins及其子目录中的脚本则放置在Assembly-CSharp-firstpass.dll中，以此类推。</p>
 <p>这些程序库（加上预编译好的DLL程序库）将被包含在最终构建的Unity应用程序中。这些程序库都会被MonoScript所引用。与其他类型的资源不同，Unity应用程序中的所有应用程序都会在程序第一次启动时被加载。</p>
 <p>MonoScript就是为什么AssetBundle（或一个场景，一个Prefab）中的MonoBehaviour组件不包含有任何实际可执行代码的原因。这样就可以让不同的MonoBehaviour引用某个共享类，即便这些MonoBehaviour不在同一个AssetBundle中。</p>
-<h3 id="1-7-资源（Resource）生命周期"><a href="#1-7-资源（Resource）生命周期" class="headerlink" title="1.7.资源（Resource）生命周期"></a>1.7.资源（Resource）生命周期</h3><p>UnityEngine.Objects从内存中加载或卸载的时间点是定义好的。为了缩短程序载入时间，管理应用程序的内存足迹，理解UnityEinge.Object的资源生命周期是很重要的。</p>
-<p>有两种加载UnityEngine.Object的方式：自动加载或外部加载。当对象的实例ID与对象本身解引用，对象当前未被加载到内存中，而且可以定位到对象的源数据，此时对象会被自动加载。对象也可以外部加载，通过在脚本中创建对象或调用资源加载API来载入对象（例如AssetBundle.LoadAsset）。</p>
+<h2 id="1-7-资源（Resource）生命周期"><a href="#1-7-资源（Resource）生命周期" class="headerlink" title="1.7.资源（Resource）生命周期"></a>1.7.资源（Resource）生命周期</h2><p><strong>UnityEngine.Objects从内存中加载或卸载的时间点是定义好的</strong>。为了缩短程序载入时间，管理应用程序的内存足迹，理解UnityEinge.Object的资源生命周期是很重要的。</p>
+<h3 id="加载UnityEngine-Object的两种方式"><a href="#加载UnityEngine-Object的两种方式" class="headerlink" title="加载UnityEngine.Object的两种方式"></a>加载UnityEngine.Object的两种方式</h3><p><strong>有两种加载UnityEngine.Object的方式：自动加载或外部加载</strong>。</p>
+<p>当对象的实例ID与对象本身解引用，对象当前未被加载到内存中，而且可以定位到对象的源数据，此时对象会被自动加载。对象也可以外部加载，通过在脚本中创建对象或调用资源加载API来载入对象（例如<a href="http://docs.unity3d.com/ScriptReference/AssetBundle.LoadAsset.html?_ga=1.182882597.2098911022.1464579255" target="_blank" rel="external">AssetBundle.LoadAsset</a>）。</p>
 <p>对象加载后，Unity会尝试修复任何可能存在的引用关系，通过将每个引用的文件GUID和本地ID转化成为实例ID的方式。</p>
-<p>一旦对象的实例ID被解引用且满足以下两个标准时，对象会被强制加载：<br>实例ID引用了一个没有被加载的对象。实例ID在缓存中存在对应的有效GUID和本地ID。</p>
+<p>一旦对象的实例ID被解引用且满足以下两个标准时，对象会被强制加载：</p>
+<ol>
+<li>实例ID引用了一个没有被加载的对象。</li>
+<li>实例ID在缓存中存在对应的有效GUID和本地ID。</li>
+</ol>
 <p>这种情况通常会在引用被加载并解析后很短的一段时间内发生。</p>
 <p>如果文件GUID和本地ID没有实例ID，或一个已卸载对象的实例ID引用了非法的文件GUID和本地ID，则引用本身会被保留，但实际对象不会被加载。在Unity编辑器中表现为“（空）”引用。在运行的应用程序中，或场景视图里，“（空）”对象通常以多种方式表示，这取决于丢失对象的类型：网格会变得不可见，纹理呈现为洋红色等等。</p>
-<p>对象被卸载有以下三种情况：<br>闲置资源清理进程开始后，一些对象会被自动卸载。该过程通常会在切换场景切不保留原场景（例如调用了非叠加的场景切换API Application.LoadLevel），或者脚本中调用了Resources.UnloadUnusedAssets时自动触发。该进程仅卸载没有被引用的对象：对象仅在Mono变量不存在对其的引用，且不存在引用该对象的其他活动对象时被卸载。Resources目录中的对象可以通过调用Resources.UnloadAsset API主动卸载。卸载后对象的实例ID会保持可用状态，对文件GUID和本地ID的条目会被保留且仍然有效。如果有Mono变量或其他有指向该对象的活动对象引用了被Resources.UnloadAsset卸载的对象，则该对象会在任意有效的引用被解引用时立刻重新加载。调用AssetBundle.Unload(true) API时，加载自AssetBundle的对象会被立刻自动卸载。该操作会释放对象实例ID的文件GUID和本地ID引用，任何对卸载对象的引用都会变成“（空）”引用。C#脚本中，任何试图访问已卸载对象上的方法和属性都会导致抛出空引用异常（NullReferenceException）。</p>
-<p>如果调用了AssetBundle.Unload(false)，被卸载的AssetBundle中仍然处于激活状态的对象不会被回收，但Unity会释放其实例ID的文件GUID和本地GUID引用。之后假如它们被从内存中卸载，只剩下对这些被卸载对象额引用，Unity无法再次重新加载这些对象。</p>
-<h3 id="1-8-载入大型结构树（Hierarchies）"><a href="#1-8-载入大型结构树（Hierarchies）" class="headerlink" title="1.8.载入大型结构树（Hierarchies）"></a>1.8.载入大型结构树（Hierarchies）</h3><p>当序列化含有大量Unity游戏对象的结构树时（例如序列化Prefab），要记住一点，即整个结构树都会被完全序列化。这就是说，结构树中的每一个游戏对象和组件都会在序列化数据中单独表示。这会对游戏对象结构的载入与实例化的耗时带来有趣的影响。<br>假设一个代码块实例化了一定数量的游戏对象，结构树非常庞大的单个Prefab的实例化，会比分别实例化结构树的多个模块然后运行时组合花费更多的CPU时间。</p>
+<h3 id="对象被卸载的三种情况"><a href="#对象被卸载的三种情况" class="headerlink" title="对象被卸载的三种情况"></a>对象被卸载的三种情况</h3><p>对象被卸载有以下三种情况：</p>
+<ol>
+<li>闲置资源清理进程开始后，一些对象会被自动卸载。该过程通常会在切换场景切不保留原场景（例如调用了非叠加的场景切换API <a href="http://docs.unity3d.com/ScriptReference/Application.LoadLevel.html?_ga=1.216561301.2098911022.1464579255" target="_blank" rel="external">Application.LoadLevel</a>），或者脚本中调用了<a href="http://docs.unity3d.com/ScriptReference/Resources.UnloadUnusedAssets.html?_ga=1.216561301.2098911022.1464579255" target="_blank" rel="external">Resources.UnloadUnusedAssets</a>时自动触发。该进程仅卸载没有被引用的对象：对象仅在Mono变量不存在对其的引用，且不存在引用该对象的其他活动对象时被卸载。</li>
+<li>Resources目录中的对象可以通过调用<a href="http://docs.unity3d.com/ScriptReference/Resources.UnloadAsset.html?_ga=1.216561301.2098911022.1464579255" target="_blank" rel="external">Resources.UnloadAsset</a> API主动卸载。卸载后对象的实例ID会保持可用状态，对文件GUID和本地ID的条目会被保留且仍然有效。如果有Mono变量或其他有指向该对象的活动对象引用了被<a href="http://docs.unity3d.com/ScriptReference/Resources.UnloadAsset.html?_ga=1.246716935.2098911022.1464579255" target="_blank" rel="external">Resources.UnloadAsset</a>卸载的对象，则该对象会在任意有效的引用被解引用时立刻重新加载。</li>
+<li>调用<a href="http://docs.unity3d.com/ScriptReference/AssetBundle.Unload.html?_ga=1.246716935.2098911022.1464579255" target="_blank" rel="external">AssetBundle.Unload(true)</a> API时，加载自AssetBundle的对象会被立刻自动卸载。该操作会释放对象实例ID的文件GUID和本地ID引用，任何对卸载对象的引用都会变成“（空）”引用。C#脚本中，任何试图访问已卸载对象上的方法和属性都会导致抛出空引用异常（NullReferenceException）。</li>
+</ol>
+<p>如果调用了<a href="http://docs.unity3d.com/ScriptReference/AssetBundle.Unload.html?_ga=1.142447025.2098911022.1464579255" target="_blank" rel="external">AssetBundle.Unload(false)</a>，被卸载的AssetBundle中仍然处于激活状态的对象不会被回收，但Unity会释放其实例ID的文件GUID和本地GUID引用。之后假如它们被从内存中卸载，只剩下对这些被卸载对象额引用，Unity无法再次重新加载这些对象(4)。</p>
+<h2 id="1-8-载入大型结构树（Hierarchies）"><a href="#1-8-载入大型结构树（Hierarchies）" class="headerlink" title="1.8.载入大型结构树（Hierarchies）"></a>1.8.载入大型结构树（Hierarchies）</h2><p>当序列化含有大量Unity游戏对象的结构树时（例如序列化Prefab），要记住一点，即整个结构树都会被完全序列化。这就是说，结构树中的每一个游戏对象和组件都会在序列化数据中单独表示。这会对游戏对象结构的载入与实例化的耗时带来有趣的影响。</p>
+<p>假设一个代码块实例化了一定数量的游戏对象，结构树非常庞大的单个Prefab的实例化，会比分别实例化结构树的多个模块然后运行时组合花费更多的CPU时间。</p>
 <p>深度分析底层数据后发现，实例化和唤醒游戏对象所花费的CPU时间在各种情况下大致是相同的，单个独立的Prefab的实例化和唤醒仅需非常少量的CPU时间（因为不需要tranmpolining和SendTransformChanged回调）。但是，这些细小的时间节省相对于花在读取和序列化数据上的时间是很不值的。</p>
 <p>正如之前提到的，序列化单独的Prefab时，每个游戏对象和其组件都会被分开序列化——即便数据是重复的。一个有30个独立元素的UI界面中，Unity会为这些元素序列化30次，这就会产生大量的序列化数据。载入时，所有30个重复元素的游戏对象和组件在被转化为新实例对象之前都需要从硬盘中进行读取。正是这里讨论的读取时间决定了实例化大型Prefab的性能花销。</p>
 <p>Unity支持嵌套Prefab之后，对于有载入大型结构体游戏对象需求的工程而言，要想减少这类工程的载入时间，可以考虑将大型Prefab中的可重用元素分开存储到不同的Prefab中，并在运行时对它们进行实例化，而不是完全依靠Unity的序列化和Prefab系统。</p>
-<h3 id="补充说明："><a href="#补充说明：" class="headerlink" title="补充说明："></a>补充说明：</h3><ol>
+<h2 id="Footnotes-脚注"><a href="#Footnotes-脚注" class="headerlink" title="Footnotes(脚注)"></a>Footnotes(脚注)</h2><ol>
 <li><p>在文件中，本地ID是唯一的。即在一个资源文件中，里面包含的本地ID都是不重复的。</p>
 </li>
 <li><p>在内部，这种缓存被称为PersistentManager。实际的转换工作在在Unity的C++ Remapper类中进行，Remapper类没有提供任何C# API调用接口。</p>
 </li>
-<li><p>运行时创建资源的示例是在脚本中创建Texture2D对象：</p>
-<p>var myTexture = new Texture2D(1027, 768);</p>
+<li><p>运行时创建资源的示例是在脚本中创建Texture2D对象：<code>var myTexture = new Texture2D(1027, 768);</code></p>
 </li>
 <li><p>程序运行时对象并没有被卸载却被从内存中移除的情况通常会发生在Unity失去了对图形内容的控制的时候。例如，当手机应用被挂起并被强制在后台运行。这种情况下，手机操作系统通常会将所有的图形资源从GPU显存中强行卸载。之后APP再回到前台运行时，Unity不得不重新向GPU上传需要的材质、着色器和网格数据，以便恢复场景的正常渲染。</p>
 </li>
 </ol>
-<p>到此整个Unity内部资源管理与对象引用及序列化的内容就结束了，希望看完本文的你对如何合理分配Unity项目结构都有了比较清晰的概念。</p>
 <hr>
-<p>原文链接：<a href="http://unity3d.com/cn/learn/tutorials/topics/best-practices/assets-objects-and-serialization?playlist=30089" target="_blank" rel="external">http://unity3d.com/cn/learn/tuto … tion?playlist=30089</a><br>感谢Unity官方翻译组成员“E.A.S”对本文翻译所做的贡献。<br>转载请注明来源：Unity官方中文社区 (forum.china.unity3d.com)。请勿私自更改任何版权说明信息。</p>
+<p>到此整个Unity内部资源管理与对象引用及序列化的内容就结束了，希望看完本文的你对如何合理分配Unity项目结构都有了比较清晰的概念。</p>
+<p>原文链接：<a href="http://unity3d.com/cn/learn/tutorials/topics/best-practices/assets-objects-and-serialization?playlist=30089" target="_blank" rel="external">http://unity3d.com/cn/learn/tuto … tion?playlist=30089</a><br>感谢Unity官方翻译组成员“E.A.S”对本文翻译所做的贡献。<br>转载请注明来源：Unity官方中文社区 (<a href="http://forum.china.unity3d.com/thread-20129-1-1.html" target="_blank" rel="external">forum.china.unity3d.com</a>)。请勿私自更改任何版权说明信息。</p>
 
       
     </div>
@@ -413,16 +423,16 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/08/19/unity-logs-viewer_(viewlog_inmobile).html" rel="next" title="便捷的方式在手机上查看Unity3D的Console Log">
-                <i class="fa fa-chevron-left"></i> 便捷的方式在手机上查看Unity3D的Console Log
+              <a href="/2016/08/30/unity_assets_object_serialization_1.html" rel="next" title="玩转Unity资源，对象和序列化(上)">
+                <i class="fa fa-chevron-left"></i> 玩转Unity资源，对象和序列化(上)
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2016/08/30/unity_assets_object_serialization_1.html" rel="prev" title="玩转Unity资源，对象和序列化(上)">
-                玩转Unity资源，对象和序列化(上) <i class="fa fa-chevron-right"></i>
+              <a href="/2016/10/23/resharper_detect_all_nullrefrences.html" rel="prev" title="">
+                 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -472,8 +482,8 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/08/30/unity_assets_object_serialization_2.html"
-           data-title="玩转Unity资源，对象和序列化(下)" data-url="https://zhaoqingqing.github.io/2016/08/30/unity_assets_object_serialization_2.html">
+      <div class="ds-thread" data-thread-key="2016/08/31/unity_assets_object_serialization_2.html"
+           data-title="玩转Unity资源，对象和序列化(下)" data-url="https://zhaoqingqing.github.io/2016/08/31/unity_assets_object_serialization_2.html">
       </div>
     
   </div>
@@ -518,7 +528,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">9</span>
+              <span class="site-state-item-count">10</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -631,7 +641,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-5-序列化和实例"><span class="nav-number">1.</span> <span class="nav-text">1.5. 序列化和实例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-6-MonoScripts"><span class="nav-number">2.</span> <span class="nav-text">1.6.MonoScripts</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-7-资源（Resource）生命周期"><span class="nav-number">3.</span> <span class="nav-text">1.7.资源（Resource）生命周期</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-8-载入大型结构树（Hierarchies）"><span class="nav-number">4.</span> <span class="nav-text">1.8.载入大型结构树（Hierarchies）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#补充说明："><span class="nav-number">5.</span> <span class="nav-text">补充说明：</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-5-序列化和实例"><span class="nav-number">1.</span> <span class="nav-text">1.5. 序列化和实例</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#实例ID"><span class="nav-number">1.1.</span> <span class="nav-text">实例ID</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#注意事项-IOS上挂起状态"><span class="nav-number">1.2.</span> <span class="nav-text">注意事项(IOS上挂起状态)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#提示"><span class="nav-number">1.3.</span> <span class="nav-text">提示</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-6-MonoScripts"><span class="nav-number">2.</span> <span class="nav-text">1.6.MonoScripts</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#程序库-dll"><span class="nav-number">2.1.</span> <span class="nav-text">程序库(dll)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-7-资源（Resource）生命周期"><span class="nav-number">3.</span> <span class="nav-text">1.7.资源（Resource）生命周期</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#加载UnityEngine-Object的两种方式"><span class="nav-number">3.1.</span> <span class="nav-text">加载UnityEngine.Object的两种方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#对象被卸载的三种情况"><span class="nav-number">3.2.</span> <span class="nav-text">对象被卸载的三种情况</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-8-载入大型结构树（Hierarchies）"><span class="nav-number">4.</span> <span class="nav-text">1.8.载入大型结构树（Hierarchies）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Footnotes-脚注"><span class="nav-number">5.</span> <span class="nav-text">Footnotes(脚注)</span></a></li></ol></div>
             
           </div>
         </section>
