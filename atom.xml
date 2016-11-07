@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://zhaoqingqing.github.io/"/>
-  <updated>2016-10-23T09:02:41.797Z</updated>
+  <updated>2016-11-07T13:28:39.753Z</updated>
   <id>https://zhaoqingqing.github.io/</id>
   
   <author>
@@ -16,16 +16,17 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title></title>
+    <title>Resharper 检测所有NullReferenceExceptions(空指针)</title>
     <link href="https://zhaoqingqing.github.io/2016/10/23/resharper_detect_all_nullrefrences.html"/>
     <id>https://zhaoqingqing.github.io/2016/10/23/resharper_detect_all_nullrefrences.html</id>
-    <published>2016-10-23T09:02:41.797Z</published>
-    <updated>2016-10-23T09:02:41.797Z</updated>
+    <published>2016-10-22T16:00:00.000Z</published>
+    <updated>2016-11-07T13:28:39.753Z</updated>
     
     <content type="html"><![CDATA[<h3 id="需求分析"><a href="#需求分析" class="headerlink" title="需求分析"></a>需求分析</h3><p>”null exception“很见的一种异常，但在某些情况下却会引起严重的bug！</p>
 <p>本文目的就是对代码进行null 的检查，避免不应该出现的Error。</p>
 <p>本文借助reshaper，全局检测项目中所有可能出现的null exception</p>
 <p>关于resharper的知识：<a href="http://zzk.cnblogs.com/s?w=blog%3Azhaoqingqing%20resharper" target="_blank" rel="external">http://zzk.cnblogs.com/s?w=blog%3Azhaoqingqing%20resharper</a></p>
+<a id="more"></a>
 <h3 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h3><p>Windows 7 X64</p>
 <p>Visual Studio 2015社区版</p>
 <p>Resharper 10.x</p>
@@ -40,10 +41,16 @@
     <summary type="html">
     
       &lt;h3 id=&quot;需求分析&quot;&gt;&lt;a href=&quot;#需求分析&quot; class=&quot;headerlink&quot; title=&quot;需求分析&quot;&gt;&lt;/a&gt;需求分析&lt;/h3&gt;&lt;p&gt;”null exception“很见的一种异常，但在某些情况下却会引起严重的bug！&lt;/p&gt;
-&lt;p&gt;本文目的就是对代码进行n
+&lt;p&gt;本文目的就是对代码进行null 的检查，避免不应该出现的Error。&lt;/p&gt;
+&lt;p&gt;本文借助reshaper，全局检测项目中所有可能出现的null exception&lt;/p&gt;
+&lt;p&gt;关于resharper的知识：&lt;a href=&quot;http://zzk.cnblogs.com/s?w=blog%3Azhaoqingqing%20resharper&quot;&gt;http://zzk.cnblogs.com/s?w=blog%3Azhaoqingqing%20resharper&lt;/a&gt;&lt;/p&gt;
     
     </summary>
     
+      <category term="Unity3D项目日志" scheme="https://zhaoqingqing.github.io/categories/Unity3D%E9%A1%B9%E7%9B%AE%E6%97%A5%E5%BF%97/"/>
+    
+    
+      <category term="Unity3D" scheme="https://zhaoqingqing.github.io/tags/Unity3D/"/>
     
   </entry>
   
