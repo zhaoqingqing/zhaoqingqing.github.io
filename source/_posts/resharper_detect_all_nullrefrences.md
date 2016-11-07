@@ -1,3 +1,10 @@
+---
+title: Resharper 检测所有NullReferenceExceptions(空指针)
+date: 2016-10-23
+tags:
+    - Unity3D
+categories: Unity3D项目日志
+---
 ### 需求分析
 
 ”null exception“很见的一种异常，但在某些情况下却会引起严重的bug！
@@ -8,7 +15,7 @@
 
 关于resharper的知识：http://zzk.cnblogs.com/s?w=blog%3Azhaoqingqing%20resharper
 
-
+<!-- more -->
 
 ### 环境
 
