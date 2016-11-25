@@ -257,8 +257,8 @@ F:\Document\zhaoqingqing.github.io>npm install hexo-deployer-git --save
 
 尝试以下方法：
 
-- 添加hexo的安装路径到系统的环境变量
-- 重新安装nodejs，选择旧一些的版本
+- 添加hexo的安装路径到系统的环境变量(例如我的：C:\Users\qingqing\AppData\Roaming\npm\node_modules\hexo\bin\或C:\Users\qingqing\AppData\Roaming\npm\node_modules\hexo-cli\bin\)
+- 重新安装nodejs，选择旧一些的版本(环境变量：c:\Program Files (x86)\nodejs\)
 - 在hexo的github上寻找答案或帮助
 
 ### 文章永久链接Permalinks
@@ -445,6 +445,12 @@ E:\Code\zhaoqingqing.github.io>
 2. 输入指令 C:\Program Files\Git\usr\bin>`ssh-keygen -t rsa -C "zhaoqignqing@gmail.com"`
 3. 复制`C:\Users\qingqing.ssh\id_rsa.pub`的所有内容，在github的配置中添加新的SSH Keys
 4. 输入 `ssh -T git@github.com` 进行测试，如果看到 Hi zhaoqingqing! You've successfully authenticated, but GitHub does not provide shell access. 就配置成功了
+
+### 远程页面无法预览
+
+如果deploy之后，远程的页面无法显示，表现为白页，页面内容加载不出来，或者内容显示不完全
+
+解决办法：执行hexo clean，重新deploy到远程
 
 ## next主题定制
 
