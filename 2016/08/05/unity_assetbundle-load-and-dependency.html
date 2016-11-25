@@ -86,25 +86,34 @@
 
 
 
-<meta name="description" content="前言本文根据过往项目经验所写，部分版权归所属公司所有，未涉及代码部分。两个项目有着不同的资源管理的方式：
-
-3D MMO RPG：    整体打包
-2D日式动作RPG：分散打包">
+<meta name="description" content="原理适用于Unity 4.x和Unity 5.x
+不过Unity 5.x有了自己的依赖系统
+ab依赖处理以下内容来自ulua&amp;amp;tolua技术交流群，时间2016-08-03 14:30 ~ 15:30
+加载故国之晚秋 
+异步读取AB就是要注意，读取状态
+因为AB不仅仅只有读取，还有清理策略，要防止正在加载，又被清理
+还有就是，A依赖B，C也依赖B。现在读取A，先读取B，这时候立马读取C，这">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Unity3D-Assetbundle-打包和更新的两种做法">
-<meta property="og:url" content="https://zhaoqingqing.github.io/2016/08/05/unity_assetbundle-build&update-twomethod.html">
+<meta property="og:title" content="Unity3D-Assetbundle-加载和依赖处理">
+<meta property="og:url" content="https://zhaoqingqing.github.io/2016/08/05/unity_assetbundle-load-and-dependency.html">
 <meta property="og:site_name" content="qingqing.zhao's blog">
-<meta property="og:description" content="前言本文根据过往项目经验所写，部分版权归所属公司所有，未涉及代码部分。两个项目有着不同的资源管理的方式：
-
-3D MMO RPG：    整体打包
-2D日式动作RPG：分散打包">
-<meta property="og:updated_time" content="2016-08-08T12:56:17.829Z">
+<meta property="og:description" content="原理适用于Unity 4.x和Unity 5.x
+不过Unity 5.x有了自己的依赖系统
+ab依赖处理以下内容来自ulua&amp;amp;tolua技术交流群，时间2016-08-03 14:30 ~ 15:30
+加载故国之晚秋 
+异步读取AB就是要注意，读取状态
+因为AB不仅仅只有读取，还有清理策略，要防止正在加载，又被清理
+还有就是，A依赖B，C也依赖B。现在读取A，先读取B，这时候立马读取C，这">
+<meta property="og:updated_time" content="2016-11-25T12:59:06.430Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Unity3D-Assetbundle-打包和更新的两种做法">
-<meta name="twitter:description" content="前言本文根据过往项目经验所写，部分版权归所属公司所有，未涉及代码部分。两个项目有着不同的资源管理的方式：
-
-3D MMO RPG：    整体打包
-2D日式动作RPG：分散打包">
+<meta name="twitter:title" content="Unity3D-Assetbundle-加载和依赖处理">
+<meta name="twitter:description" content="原理适用于Unity 4.x和Unity 5.x
+不过Unity 5.x有了自己的依赖系统
+ab依赖处理以下内容来自ulua&amp;amp;tolua技术交流群，时间2016-08-03 14:30 ~ 15:30
+加载故国之晚秋 
+异步读取AB就是要注意，读取状态
+因为AB不仅仅只有读取，还有清理策略，要防止正在加载，又被清理
+还有就是，A依赖B，C也依赖B。现在读取A，先读取B，这时候立马读取C，这">
 
 
 
@@ -125,9 +134,9 @@
 
 
 
-  <link rel="canonical" href="https://zhaoqingqing.github.io/2016/08/05/unity_assetbundle-build&update-twomethod.html"/>
+  <link rel="canonical" href="https://zhaoqingqing.github.io/2016/08/05/unity_assetbundle-load-and-dependency.html"/>
 
-  <title> Unity3D-Assetbundle-打包和更新的两种做法 | qingqing.zhao's blog </title>
+  <title> Unity3D-Assetbundle-加载和依赖处理 | qingqing.zhao's blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -276,7 +285,7 @@
             
             
               
-                Unity3D-Assetbundle-打包和更新的两种做法
+                Unity3D-Assetbundle-加载和依赖处理
               
             
           </h1>
@@ -318,8 +327,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/08/05/unity_assetbundle-build&update-twomethod.html#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/05/unity_assetbundle-build&update-twomethod.html" itemprop="commentsCount"></span>
+                <a href="/2016/08/05/unity_assetbundle-load-and-dependency.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/05/unity_assetbundle-load-and-dependency.html" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -342,163 +351,8 @@
       
 
       
-        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>本文根据过往项目经验所写，部分版权归所属公司所有，未涉及代码部分。<br>两个项目有着不同的资源管理的方式：</p>
-<ul>
-<li>3D MMO RPG：    整体打包</li>
-<li>2D日式动作RPG：分散打包<a id="more"></a>
-<h3 id="开发环境"><a href="#开发环境" class="headerlink" title="开发环境"></a>开发环境</h3></li>
-</ul>
-<p>开发引擎：unity3d 4.x<br>运行环境：android/ios<br>解包工具：unity studio <a href="http://www.cnblogs.com/zhaoqingqing/p/3751351.html" target="_blank" rel="external">http://www.cnblogs.com/zhaoqingqing/p/3751351.html</a><br>安卓模拟器：海马玩 v0.10.x + 文件管理器 ，基于安卓os 4.2.2</p>
-<h2 id="完整打包"><a href="#完整打包" class="headerlink" title="完整打包"></a>完整打包</h2><p>每一个资源都是整体打包，下面举例说明</p>
-<h3 id="npc打包例子"><a href="#npc打包例子" class="headerlink" title="npc打包例子"></a>npc打包例子</h3><p>某NPC文件<strong>zjws_01f_c.unity3d</strong> ，解包后的文件如下：</p>
-<ul>
-<li>dian02 #-464001035.dds</li>
-<li>ZJWS_01F_C #862139260.dds</li>
-<li>ZB_WS_JJIA01F_C #-358047209.dds</li>
-<li>uicharacter #977472046.shader</li>
-<li>Particle Alpha Blend #434039645.shader</li>
-<li>Sprite Vertex Colored #1478359439.shader</li>
-</ul>
-<p>在Unity Studio中看到的Hierarchy如下：</p>
-<pre>
-zjws_01f_c
-    run_stand_f
-    zb_ws_jjiao1f
-    zjws_01f
-    zjws_01f_silianji
-    zjws_01f_c
-</pre>
-
-<hr>
-<h3 id="地图打包例子"><a href="#地图打包例子" class="headerlink" title="地图打包例子"></a>地图打包例子</h3><p>TODO地图</p>
-<p>M1_ACT_ZBT_Minimap.unity3d 某贴图文件，解包后的文件如下：</p>
-<ul>
-<li>M1_ACT_ZBT_Minimap #02.dds</li>
-<li>Unlit-Alpha #03.shader</li>
-</ul>
-<p>在Unity Studio中看到的Hierarchy如下：</p>
-<pre>
-无
-</pre>
-
-<h3 id="UI打包例子"><a href="#UI打包例子" class="headerlink" title="UI打包例子"></a>UI打包例子</h3><p>zjws_01f_c.unity3d 某NPC文件，解包后的文件如下：</p>
-<ul>
-<li>dian02 #-464001035.dds</li>
-<li>ZJWS_01F_C #862139260.dds</li>
-<li>ZB_WS_JJIA01F_C #-358047209.dds</li>
-<li>uicharacter #977472046.shader</li>
-<li>Particle Alpha Blend #434039645.shader</li>
-<li>Sprite Vertex Colored #1478359439.shader</li>
-</ul>
-<p>在Unity Studio中看到的Hierarchy如下：</p>
-<pre>
-zjws_01f_c
-    run_stand_f
-    zb_ws_jjiao1f
-    zjws_01f
-    zjws_01f_silianji
-    zjws_01f_c
-</pre>
-
-<h2 id="资源更新"><a href="#资源更新" class="headerlink" title="资源更新"></a>资源更新</h2><h3 id="如何触发更新"><a href="#如何触发更新" class="headerlink" title="如何触发更新"></a>如何触发更新</h3><h3 id="resversion-txt-文件列表"><a href="#resversion-txt-文件列表" class="headerlink" title="resversion.txt 文件列表"></a>resversion.txt 文件列表</h3><figure class="highlight json"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    <span class="attr">"buildDatetime"</span>: <span class="string">"20160728-010315"</span>,</div><div class="line">    <span class="attr">"listResInfo"</span>: [</div><div class="line">        &#123;</div><div class="line">            <span class="attr">"strName"</span>: <span class="string">"M2_ZC_Minimap"</span>,</div><div class="line">            <span class="attr">"strPath"</span>: <span class="string">"textures/M2_ZC_Minimap.unity3d"</span>,</div><div class="line">            <span class="attr">"strHash"</span>: <span class="string">"bfbe425f3b74abad3fd3219c7510d6b1"</span></div><div class="line">        &#125;,</div><div class="line">        &#123;</div><div class="line">            <span class="attr">"strName"</span>: <span class="string">"settingclient"</span>,</div><div class="line">            <span class="attr">"strPath"</span>: <span class="string">"settingclient.unity3d"</span>,</div><div class="line">            <span class="attr">"strHash"</span>: <span class="string">"6a88b87c1cce7ff2acbb8782bf7503e"</span></div><div class="line">        &#125;</div><div class="line">          ......此处省略几千行</div><div class="line">    ]</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>本地的：buildDatetime : 20160727-115054<br>服务器：buildDatetime : 20160728-010315<br>两边不一致，玩家需要下载更新<br>PS:每次根据resversion的内容是否相同来判断是否需要更新资源</p>
-<h3 id="要更新的文件"><a href="#要更新的文件" class="headerlink" title="要更新的文件"></a>要更新的文件</h3><p>制作的更新包如下：</p>
-<h3 id="android-目录"><a href="#android-目录" class="headerlink" title="android 目录"></a>android 目录</h3><p>路径：/mnt - sdcard - Android - data - com.xx.xxgame.uc - files - xxgame - data - android</p>
-<ol>
-<li>resversion.unity3d</li>
-<li>settingclient.unity3d</li>
-<li>version.txt</li>
-</ol>
-<h2 id="资源目录"><a href="#资源目录" class="headerlink" title="资源目录"></a>资源目录</h2><p>StreamingAssets\</p>
-<ul>
-<li>Android\</li>
-<li>IOS\</li>
-<li>Windows\</li>
-</ul>
-<p>下面以Android目录为例</p>
-<ul>
-<li>assetbundles\</li>
-<li>scene\<ul>
-<li>textures\</li>
-<li>resversion.txt</li>
-<li>resversion.unity3d</li>
-<li>settingclient.unity3d  (客户端所有的配置表，打包进同一个ab文件)</li>
-</ul>
-</li>
-</ul>
-<h3 id="目录详解"><a href="#目录详解" class="headerlink" title="目录详解"></a>目录详解</h3><pre>
-assetbundles\
-    assets
-    audios
-    fightskill
-    npc
-    scene
-       building
-       rocks
-       map/trees/textures
-       ....more scene files
-    ui
-
-------------
-scene\
-    xxboos
-       xxboss.unity3d
-       xxboss.txt
-       xxboss.bar
-       xxboss_nav.unity3d
-    bht
-       bht1trap1, bht1trap2, bht1trap3 | bht2trap1, bht2trap2, bht3trap3 |
-       ....更多的主城文件
-
-------------
-textures\
-    3D贴图文件
-
-</pre>
-
-<hr>
-<h2 id="分散打包"><a href="#分散打包" class="headerlink" title="分散打包"></a>分散打包</h2><p>文件的打包是分散的，有依赖关系</p>
-<p>TODO</p>
-<h2 id="资源更新-1"><a href="#资源更新-1" class="headerlink" title="资源更新"></a>资源更新</h2><p>TODO</p>
-<h3 id="如何触发更新-1"><a href="#如何触发更新-1" class="headerlink" title="如何触发更新"></a>如何触发更新</h3><p>本地assetbundle版本：10050，服务器assetbundle版本：10051，玩家需要下载更新。</p>
-<h3 id="资源目录-1"><a href="#资源目录-1" class="headerlink" title="资源目录"></a>资源目录</h3><pre>
-StreamingAssets
-   Android
-      Actor
-      Audio
-      Card
-      Common
-      Effect
-      Level
-      Map
-      UI
-      ....
-      Version.txt
-      GameSetting.ab (客户端所有的配置表，打包进同一个ab文件)
-   IOS
-   Windows
-</pre>
-
-<h3 id="更新文件"><a href="#更新文件" class="headerlink" title="更新文件"></a>更新文件</h3><p><strong>最新版本号文件</strong></p>
-<ul>
-<li>NewestVersion_Android.txt<br>内容：<code>10051</code> 最新的assetbundle版本号<br><br></li>
-</ul>
-<p><strong>更新包</strong></p>
-<ul>
-<li><p>Android_10050_10051.zip<br><em>10050更新到10051版本的要下载的资源</em></p>
-</li>
-<li><p>Android_born_10051.zip<br> <em>10051新APK包的初始资源</em></p>
-</li>
-<li><p>Android_full_10051.zip<br> <em>10051的完整资源</em><br><br></p>
-</li>
-</ul>
-<p><strong>更新包json</strong></p>
-<ul>
-<li>Android_10050_10051.zip.json<br><code>{&quot;MD5&quot;:&quot;297714FA3CEF25C63AA6BF9432918278&quot;,&quot;Size&quot;:  62473769  ,&quot;FileCount&quot;:4438}</code></li>
-<li>Android_born_10051.zip.json<br><code>{&quot;Size&quot;:  78895922  , &quot;FileCount&quot;: 4817, &quot;MD5&quot;: &quot;72FD467252329D01799DD65E9CCA23F0&quot;}</code></li>
-<li>Android_full_10051.zip.json<br><code>{&quot;MD5&quot;:&quot;6F8D541B388C98A0FBDC6F5BF4DA7122&quot;,&quot;Size&quot;:  84529108  ,&quot;FileCount&quot;:4864}</code></li>
-</ul>
-<hr>
+        <p>原理适用于Unity 4.x和Unity 5.x</p>
+<p>不过Unity 5.x有了自己的依赖系统</p>
 <h2 id="ab依赖处理"><a href="#ab依赖处理" class="headerlink" title="ab依赖处理"></a>ab依赖处理</h2><p>以下内容来自ulua&amp;tolua技术交流群，时间2016-08-03 14:30 ~ 15:30</p>
 <h3 id="加载"><a href="#加载" class="headerlink" title="加载"></a>加载</h3><p><strong>故国之晚秋 </strong></p>
 <p>异步读取AB就是要注意，读取状态</p>
@@ -528,10 +382,9 @@ StreamingAssets
 <p><strong>故国之晚秋</strong></p>
 <p>近期：开源fbx压缩</p>
 <p>计划：ab加载依赖系统</p>
-<h2 id="做法比较"><a href="#做法比较" class="headerlink" title="做法比较"></a>做法比较</h2><h3 id="共同点"><a href="#共同点" class="headerlink" title="共同点"></a>共同点</h3><p>游戏中所有资源都打包成assetbundle，在游戏启动时进行加载。<br>同步和异步两种加载方式<br>Assetbundle文件放在StreamingAssets目录，区分不同平台。以stream的形式加载，用Unity的<code>www.load</code>API</p>
-<h3 id="区别"><a href="#区别" class="headerlink" title="区别"></a>区别</h3><h4 id="完整打包-1"><a href="#完整打包-1" class="headerlink" title="完整打包"></a>完整打包</h4><p>在加载时一般只需要加载单个文件+共用资源即可，</p>
-<h4 id="分散打包-1"><a href="#分散打包-1" class="headerlink" title="分散打包"></a>分散打包</h4><p>分散打包则先加载依赖再加载主文件</p>
-<h4 id="UI"><a href="#UI" class="headerlink" title="UI"></a>UI</h4>
+<p>其它</p>
+<p>Assetbundle文件放在StreamingAssets目录，区分不同平台。以stream的形式加载，用Unity的<code>www.load</code>API</p>
+
       
     </div>
 
@@ -562,16 +415,16 @@ StreamingAssets
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/08/01/hello-world.html" rel="next" title="Hello World">
-                <i class="fa fa-chevron-left"></i> Hello World
+              <a href="/2016/08/05/unity_assetbundle-build&update-compare.html" rel="next" title="Unity3D-Assetbundle-打包和更新的两种做法">
+                <i class="fa fa-chevron-left"></i> Unity3D-Assetbundle-打包和更新的两种做法
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2016/08/06/unity3d-5.3.5p8-csharpcompiler-upgrade.html" rel="prev" title="Unity 5.3.5p8 C#编译器升级">
-                Unity 5.3.5p8 C#编译器升级 <i class="fa fa-chevron-right"></i>
+              <a href="/2016/08/05/unity_assetbundle-build&update-way1.html" rel="prev" title="Unity3D-Assetbundle-打包和更新的两种做法">
+                Unity3D-Assetbundle-打包和更新的两种做法 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -621,8 +474,8 @@ StreamingAssets
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/08/05/unity_assetbundle-build&update-twomethod.html"
-           data-title="Unity3D-Assetbundle-打包和更新的两种做法" data-url="https://zhaoqingqing.github.io/2016/08/05/unity_assetbundle-build&update-twomethod.html">
+      <div class="ds-thread" data-thread-key="2016/08/05/unity_assetbundle-load-and-dependency.html"
+           data-title="Unity3D-Assetbundle-加载和依赖处理" data-url="https://zhaoqingqing.github.io/2016/08/05/unity_assetbundle-load-and-dependency.html">
       </div>
     
   </div>
@@ -667,7 +520,7 @@ StreamingAssets
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">10</span>
+              <span class="site-state-item-count">13</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -780,7 +633,7 @@ StreamingAssets
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#开发环境"><span class="nav-number">1.1.</span> <span class="nav-text">开发环境</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#完整打包"><span class="nav-number">2.</span> <span class="nav-text">完整打包</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#npc打包例子"><span class="nav-number">2.1.</span> <span class="nav-text">npc打包例子</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#地图打包例子"><span class="nav-number">2.2.</span> <span class="nav-text">地图打包例子</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#UI打包例子"><span class="nav-number">2.3.</span> <span class="nav-text">UI打包例子</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#资源更新"><span class="nav-number">3.</span> <span class="nav-text">资源更新</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#如何触发更新"><span class="nav-number">3.1.</span> <span class="nav-text">如何触发更新</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#resversion-txt-文件列表"><span class="nav-number">3.2.</span> <span class="nav-text">resversion.txt 文件列表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#要更新的文件"><span class="nav-number">3.3.</span> <span class="nav-text">要更新的文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#android-目录"><span class="nav-number">3.4.</span> <span class="nav-text">android 目录</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#资源目录"><span class="nav-number">4.</span> <span class="nav-text">资源目录</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#目录详解"><span class="nav-number">4.1.</span> <span class="nav-text">目录详解</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分散打包"><span class="nav-number">5.</span> <span class="nav-text">分散打包</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#资源更新-1"><span class="nav-number">6.</span> <span class="nav-text">资源更新</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#如何触发更新-1"><span class="nav-number">6.1.</span> <span class="nav-text">如何触发更新</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#资源目录-1"><span class="nav-number">6.2.</span> <span class="nav-text">资源目录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#更新文件"><span class="nav-number">6.3.</span> <span class="nav-text">更新文件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ab依赖处理"><span class="nav-number">7.</span> <span class="nav-text">ab依赖处理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#加载"><span class="nav-number">7.1.</span> <span class="nav-text">加载</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#资源名"><span class="nav-number">7.2.</span> <span class="nav-text">资源名</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#压缩"><span class="nav-number">7.3.</span> <span class="nav-text">压缩</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#fbx压缩"><span class="nav-number">7.3.1.</span> <span class="nav-text">fbx压缩</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#其它"><span class="nav-number">7.4.</span> <span class="nav-text">其它</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#做法比较"><span class="nav-number">8.</span> <span class="nav-text">做法比较</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#共同点"><span class="nav-number">8.1.</span> <span class="nav-text">共同点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#区别"><span class="nav-number">8.2.</span> <span class="nav-text">区别</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#完整打包-1"><span class="nav-number">8.2.1.</span> <span class="nav-text">完整打包</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#分散打包-1"><span class="nav-number">8.2.2.</span> <span class="nav-text">分散打包</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#UI"><span class="nav-number">8.2.3.</span> <span class="nav-text">UI</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#ab依赖处理"><span class="nav-number">1.</span> <span class="nav-text">ab依赖处理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#加载"><span class="nav-number">1.1.</span> <span class="nav-text">加载</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#资源名"><span class="nav-number">1.2.</span> <span class="nav-text">资源名</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#压缩"><span class="nav-number">1.3.</span> <span class="nav-text">压缩</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#fbx压缩"><span class="nav-number">1.3.1.</span> <span class="nav-text">fbx压缩</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#其它"><span class="nav-number">1.4.</span> <span class="nav-text">其它</span></a></li></ol></li></ol></div>
             
           </div>
         </section>

@@ -620,7 +620,7 @@
             
               
                 
-                <a class="post-title-link" href="/2016/08/05/unity_assetbundle-build&update-twomethod.html" itemprop="url">
+                <a class="post-title-link" href="/2016/08/05/unity_assetbundle-build&update-way1.html" itemprop="url">
                   Unity3D-Assetbundle-打包和更新的两种做法
                 </a>
               
@@ -664,8 +664,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/08/05/unity_assetbundle-build&update-twomethod.html#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/05/unity_assetbundle-build&update-twomethod.html" itemprop="commentsCount"></span>
+                <a href="/2016/08/05/unity_assetbundle-build&update-way1.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/05/unity_assetbundle-build&update-way1.html" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -694,7 +694,7 @@
 <li>3D MMO RPG：    整体打包</li>
 <li>2D日式动作RPG：分散打包
           <div class="post-more-link text-center">
-            <a class="btn" href="/2016/08/05/unity_assetbundle-build&update-twomethod.html#more" rel="contents">
+            <a class="btn" href="/2016/08/05/unity_assetbundle-build&update-way1.html#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -745,8 +745,8 @@
             
               
                 
-                <a class="post-title-link" href="/2016/08/01/hello-world.html" itemprop="url">
-                  Hello World
+                <a class="post-title-link" href="/2016/08/05/unity_assetbundle-load-and-dependency.html" itemprop="url">
+                  Unity3D-Assetbundle-加载和依赖处理
                 </a>
               
             
@@ -759,19 +759,38 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-08-01T20:03:23+08:00" content="2016-08-01">
-              2016-08-01
+            <time itemprop="dateCreated" datetime="2016-08-05T00:00:00+08:00" content="2016-08-05">
+              2016-08-05
             </time>
           </span>
 
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Unity3D项目日志/" itemprop="url" rel="index">
+                    <span itemprop="name">Unity3D项目日志</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
           
 
           
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/08/01/hello-world.html#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/01/hello-world.html" itemprop="commentsCount"></span>
+                <a href="/2016/08/05/unity_assetbundle-load-and-dependency.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/05/unity_assetbundle-load-and-dependency.html" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -795,12 +814,42 @@
 
       
         
-          <p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.<br>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/08/01/hello-world.html#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
+          
+            <p>原理适用于Unity 4.x和Unity 5.x</p>
+<p>不过Unity 5.x有了自己的依赖系统</p>
+<h2 id="ab依赖处理"><a href="#ab依赖处理" class="headerlink" title="ab依赖处理"></a>ab依赖处理</h2><p>以下内容来自ulua&amp;tolua技术交流群，时间2016-08-03 14:30 ~ 15:30</p>
+<h3 id="加载"><a href="#加载" class="headerlink" title="加载"></a>加载</h3><p><strong>故国之晚秋 </strong></p>
+<p>异步读取AB就是要注意，读取状态</p>
+<p>因为AB不仅仅只有读取，还有清理策略，要防止正在加载，又被清理</p>
+<p>还有就是，A依赖B，C也依赖B。现在读取A，先读取B，这时候立马读取C，这时候B也在读取，不要反复去读取，减少</p>
+<p>读取A，本来就会形成队列A-&gt;C-&gt;D,这是A形成的队列，然后读取B，形成<br>B-&gt;C（只是把C的节点加到B，并不会再去加C后面的依赖，只是判断C的状态），读取顺序都是从右到左</p>
+<p>并且，出现这个情况只是在都是处于正在读取状态</p>
+<p>如果用WWW，同时读太多，内存吃紧</p>
+<p>AB不要打得太散也不要打得太多</p>
+<p>简单的解决办法：</p>
+<p>同步AB都解决了，同步加载AB没有这个问题，同步ab最好不要做的太细。</p>
+<p>同步很简单，同步读取AB</p>
+<p><strong>上海-江南-5.3.1f4 </strong></p>
+<p>特别是公共资源<br>多引用的单独打包<br>卸载清理要处理好</p>
+<p>衣匠</p>
+<p>记住一点，先依赖，后主资源</p>
+<h3 id="资源名"><a href="#资源名" class="headerlink" title="资源名"></a>资源名</h3><p>自动化,</p>
+<p>我是通过文件名规范来做，有人是通过工具来做</p>
+<p>建目录的时候，加个@或者_就行，主要跟文件夹有关，否则一个资源一个AB</p>
+<h3 id="压缩"><a href="#压缩" class="headerlink" title="压缩"></a>压缩</h3><p>之前项目只支持非压缩AB，<br>后面加入压缩AB后，复杂度几何上升<br>之前游戏项目也只用了非压缩AB</p>
+<p>我们现在也不用LZMA了，原因是加载速度和内存</p>
+<h4 id="fbx压缩"><a href="#fbx压缩" class="headerlink" title="fbx压缩"></a>fbx压缩</h4><p>晚秋，你fbx压缩是3dmax导出的插件啊还是unity插件？</p>
+<p>3DSMAX 脚本插件，和UNITY插件两个都有</p>
+<p>原理：fbx剔除多余帧，有加判断</p>
+<h3 id="其它"><a href="#其它" class="headerlink" title="其它"></a>其它</h3><p>usb 沁血寒冰</p>
+<hr>
+<p><strong>故国之晚秋</strong></p>
+<p>近期：开源fbx压缩</p>
+<p>计划：ab加载依赖系统</p>
+<p>其它</p>
+<p>Assetbundle文件放在StreamingAssets目录，区分不同平台。以stream的形式加载，用Unity的<code>www.load</code>API</p>
+
+          
         
       
     </div>
@@ -831,7 +880,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -872,7 +921,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">10</span>
+              <span class="site-state-item-count">13</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
